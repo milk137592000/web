@@ -98,3 +98,63 @@ file:///Users/eugenefang/Desktop/code/web_sep/index.html#/project/papers
 - ✅ 所有專案詳細頁面正常顯示，無穿透問題
 - ✅ Papers 頁面獨立運作正常
 - ✅ 頁面切換流暢無視覺干擾
+
+---
+
+## 2025-08-16 - 重構 Papers 專案為統一架構
+
+**Commit Hash:** 1380365
+
+**描述:** 將 papers 專案重構為使用相同的浮動視窗架構，但保持 The Economist 風格的內容格式
+
+### 問題說明:
+用戶反饋希望 papers 專案與其他專案使用相同的**架構**（浮動視窗樣式），只是**內容格式**要像 The Economist 風格，而不是完全獨立的全屏頁面。
+
+### 重構內容:
+
+1. **移除獨立的 Papers 頁面**
+   - 刪除 `#page-papers` HTML 元素
+   - 移除 `showPapersPage()` 函數
+   - 移除 papers 頁面相關的路由處理
+   - 移除 papers 頁面的事件監聽器
+
+2. **整合到標準專案詳細頁面架構**
+   - Papers 專案現在使用 `showProjectDetailPage()` 函數
+   - 使用相同的浮動視窗樣式和半透明背景遮罩
+   - 保持與其他專案一致的導航和互動方式
+
+3. **特殊內容格式處理**
+   - 修改 `updateProjectDetailContent()` 函數
+   - 為 papers 專案 (slug: 'papers') 提供特殊的 The Economist 風格內容
+   - 包含詳細的研究段落、研究重點網格、研究方法分類、主要發現總結
+   - 隱藏 AI 生成按鈕，因為已有完整內容
+
+4. **其他專案保持不變**
+   - 其他專案繼續使用原本的 AI 生成內容格式
+   - 保持原有的互動方式和內容結構
+
+### 最終效果:
+
+**統一的架構：**
+- 所有專案都使用相同的浮動視窗樣式
+- 一致的導航和關閉方式
+- 相同的響應式設計和動畫效果
+
+**差異化的內容：**
+- **Papers 專案**: The Economist 風格的學術內容格式
+- **其他專案**: 原本的 AI 生成內容格式
+
+### 功能測試:
+- ✅ Papers 專案使用浮動視窗架構正常顯示
+- ✅ Papers 專案內容採用 The Economist 風格格式
+- ✅ 其他專案保持原有格式和功能
+- ✅ 所有專案的導航和互動一致
+- ✅ 無視覺干擾或穿透問題
+
+### 訪問方式:
+```
+file:///Users/eugenefang/Desktop/code/web_sep/index.html#/project/papers
+```
+
+### 備註:
+此版本成功實現了用戶要求：保持統一的專案架構，但為 papers 專案提供特殊的 The Economist 風格內容格式。
