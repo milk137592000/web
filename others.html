@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有聲有色 - 聲學大雜燴 | yunique</title>
+
+    <!-- Sin波 favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" sizes="192x192" href="favicon-192.svg">
+    <link rel="apple-touch-icon" sizes="192x192" href="favicon-192.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 引入分離的 CSS 檔案 -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 text-white modal-open background-fixed">
+
+    <!-- 專案詳情頁面 - 浮動視窗樣式 -->
+    <div id="page-project-detail" class="page active">
+        <!-- 半透明背景遮罩 -->
+        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"></div>
+
+        <!-- 浮動專案詳情視窗 -->
+        <div class="fixed left-4 right-4 top-20 bottom-4 md:left-8 md:right-8 md:top-24 md:bottom-8 lg:left-16 lg:right-16 lg:top-28 lg:bottom-16 z-50 bg-white backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+            <!-- 可滾動內容區域 -->
+            <div class="overflow-y-auto h-full text-gray-900">
+
+                <!-- 專案標題區域 -->
+                <div class="px-6 py-8">
+                    <h1 class="text-4xl md:text-5xl font-bold italic mb-4 leading-tight">有聲有色</h1>
+                    <p class="text-lg text-gray-500 mb-6 uppercase tracking-wider">聲學大雜燴</p>
+                    <p class="text-base text-gray-700 leading-relaxed">現代圖書館的聲學革新，創造有利於學習與思考的寧靜環境，同時兼顧空間的開放性。</p>
+                </div>
+
+                <!-- 專案資訊網格 -->
+                <div class="px-6 mb-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">設計</h3>
+                            <p class="text-gray-900 font-medium text-sm">圖書館聲學設計</p>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">年份</h3>
+                            <p class="text-gray-900 font-medium text-sm">2024</p>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">客戶</h3>
+                            <p class="text-gray-900 font-medium text-sm">市立圖書館</p>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">地點</h3>
+                            <p class="text-gray-900 font-medium text-sm">高雄市前鎮區</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 專案圖片 -->
+                <div class="px-6 mb-8">
+                    <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                        <img src="../library.svg" alt="有聲有色專案" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- AI 生成內容區域 -->
+                <div class="px-6 mb-8">
+                    <h2 class="text-2xl font-bold mb-6">設計理念</h2>
+                    <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                        <p class="text-gray-700 leading-relaxed text-sm">有聲有色專案體現了「聲學大雜燴」的設計哲學，在高雄市前鎮區的市立圖書館中，我們創造了一個真正多元化的聲學環境，滿足不同使用者的多樣化需求。
+
+專案的核心理念是「聲音的分層管理」，我們將4,500平方公尺的空間劃分為多個聲學區域，每個區域都有其獨特的聲學特性。從需要絕對安靜的深度閱讀區，到允許輕聲討論的協作學習空間，再到充滿歡聲笑語的兒童閱讀區，每一個空間都經過精心的聲學設計。
+
+圖書館聲學設計的創新之處在於採用了「智慧聲學分區系統」，透過先進的聲學材料和空間配置，實現了在同一建築內創造多種聲學環境的目標。閱覽區隔音設計確保了讀者能夠專注於閱讀，而多功能廳的音響系統則能夠支援各種文化活動和講座。
+
+兒童區音場控制是本專案的特色亮點，我們特別設計了適合兒童的聲學環境，既能激發他們的學習興趣，又不會對其他區域造成干擾。整個專案真正實現了「有聲有色」的設計願景，讓每一個聲音都能在最適合的空間中綻放。</p>
+                    </div>
+                </div>
+
+                <!-- 專案規格詳細 -->
+                <div class="px-6 mb-8">
+                    <h2 class="text-2xl font-bold mb-6">專案規格</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-gray-500 text-xs uppercase tracking-wider">專案類型</span>
+                                <p class="text-gray-900 font-medium text-sm">聲學大雜燴</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500 text-xs uppercase tracking-wider">面積</span>
+                                <p class="text-gray-900 font-medium text-sm">4,500 平方公尺</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-gray-500 text-xs uppercase tracking-wider">服務項目</span>
+                                <div class="space-y-1">
+                                    <div class="text-gray-900 font-medium text-sm">圖書館聲學設計</div>
+                                    <div class="text-gray-900 font-medium text-sm">閱覽區隔音</div>
+                                    <div class="text-gray-900 font-medium text-sm">多功能廳音響</div>
+                                    <div class="text-gray-900 font-medium text-sm">兒童區音場控制</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 相關專案 -->
+                <div class="px-6 mb-8">
+                    <h2 class="text-2xl font-bold mb-6">相關專案</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='apps.html'">
+                            <h3 class="font-semibold text-gray-900 mb-2">音源技繪</h3>
+                            <p class="text-gray-600 text-sm mb-2">聲學量測與模擬技術</p>
+                            <p class="text-gray-500 text-xs">現代辦公環境聲學設計</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='consulting.html'">
+                            <h3 class="font-semibold text-gray-900 mb-2">自聲自滅</h3>
+                            <p class="text-gray-600 text-sm mb-2">客製化聲學服務</p>
+                            <p class="text-gray-500 text-xs">住宅隔音設計解決方案</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='rumor.html'">
+                            <h3 class="font-semibold text-gray-900 mb-2">音錯陽差</h3>
+                            <p class="text-gray-600 text-sm mb-2">建築聲學之流言終結者</p>
+                            <p class="text-gray-500 text-xs">多媒體展演空間聲學設計</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Paffi 風格浮動導航條 -->
+        <div id="floating-nav-bar" class="fixed left-1/2 bottom-8 -translate-x-1/2 z-60 opacity-100 visible transition-all duration-300 show">
+            <div class="bg-black/60 backdrop-blur-md rounded-full px-6 py-3 shadow-2xl border border-white/10 flex items-center space-x-6">
+                <!-- 中間：當前專案名稱 -->
+                <div class="text-white font-medium text-sm px-4 whitespace-nowrap">
+                    有聲有色
+                </div>
+
+                <!-- 右側：返回按鈕 -->
+                <button id="back-to-home" class="flex items-center text-white/70 hover:text-white transition-colors group">
+                    <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 返回主頁功能
+        document.getElementById('back-to-home').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+        // 頁面載入動畫
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectDetail = document.getElementById('page-project-detail');
+            const floatingWindow = projectDetail.querySelector('.fixed.left-4');
+            
+            // 初始狀態
+            floatingWindow.style.transform = 'scale(0.95)';
+            floatingWindow.style.opacity = '0';
+            
+            // 動畫進入
+            setTimeout(() => {
+                floatingWindow.style.transition = 'transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.4s ease';
+                floatingWindow.style.transform = 'scale(1)';
+                floatingWindow.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+
+</body>
+</html>
