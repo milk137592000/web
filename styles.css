@@ -1,0 +1,561 @@
+/* 自定義樣式 */
+body {
+    font-family: 'Lexend', 'Noto Sans TC', sans-serif;
+    overflow: hidden;
+    overscroll-behavior: none;
+    /* 防止橫向滾動 */
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+::-webkit-scrollbar { display: none; }
+
+/* 確保所有元素不超出螢幕 */
+* {
+    box-sizing: border-box;
+}
+
+/* 防止文字換行導致的寬度問題 */
+[data-project-title="true"] {
+    max-width: 90vw;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.page {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1),
+               visibility 0.6s cubic-bezier(0.4, 0.0, 0.2, 1),
+               transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.page.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 關於我頁面特殊樣式 - 確保覆蓋所有主頁元素 */
+#page-about {
+    z-index: 100;
+}
+#page-about.active {
+    z-index: 100;
+}
+
+/* 專案詳情頁面特殊樣式 */
+#page-project-detail {
+    pointer-events: none;
+}
+#page-project-detail.active {
+    pointer-events: auto;
+}
+#page-project-detail .fixed {
+    transform: scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+#page-project-detail.active .fixed {
+    transform: scale(1);
+}
+
+/* 當專案詳情頁面顯示時，禁止背景頁面滾動 */
+body.modal-open {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* 確保主頁面在背景中固定 */
+body.background-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Paffi 風格的項目卡片懸停效果 */
+.project-card {
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* 導航欄模糊背景效果 */
+nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* 平滑滾動 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 自定義滾動條 */
+.page::-webkit-scrollbar {
+    width: 6px;
+}
+.page::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+.page::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+.page::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.materica-texture {
+    background-color: #f5f3ef;
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d4cec3" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+
+.project-card { transition: transform 0.118s ease, box-shadow 0.118s ease; }
+.project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+
+#project-modal { transition: opacity 0.118s ease, visibility 0.118s; }
+.modal-content { transition: transform 0.118s ease; }
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 0.588s linear infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* 聲波容器 */
+#soundwave-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px; /* 桌面版間距 */
+    width: 80%;
+    height: 50vh;
+    cursor: grab;
+}
+#soundwave-container:active { cursor: grabbing; }
+
+/* 響應式容器設計 - 使用CSS clamp實現流暢縮放 */
+#soundwave-container {
+    gap: clamp(8px, 2vw, 24px); /* 間距根據視窗寬度流暢縮放 */
+    width: clamp(95%, 80% + 2vw, 98%); /* 寬度根據螢幕大小調整 */
+    height: clamp(35vh, 40vh + 2vw, 50vh); /* 高度也能響應式調整 */
+}
+
+/* 聲波線條 */
+.sound-bar {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 999px; /* 恢復原來的圓潤形狀 */
+    width: 60px; /* 桌面版寬度 */
+    transform-origin: center;
+    will-change: height, transform, box-shadow;
+    transition: height 0.05s ease-out, background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    /* 添加硬體加速和平滑渲染 */
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    /* 預設的輕微陰影 */
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    position: relative;
+    cursor: default; /* 默認不可點擊 */
+}
+
+/* 響應式bar調整 - 使用CSS clamp實現流暢縮放 */
+.sound-bar {
+    width: clamp(32px, 5vw, 60px); /* 最小32px，最大60px，中間根據視窗寬度縮放 */
+}
+
+/* 白色bar的可點擊樣式 */
+.sound-bar[style*="rgb(255, 255, 255)"] {
+    cursor: pointer !important;
+}
+
+/* 白色bar的懸停效果 */
+.sound-bar[style*="rgb(255, 255, 255)"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+}
+
+/* 旋轉後的bar固定樣式 */
+.sound-bar.rotated-bar {
+    /* 完全禁用所有動畫和變化 */
+    transform: rotate(90deg) !important; /* 強制保持90度旋轉 */
+    transform-origin: center center !important;
+    transition: none !important; /* 禁用所有transition */
+    animation: none !important; /* 禁用所有animation */
+    will-change: auto !important; /* 禁用硬體加速優化 */
+    height: var(--fixed-height, 240px) !important; /* 使用固定高度240px */
+}
+
+/* yunique Logo 特殊效果 */
+.yunique-logo {
+    position: relative;
+    display: inline-block;
+}
+
+.special-i {
+    position: relative;
+    display: inline-block;
+}
+
+/* yunique Logo 翻牌動畫效果 */
+.flip-container {
+    display: inline-block;
+}
+
+.flip-char {
+    display: inline-block;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+    margin-right: -0.25em; /* 縮小字母間距 */
+}
+
+.flip-char:last-child {
+    margin-right: 0; /* 最後一個字母不需要負邊距 */
+}
+
+.flip-container:hover .flip-char:nth-child(1) {
+    animation: flipCard 0.6s ease-in-out;
+}
+
+.flip-container:hover .flip-char:nth-child(2) {
+    animation: flipCard 0.6s ease-in-out 0.1s;
+}
+
+.flip-container:hover .flip-char:nth-child(3) {
+    animation: flipCard 0.6s ease-in-out 0.2s;
+}
+
+.flip-container:hover .flip-char:nth-child(4) {
+    animation: flipCard 0.6s ease-in-out 0.3s;
+}
+
+.flip-container:hover .flip-char:nth-child(5) {
+    animation: flipCard 0.6s ease-in-out 0.4s;
+}
+
+.flip-container:hover .flip-char:nth-child(6) {
+    animation: flipCard 0.6s ease-in-out 0.5s;
+}
+
+.flip-container:hover .flip-char:nth-child(7) {
+    animation: flipCard 0.6s ease-in-out 0.6s;
+}
+
+@keyframes flipCard {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(-90deg);
+    }
+    100% {
+        transform: rotateY(0deg);
+    }
+}
+
+/* 聲波動畫效果 - 從i的發射點 */
+.special-i::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: soundwave-pulse 2s infinite;
+}
+
+@keyframes soundwave-pulse {
+    0% {
+        width: 6px;
+        height: 6px;
+        opacity: 0.8;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+    50% {
+        width: 24px;
+        height: 24px;
+        opacity: 0.4;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+    100% {
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+}
+
+/* 第二層聲波效果 - 也從i的發射點 */
+.special-i::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: soundwave-pulse-2 2s infinite 0.5s;
+    pointer-events: none;
+}
+
+/* 懸停效果 */
+.special-i:hover::before {
+    animation: soundwave-pulse 1s infinite;
+}
+
+.special-i:hover::after {
+    animation: soundwave-pulse-2 1s infinite 0.2s;
+}
+
+@keyframes soundwave-pulse-2 {
+    0% {
+        width: 10px;
+        height: 10px;
+        opacity: 0.6;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+    50% {
+        width: 32px;
+        height: 32px;
+        opacity: 0.2;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+    100% {
+        width: 48px;
+        height: 48px;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+}
+
+/* 3D 翻轉文字效果 */
+.flip-text-3d {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.flip-text-3d div {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+/* 手機版UI調整 */
+@media (max-width: 768px) {
+    #main-ui {
+        padding: 1rem; /* 手機版減少padding */
+    }
+
+    #main-ui header {
+        flex-direction: row; /* 保持水平排列 */
+        justify-content: space-between; /* 左右分佈 */
+        align-items: flex-start; /* 頂部對齊 */
+        gap: 1rem;
+    }
+
+    #main-ui nav {
+        font-size: 1rem; /* 手機版縮小導航字體 */
+        margin-top: 0; /* 確保與logo頂部對齊 */
+    }
+
+    #main-ui .text-2xl {
+        font-size: 1.5rem; /* 手機版縮小logo字體 */
+    }
+
+    /* 手機版觸控優化 */
+    .sound-bar[style*="rgb(255, 255, 255)"] {
+        cursor: pointer !important;
+        /* 增加觸控區域 */
+        padding: 8px;
+        margin: -8px;
+    }
+
+    /* 手機版hover效果改為觸控反饋 */
+    .sound-bar[style*="rgb(255, 255, 255)"]:active {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+    }
+}
+
+@media (max-width: 480px) {
+    #main-ui {
+        padding: 0.75rem; /* 小螢幕進一步減少padding */
+    }
+
+    #main-ui nav {
+        font-size: 0.9rem; /* 小螢幕進一步縮小導航字體 */
+    }
+
+    #main-ui .text-2xl {
+        font-size: 1.25rem; /* 小螢幕進一步縮小logo字體 */
+    }
+
+    /* 小螢幕進一步增加觸控區域 */
+    .sound-bar[style*="rgb(255, 255, 255)"] {
+        padding: 12px;
+        margin: -12px;
+    }
+}
+
+/* 專案選擇器樣式 */
+.project-selector-item {
+    transition: all 0.2s ease;
+}
+
+.project-selector-item:hover:not(.current-project) {
+    transform: translateY(-2px);
+}
+
+.project-selector-item.current-project {
+    opacity: 0.7;
+    cursor: default;
+}
+
+/* 專案選擇器下拉選單動畫 */
+#project-selector-dropdown {
+    transform-origin: top left;
+}
+
+/* 浮動導航條樣式 */
+#floating-nav-bar {
+    z-index: 70;
+    /* 確保完美居中 */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+/* 關於我不倒翁晃動動畫 - 每個字獨立搖晃 */
+.wobble-container {
+    display: inline-block;
+}
+
+.wobble-char {
+    display: inline-block;
+    transform-origin: center bottom;
+    transition: transform 0.3s ease;
+}
+
+.wobble-container:hover .wobble-char:nth-child(1) {
+    animation: wobble1 0.8s ease-in-out;
+}
+
+.wobble-container:hover .wobble-char:nth-child(2) {
+    animation: wobble2 0.8s ease-in-out 0.05s;
+}
+
+.wobble-container:hover .wobble-char:nth-child(3) {
+    animation: wobble3 0.8s ease-in-out 0.1s;
+}
+
+.wobble-container:hover .wobble-char:nth-child(4) {
+    animation: wobble1 0.8s ease-in-out 0.15s;
+}
+
+.wobble-container:hover .wobble-char:nth-child(5) {
+    animation: wobble2 0.8s ease-in-out 0.2s;
+}
+
+.wobble-container:hover .wobble-char:nth-child(6) {
+    animation: wobble3 0.8s ease-in-out 0.25s;
+}
+
+.wobble-container:hover .wobble-char:nth-child(7) {
+    animation: wobble1 0.8s ease-in-out 0.3s;
+}
+
+.wobble-container:hover .wobble-char:nth-child(8) {
+    animation: wobble2 0.8s ease-in-out 0.35s;
+}
+
+@keyframes wobble1 {
+    0% { transform: rotate(0deg); }
+    15% { transform: rotate(-12deg); }
+    30% { transform: rotate(8deg); }
+    45% { transform: rotate(-6deg); }
+    60% { transform: rotate(4deg); }
+    75% { transform: rotate(-2deg); }
+    90% { transform: rotate(1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes wobble2 {
+    0% { transform: rotate(0deg); }
+    15% { transform: rotate(15deg); }
+    30% { transform: rotate(-10deg); }
+    45% { transform: rotate(7deg); }
+    60% { transform: rotate(-5deg); }
+    75% { transform: rotate(3deg); }
+    90% { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes wobble3 {
+    0% { transform: rotate(0deg); }
+    15% { transform: rotate(-18deg); }
+    30% { transform: rotate(12deg); }
+    45% { transform: rotate(-9deg); }
+    60% { transform: rotate(6deg); }
+    75% { transform: rotate(-3deg); }
+    90% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+#floating-nav-bar.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 浮動導航條內容居中 */
+#floating-nav-bar > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 浮動專案選擇器下拉選單 */
+#floating-project-selector-dropdown {
+    transform-origin: bottom left;
+}
+
+/* 響應式專案選擇器 */
+@media (max-width: 480px) {
+    #project-selector-dropdown,
+    #floating-project-selector-dropdown {
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+    }
+
+    #project-grid,
+    #floating-project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #floating-nav-bar {
+        left: 1rem !important;
+        right: 1rem !important;
+        transform: translateX(0) !important;
+    }
+
+    #floating-nav-bar .bg-black\/60 {
+        justify-content: space-between;
+    }
+
+    #floating-current-project-title {
+        font-size: 0.75rem;
+        padding: 0 0.5rem;
+    }
+}
