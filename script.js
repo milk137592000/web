@@ -444,9 +444,19 @@ function updateProjectDetailContent(project) {
     document.getElementById('project-detail-title').textContent = project.name;
     document.getElementById('project-detail-category').textContent = project.category;
     document.getElementById('project-detail-description').textContent = project.description;
-    document.getElementById('project-detail-type').textContent = project.category;
-    document.getElementById('project-detail-image').src = project.image;
-    document.getElementById('project-detail-image').alt = project.name;
+
+    // 設置專案圖片（如果存在）
+    const projectImage = document.getElementById('project-detail-image');
+    if (projectImage) {
+        projectImage.src = project.image;
+        projectImage.alt = project.name;
+    }
+
+    const projectTypeElement = document.getElementById('project-detail-type');
+    if (projectTypeElement) {
+        projectTypeElement.textContent = project.category;
+    }
+
 
     // 填充專案詳細資訊
     if (project.details) {
@@ -738,6 +748,21 @@ function updateProjectDetailContent(project) {
         // 隱藏 AI 生成按鈕，因為 papers 專案已經有完整內容
         document.getElementById('project-detail-generate').style.display = 'none';
         document.getElementById('project-detail-loader').classList.add('hidden');
+
+        // Papers 專案不需要相關專案和專案圖片，移除這些元素
+        const relatedContainer = document.getElementById('related-projects');
+        if (relatedContainer && relatedContainer.parentElement) {
+            relatedContainer.parentElement.remove();
+        }
+
+        // 移除專案圖片
+        const projectImage = document.getElementById('project-detail-image');
+        if (projectImage && projectImage.parentElement) {
+            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
+            if (imageContainer) {
+                imageContainer.remove();
+            }
+        }
     } else {
         // 其他專案使用原本的 AI 生成內容方式
         contentDiv.innerHTML = '<p class="text-gray-700 leading-relaxed text-sm">點擊下方按鈕，讓 AI 為您描繪此專案的聲學設計靈感...</p>';
@@ -745,10 +770,12 @@ function updateProjectDetailContent(project) {
         // 顯示生成按鈕，隱藏載入動畫
         document.getElementById('project-detail-generate').style.display = 'flex';
         document.getElementById('project-detail-loader').classList.add('hidden');
+
+        // 其他專案生成相關專案
+        populateRelatedProjects(project);
     }
 
-    // 生成相關專案
-    populateRelatedProjects(project);
+
 
     // 初始化浮動專案選擇器
     initializeFloatingProjectSelector(project);
