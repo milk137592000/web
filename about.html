@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我 - yunique | 專業建築聲學設計</title>
+
+    <!-- Sin波 favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" sizes="192x192" href="favicon-192.svg">
+    <link rel="apple-touch-icon" sizes="192x192" href="favicon-192.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 引入分離的 CSS 檔案 -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- 關於我頁面 -->
+    <div id="page-about" class="page materica-texture text-gray-800 p-6 md:p-10 active">
+        <!-- 頁面頂部導航 -->
+        <div class="fixed top-6 right-6 md:top-10 md:right-10 z-50">
+            <a href="#" id="about-home-btn" class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors duration-300 shadow-lg">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                Home
+            </a>
+        </div>
+
+        <div class="container mx-auto pt-24 max-w-6xl">
+            <!-- 主標題區域 -->
+            <div class="mb-16">
+                <div class="flex items-baseline mb-8">
+                    <h1 class="text-6xl md:text-8xl font-bold italic text-gray-900 mr-8">yunique</h1>
+                    <div class="text-lg text-gray-600">
+                        <div class="mb-2">建築聲學設計</div>
+                        <div class="text-sm">2020 - 2025</div>
+                    </div>
+                </div>
+
+                <!-- 服務類別標籤 -->
+                <div class="flex flex-wrap gap-2 mb-8 text-sm font-medium text-gray-700">
+                    <span>•聲學諮詢</span>
+                    <span>•空間設計</span>
+                    <span>•噪音控制</span>
+                    <span>•音響系統</span>
+                    <span>•環境模擬</span>
+                    <span>•材料選配</span>
+                </div>
+            </div>
+
+            <!-- 主要內容區域 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+                <!-- 左欄：關於我 -->
+                <div class="lg:col-span-2">
+                    <div class="mb-8">
+                        <h2 class="text-sm font-bold text-gray-500 mb-4 tracking-wider">(.001)</h2>
+                        <p class="text-xl leading-relaxed text-gray-800 mb-6">
+                            建築聲學設計，融合科學與藝術的熱情。我是一位專注於聲學環境設計的專業顧問，相信每個空間都有其獨特的「聲音」等待被發現與塑造。
+                        </p>
+                        <p class="text-lg leading-relaxed text-gray-700">
+                            畢業於建築聲學相關領域，專精於空間聲學設計、噪音控制與音響系統整合。我熱愛探索聲音與空間的關係，致力於為每個專案創造最適合的聽覺環境。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 右欄：專業資訊 -->
+                <div class="space-y-8">
+                    <!-- 專業認證 -->
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-500 mb-4 tracking-wider">專業認證</h3>
+                        <div class="space-y-2 text-sm">
+                            <div>
+                                <a href="#" class="text-gray-800 hover:text-gray-600 transition-colors">
+                                    建築聲學工程師認證
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" class="text-gray-800 hover:text-gray-600 transition-colors">
+                                    環境噪音評估師
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 獲獎記錄 -->
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-500 mb-4 tracking-wider">獲獎記錄</h3>
+                        <div class="space-y-2 text-sm">
+                            <div>
+                                <a href="#" class="text-gray-800 hover:text-gray-600 transition-colors">
+                                    2024 優秀聲學設計獎
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" class="text-gray-800 hover:text-gray-600 transition-colors">
+                                    2023 綠建築聲學創新獎
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" class="text-gray-800 hover:text-gray-600 transition-colors">
+                                    2022 建築聲學優秀案例
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聯絡資訊 -->
+            <div class="border-t border-gray-300 pt-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-500 mb-4 tracking-wider">聯絡方式</h3>
+                        <div class="space-y-2">
+                            <div class="text-sm">E-MAIL</div>
+                            <a href="mailto:info@yunique.design" class="text-lg font-mono text-gray-800 hover:text-gray-600 transition-colors">
+                                info@yunique.design
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-500 mb-4 tracking-wider">社群媒體</h3>
+                        <div class="space-y-2 text-sm">
+                            <div>
+                                <a href="#" class="text-gray-800 hover:text-gray-600 transition-colors font-mono">
+                                    instagram
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" class="text-gray-800 hover:text-gray-600 transition-colors font-mono">
+                                    linkedin
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button id="tts-button" class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span id="tts-button-text">✨ 聽聽我的故事</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 版權資訊 -->
+            <div class="mt-12 pt-8 border-t border-gray-300 text-xs text-gray-500">
+                © 2020 - 2025 yunique 專業建築聲學設計
+            </div>
+        </div>
+    </div>
+    <audio id="tts-audio"></audio>
+
+    <script>
+        // 返回主頁功能
+        document.getElementById('about-home-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'index.html';
+        });
+
+        // TTS 功能
+        const tts = {
+            button: document.getElementById('tts-button'),
+            buttonText: document.getElementById('tts-button-text'),
+            playIcon: document.getElementById('play-icon'),
+            audio: document.getElementById('tts-audio'),
+            isPlaying: false
+        };
+
+        function startTTS() {
+            const textContent = `
+                建築聲學設計，融合科學與藝術的熱情。我是一位專注於聲學環境設計的專業顧問，相信每個空間都有其獨特的「聲音」等待被發現與塑造。
+                畢業於建築聲學相關領域，專精於空間聲學設計、噪音控制與音響系統整合。我熱愛探索聲音與空間的關係，致力於為每個專案創造最適合的聽覺環境。
+            `;
+
+            // 使用 Web Speech API
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(textContent);
+                utterance.lang = 'zh-TW';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+
+                utterance.onstart = () => {
+                    tts.isPlaying = true;
+                    tts.buttonText.textContent = '⏸️ 暫停播放';
+                    tts.playIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6" />';
+                };
+
+                utterance.onend = () => {
+                    stopTTS();
+                };
+
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('您的瀏覽器不支援語音合成功能');
+            }
+        }
+
+        function stopTTS() {
+            if ('speechSynthesis' in window) {
+                speechSynthesis.cancel();
+            }
+
+            tts.isPlaying = false;
+            tts.buttonText.textContent = '✨ 聽聽我的故事';
+            tts.playIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />';
+        }
+
+        // TTS 事件監聽器
+        tts.button.addEventListener('click', () => {
+            if (tts.isPlaying) {
+                stopTTS();
+            } else {
+                startTTS();
+            }
+        });
+
+        tts.audio.addEventListener('ended', () => {
+            stopTTS();
+        });
+
+        // 頁面載入動畫
+        document.addEventListener('DOMContentLoaded', () => {
+            const aboutPage = document.getElementById('page-about');
+            
+            // 初始狀態
+            aboutPage.style.opacity = '0';
+            aboutPage.style.transform = 'translateY(20px)';
+            
+            // 動畫進入
+            setTimeout(() => {
+                aboutPage.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                aboutPage.style.opacity = '1';
+                aboutPage.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+
+</body>
+</html>
