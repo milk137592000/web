@@ -104,15 +104,13 @@ const container = document.getElementById('soundwave-container');
 let pages = {
     home: document.body, // 主頁面（body 元素）
     about: null,
-    projectDetail: null,
-    papers: null
+    projectDetail: null
 };
 
 // 在 DOM 加載完成後初始化頁面元素
 function initializePages() {
     pages.about = document.getElementById('page-about');
     pages.projectDetail = document.getElementById('page-project-detail');
-    pages.papers = document.getElementById('page-papers');
 }
 const modal = {
     el: document.getElementById('project-modal'),
@@ -206,13 +204,9 @@ function handleRouteChange() {
     // 解析路由
     if (route === '/about' || route === 'about' || route === '#about') {
         showAboutPage();
-    } else if (route === '/papers' || route === 'papers') {
-        showPapersPage();
     } else if (route.startsWith('/project/')) {
         const slug = route.split('/project/')[1];
-        if (slug === 'papers') {
-            showPapersPage();
-        } else if (slug) {
+        if (slug) {
             showProjectDetailPage(slug);
         } else {
             showHomePage();
@@ -254,10 +248,6 @@ function showHomePage() {
     // 只隱藏其他頁面，避免隱藏主頁面元素造成跑版
     pages.about.classList.remove('active');
     pages.projectDetail.classList.remove('active');
-    if (pages.papers) {
-        pages.papers.classList.remove('active');
-        pages.papers.classList.add('hidden');
-    }
 
     // 恢復背景頁面滾動
     document.body.classList.remove('modal-open');
@@ -386,45 +376,7 @@ function showAboutPage() {
     }, 100);
 }
 
-function showPapersPage() {
-    // 強制停止所有動畫和計時器
-    isAnimating = false;
-    if (autoAnimationTimeout) {
-        clearTimeout(autoAnimationTimeout);
-        autoAnimationTimeout = null;
-    }
-    if (initialLoadTimeout) {
-        clearTimeout(initialLoadTimeout);
-        initialLoadTimeout = null;
-    }
-    if (wheelTimeout) {
-        clearTimeout(wheelTimeout);
-        wheelTimeout = null;
-    }
 
-    // 隱藏其他頁面
-    pages.about.classList.remove('active');
-    pages.projectDetail.classList.remove('active');
-
-    // 清理主頁的專案標題和圖片
-    cleanupProjectTitle();
-    cleanupProjectImages();
-
-    // 隱藏主頁面元素
-    document.getElementById('soundwave-container').style.display = 'none';
-    document.getElementById('main-ui').style.display = 'none';
-
-    // 恢復背景頁面滾動
-    document.body.classList.remove('modal-open');
-    document.body.classList.remove('background-fixed');
-
-    // 重置背景色為白色（適合 papers 頁面）
-    gsap.to('body', { duration: 0.4, backgroundColor: '#ffffff', ease: 'sine.inOut' });
-
-    // 顯示 papers 頁面
-    pages.papers.classList.remove('hidden');
-    pages.papers.classList.add('active');
-}
 
 function showProjectDetailPage(slug) {
     // 根據 slug 找到對應的專案
@@ -451,10 +403,6 @@ function showProjectDetailPage(slug) {
 
     // 隱藏其他頁面
     pages.about.classList.remove('active');
-    if (pages.papers) {
-        pages.papers.classList.remove('active');
-        pages.papers.classList.add('hidden');
-    }
 
     // 清理主頁的專案標題和圖片，避免穿透到專案詳情頁面
     cleanupProjectTitle();
@@ -521,13 +469,95 @@ function updateProjectDetailContent(project) {
         document.getElementById('project-detail-services').textContent = project.details.services[0];
     }
 
-    // 重置 AI 生成內容
+    // 檢查是否為 papers 專案，提供 The Economist 風格內容
     const contentDiv = document.getElementById('project-detail-content');
-    contentDiv.innerHTML = '<p class="text-gray-700 leading-relaxed text-sm">點擊下方按鈕，讓 AI 為您描繪此專案的聲學設計靈感...</p>';
+    if (project.slug === 'papers') {
+        // Papers 專案使用 The Economist 風格內容
+        contentDiv.innerHTML = `
+            <div class="economist-style-content">
+                <!-- 主要文章內容 -->
+                <div class="prose prose-lg max-w-none mb-8">
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        在當代建築設計中，聲學環境的營造已成為不可忽視的重要因素。隨著城市化進程的加速和建築技術的革新，
+                        我們面臨著前所未有的聲學挑戰。從開放式辦公空間的噪音控制，到音樂廳的完美音響效果，
+                        每一個空間都需要精心的聲學設計。
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        本研究深入探討了現代建築聲學設計的核心原理，分析了不同材料和結構對聲音傳播的影響，
+                        並提出了創新的解決方案。我們的研究團隊通過大量的實地測量和計算機模擬，
+                        為建築師和聲學工程師提供了實用的設計指導。
+                    </p>
+                </div>
 
-    // 顯示生成按鈕，隱藏載入動畫
-    document.getElementById('project-detail-generate').style.display = 'flex';
-    document.getElementById('project-detail-loader').classList.add('hidden');
+                <!-- 研究要點 -->
+                <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">研究重點</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">聲學材料創新</h4>
+                            <p class="text-gray-700 text-sm">探索新型吸音材料的應用與效果評估</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">空間聲學設計</h4>
+                            <p class="text-gray-700 text-sm">優化室內聲學環境的設計方法論</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">噪音控制技術</h4>
+                            <p class="text-gray-700 text-sm">城市環境中的噪音減緩策略</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">數位模擬工具</h4>
+                            <p class="text-gray-700 text-sm">先進的聲學模擬軟體應用</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 研究方法 -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">研究方法</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-semibold text-gray-900 mb-1">實地測量</h4>
+                            <p class="text-gray-700 text-sm">在不同類型的建築空間進行聲學參數測量，收集第一手數據</p>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-semibold text-gray-900 mb-1">計算機模擬</h4>
+                            <p class="text-gray-700 text-sm">使用先進的聲學模擬軟體，預測和優化設計方案</p>
+                        </div>
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <h4 class="font-semibold text-gray-900 mb-1">材料測試</h4>
+                            <p class="text-gray-700 text-sm">評估各種建築材料的聲學特性和應用潛力</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 研究成果 -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">主要發現</h3>
+                    <div class="prose prose-sm max-w-none">
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            通過綜合分析，我們發現現代建築聲學設計的成功關鍵在於多學科的協作與創新技術的應用。
+                            傳統的聲學設計方法需要與新興的數位工具相結合，才能應對當代建築的複雜挑戰。
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            我們的研究為未來的聲學設計提供了新的思路和方法，有助於創造更舒適、更高效的建築環境。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // 隱藏 AI 生成按鈕，因為 papers 專案已經有完整內容
+        document.getElementById('project-detail-generate').style.display = 'none';
+        document.getElementById('project-detail-loader').classList.add('hidden');
+    } else {
+        // 其他專案使用原本的 AI 生成內容方式
+        contentDiv.innerHTML = '<p class="text-gray-700 leading-relaxed text-sm">點擊下方按鈕，讓 AI 為您描繪此專案的聲學設計靈感...</p>';
+
+        // 顯示生成按鈕，隱藏載入動畫
+        document.getElementById('project-detail-generate').style.display = 'flex';
+        document.getElementById('project-detail-loader').classList.add('hidden');
+    }
 
     // 生成相關專案
     populateRelatedProjects(project);
@@ -2434,16 +2464,7 @@ function onTouchEnd(event) {
     }
 }
 
-// --- Papers 頁面事件監聽器 ---
-document.addEventListener('DOMContentLoaded', function() {
-    const papersBackBtn = document.getElementById('papers-back-btn');
-    if (papersBackBtn) {
-        papersBackBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            navigateToRoute('/');
-        });
-    }
-});
+
 
 // --- 主程式邏輯 ---
 init();
