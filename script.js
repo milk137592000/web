@@ -445,17 +445,7 @@ function updateProjectDetailContent(project) {
     document.getElementById('project-detail-category').textContent = project.category;
     document.getElementById('project-detail-description').textContent = project.description;
 
-    // 設置專案圖片（如果存在）
-    const projectImage = document.getElementById('project-detail-image');
-    if (projectImage) {
-        projectImage.src = project.image;
-        projectImage.alt = project.name;
-    }
 
-    const projectTypeElement = document.getElementById('project-detail-type');
-    if (projectTypeElement) {
-        projectTypeElement.textContent = project.category;
-    }
 
 
     // 填充專案詳細資訊
@@ -476,12 +466,31 @@ function updateProjectDetailContent(project) {
         });
 
         // 在頂部資訊區顯示主要服務
-        document.getElementById('project-detail-services').textContent = project.details.services[0];
+        const servicesElement = document.getElementById('project-detail-services');
+        if (servicesElement) {
+            servicesElement.textContent = project.details.services[0];
+        }
     }
 
-    // 檢查是否為 papers 專案，提供 The Economist 風格內容
+    // 首先檢查是否為 papers 專案，如果是則進行特殊處理
     const contentDiv = document.getElementById('project-detail-content');
+
     if (project.slug === 'papers') {
+        // Papers 專案不需要相關專案和專案圖片，先移除這些元素
+        const relatedContainer = document.getElementById('related-projects');
+        if (relatedContainer && relatedContainer.parentElement) {
+            relatedContainer.parentElement.remove();
+        }
+
+        // 移除專案圖片
+        const projectImage = document.getElementById('project-detail-image');
+        if (projectImage && projectImage.parentElement) {
+            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
+            if (imageContainer) {
+                imageContainer.remove();
+            }
+        }
+
         // Papers 專案使用 The Economist 風格內容
         contentDiv.innerHTML = `
             <div class="economist-style-content space-y-8">
@@ -749,20 +758,7 @@ function updateProjectDetailContent(project) {
         document.getElementById('project-detail-generate').style.display = 'none';
         document.getElementById('project-detail-loader').classList.add('hidden');
 
-        // Papers 專案不需要相關專案和專案圖片，移除這些元素
-        const relatedContainer = document.getElementById('related-projects');
-        if (relatedContainer && relatedContainer.parentElement) {
-            relatedContainer.parentElement.remove();
-        }
 
-        // 移除專案圖片
-        const projectImage = document.getElementById('project-detail-image');
-        if (projectImage && projectImage.parentElement) {
-            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
-            if (imageContainer) {
-                imageContainer.remove();
-            }
-        }
     } else {
         // 其他專案使用原本的 AI 生成內容方式
         contentDiv.innerHTML = '<p class="text-gray-700 leading-relaxed text-sm">點擊下方按鈕，讓 AI 為您描繪此專案的聲學設計靈感...</p>';
@@ -770,6 +766,25 @@ function updateProjectDetailContent(project) {
         // 顯示生成按鈕，隱藏載入動畫
         document.getElementById('project-detail-generate').style.display = 'flex';
         document.getElementById('project-detail-loader').classList.add('hidden');
+
+        // 確保其他專案有圖片元素和相關專案容器
+        ensureProjectImageExists();
+        ensureRelatedProjectsExists();
+
+        // 使用 setTimeout 確保 DOM 元素已經創建
+        setTimeout(() => {
+            // 設置專案圖片和類型
+            const projectImage = document.getElementById('project-detail-image');
+            if (projectImage) {
+                projectImage.src = project.image;
+                projectImage.alt = project.name;
+            }
+
+            const projectTypeElement = document.getElementById('project-detail-type');
+            if (projectTypeElement) {
+                projectTypeElement.textContent = project.category;
+            }
+        }, 0);
 
         // 其他專案生成相關專案
         populateRelatedProjects(project);
@@ -837,6 +852,9 @@ async function generateProjectConcept(project) {
 
 function populateRelatedProjects(currentProject) {
     const relatedContainer = document.getElementById('related-projects');
+    if (!relatedContainer) {
+        return;
+    }
     relatedContainer.innerHTML = '';
 
     // 找到其他專案（排除當前專案）
@@ -862,6 +880,45 @@ function populateRelatedProjects(currentProject) {
 
         relatedContainer.appendChild(projectCard);
     });
+}
+
+// --- 輔助函數：確保專案元素存在 ---
+function ensureProjectImageExists() {
+    // 檢查是否已經有專案圖片元素
+    if (!document.getElementById('project-detail-image')) {
+        // 找到專案標題區域後面，專案資訊網格前面，插入圖片容器
+        const projectHeader = document.querySelector('.px-6.py-8');
+        if (projectHeader) {
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'px-6 mb-8';
+            imageContainer.innerHTML = `
+                <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                    <img id="project-detail-image" src="" alt="" class="w-full h-full object-cover">
+                </div>
+            `;
+            // 插入到專案標題後面
+            projectHeader.parentNode.insertBefore(imageContainer, projectHeader.nextSibling);
+        }
+    }
+}
+
+function ensureRelatedProjectsExists() {
+    // 檢查是否已經有相關專案容器
+    if (!document.getElementById('related-projects')) {
+        // 在專案規格後面添加相關專案容器
+        const projectSpecs = document.querySelector('.px-6.mb-8');
+        if (projectSpecs) {
+            const relatedContainer = document.createElement('div');
+            relatedContainer.className = 'px-6 pb-8';
+            relatedContainer.innerHTML = `
+                <h2 class="text-2xl font-bold mb-6">相關專案</h2>
+                <div id="related-projects" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            `;
+            // 插入到最後
+            const parentContainer = projectSpecs.parentNode;
+            parentContainer.appendChild(relatedContainer);
+        }
+    }
 }
 
 // --- 浮動導航條相關函數 ---
