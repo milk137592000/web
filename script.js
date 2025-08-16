@@ -101,11 +101,19 @@ let currentRoute = '/'; // 當前路由
 
 const container = document.getElementById('soundwave-container');
 
-const pages = {
+let pages = {
     home: document.body, // 主頁面（body 元素）
-    about: document.getElementById('page-about'),
-    projectDetail: document.getElementById('page-project-detail')
+    about: null,
+    projectDetail: null,
+    papers: null
 };
+
+// 在 DOM 加載完成後初始化頁面元素
+function initializePages() {
+    pages.about = document.getElementById('page-about');
+    pages.projectDetail = document.getElementById('page-project-detail');
+    pages.papers = document.getElementById('page-papers');
+}
 const modal = {
     el: document.getElementById('project-modal'),
     content: document.querySelector('.modal-content'),
@@ -198,9 +206,13 @@ function handleRouteChange() {
     // 解析路由
     if (route === '/about' || route === 'about' || route === '#about') {
         showAboutPage();
+    } else if (route === '/papers' || route === 'papers') {
+        showPapersPage();
     } else if (route.startsWith('/project/')) {
         const slug = route.split('/project/')[1];
-        if (slug) {
+        if (slug === 'papers') {
+            showPapersPage();
+        } else if (slug) {
             showProjectDetailPage(slug);
         } else {
             showHomePage();
@@ -242,6 +254,10 @@ function showHomePage() {
     // 只隱藏其他頁面，避免隱藏主頁面元素造成跑版
     pages.about.classList.remove('active');
     pages.projectDetail.classList.remove('active');
+    if (pages.papers) {
+        pages.papers.classList.remove('active');
+        pages.papers.classList.add('hidden');
+    }
 
     // 恢復背景頁面滾動
     document.body.classList.remove('modal-open');
@@ -368,6 +384,46 @@ function showAboutPage() {
             }
         });
     }, 100);
+}
+
+function showPapersPage() {
+    // 強制停止所有動畫和計時器
+    isAnimating = false;
+    if (autoAnimationTimeout) {
+        clearTimeout(autoAnimationTimeout);
+        autoAnimationTimeout = null;
+    }
+    if (initialLoadTimeout) {
+        clearTimeout(initialLoadTimeout);
+        initialLoadTimeout = null;
+    }
+    if (wheelTimeout) {
+        clearTimeout(wheelTimeout);
+        wheelTimeout = null;
+    }
+
+    // 隱藏其他頁面
+    pages.about.classList.remove('active');
+    pages.projectDetail.classList.remove('active');
+
+    // 清理主頁的專案標題和圖片
+    cleanupProjectTitle();
+    cleanupProjectImages();
+
+    // 隱藏主頁面元素
+    document.getElementById('soundwave-container').style.display = 'none';
+    document.getElementById('main-ui').style.display = 'none';
+
+    // 恢復背景頁面滾動
+    document.body.classList.remove('modal-open');
+    document.body.classList.remove('background-fixed');
+
+    // 重置背景色為白色（適合 papers 頁面）
+    gsap.to('body', { duration: 0.4, backgroundColor: '#ffffff', ease: 'sine.inOut' });
+
+    // 顯示 papers 頁面
+    pages.papers.classList.remove('hidden');
+    pages.papers.classList.add('active');
 }
 
 function showProjectDetailPage(slug) {
@@ -616,6 +672,9 @@ function hideFloatingProjectSelector() {
 
 // --- 主程式邏輯 ---
 function init() {
+    // 初始化頁面元素
+    initializePages();
+
     createSoundwave();
     setupEventListeners();
     updateProjectInfo(activeIndex, true);
@@ -2366,6 +2425,17 @@ function onTouchEnd(event) {
         scheduleAutoAnimation();
     }
 }
+
+// --- Papers 頁面事件監聽器 ---
+document.addEventListener('DOMContentLoaded', function() {
+    const papersBackBtn = document.getElementById('papers-back-btn');
+    if (papersBackBtn) {
+        papersBackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            navigateToRoute('/');
+        });
+    }
+});
 
 // --- 主程式邏輯 ---
 init();
