@@ -474,74 +474,262 @@ function updateProjectDetailContent(project) {
     if (project.slug === 'papers') {
         // Papers 專案使用 The Economist 風格內容
         contentDiv.innerHTML = `
-            <div class="economist-style-content">
-                <!-- 主要文章內容 -->
-                <div class="prose prose-lg max-w-none mb-8">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        在當代建築設計中，聲學環境的營造已成為不可忽視的重要因素。隨著城市化進程的加速和建築技術的革新，
-                        我們面臨著前所未有的聲學挑戰。從開放式辦公空間的噪音控制，到音樂廳的完美音響效果，
-                        每一個空間都需要精心的聲學設計。
-                    </p>
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        本研究深入探討了現代建築聲學設計的核心原理，分析了不同材料和結構對聲音傳播的影響，
-                        並提出了創新的解決方案。我們的研究團隊通過大量的實地測量和計算機模擬，
-                        為建築師和聲學工程師提供了實用的設計指導。
-                    </p>
-                </div>
-
-                <!-- 研究要點 -->
-                <div class="bg-gray-50 p-6 rounded-lg mb-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">研究重點</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">聲學材料創新</h4>
-                            <p class="text-gray-700 text-sm">探索新型吸音材料的應用與效果評估</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">空間聲學設計</h4>
-                            <p class="text-gray-700 text-sm">優化室內聲學環境的設計方法論</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">噪音控制技術</h4>
-                            <p class="text-gray-700 text-sm">城市環境中的噪音減緩策略</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">數位模擬工具</h4>
-                            <p class="text-gray-700 text-sm">先進的聲學模擬軟體應用</p>
-                        </div>
+            <div class="economist-style-content space-y-8">
+                <!-- 主要特色文章 -->
+                <article class="border-b border-gray-200 pb-8">
+                    <div class="mb-4">
+                        <span class="text-xs text-gray-500 uppercase tracking-wider">特色研究</span>
+                        <h2 class="text-2xl font-bold text-gray-900 mt-2 mb-4">建築聲學的數位革命</h2>
                     </div>
-                </div>
-
-                <!-- 研究方法 -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">研究方法</h3>
-                    <div class="space-y-4">
-                        <div class="border-l-4 border-blue-500 pl-4">
-                            <h4 class="font-semibold text-gray-900 mb-1">實地測量</h4>
-                            <p class="text-gray-700 text-sm">在不同類型的建築空間進行聲學參數測量，收集第一手數據</p>
-                        </div>
-                        <div class="border-l-4 border-green-500 pl-4">
-                            <h4 class="font-semibold text-gray-900 mb-1">計算機模擬</h4>
-                            <p class="text-gray-700 text-sm">使用先進的聲學模擬軟體，預測和優化設計方案</p>
-                        </div>
-                        <div class="border-l-4 border-orange-500 pl-4">
-                            <h4 class="font-semibold text-gray-900 mb-1">材料測試</h4>
-                            <p class="text-gray-700 text-sm">評估各種建築材料的聲學特性和應用潛力</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 研究成果 -->
-                <div class="mb-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">主要發現</h3>
-                    <div class="prose prose-sm max-w-none">
+                    <div class="prose prose-lg max-w-none">
                         <p class="text-gray-700 leading-relaxed mb-4">
-                            通過綜合分析，我們發現現代建築聲學設計的成功關鍵在於多學科的協作與創新技術的應用。
-                            傳統的聲學設計方法需要與新興的數位工具相結合，才能應對當代建築的複雜挑戰。
+                            人工智慧和機器學習正在重新定義建築聲學設計的邊界。最新研究顯示，AI驅動的聲學模擬技術能夠在設計階段預測並優化空間的聲學表現，
+                            準確度比傳統方法提升了40%。這項突破性進展為建築師和聲學工程師開啟了前所未有的設計可能性。
                         </p>
                         <p class="text-gray-700 leading-relaxed">
-                            我們的研究為未來的聲學設計提供了新的思路和方法，有助於創造更舒適、更高效的建築環境。
+                            從智慧音樂廳到自適應辦公空間，新一代的聲學設計正在創造更加人性化和高效的建築環境。
                         </p>
+                    </div>
+                </article>
+
+                <!-- 聲學研究簡報 -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="border-b border-gray-200 pb-3 mb-4">
+                        <h3 class="text-lg font-bold text-gray-900">聲學研究簡報</h3>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <p class="text-gray-700">
+                            <strong class="text-gray-900">MIT研究團隊</strong>發表了關於超材料在建築隔音中應用的突破性研究，
+                            新材料能夠在保持輕量化的同時提供優異的隔音效果...
+                        </p>
+                        <p class="text-gray-700">
+                            <strong class="text-gray-900">歐盟聲學標準委員會</strong>宣布將於2025年底更新建築聲學標準，
+                            新標準將納入智慧建築和可持續發展的考量...
+                        </p>
+                        <p class="text-gray-700">
+                            <strong class="text-gray-900">日本建築聲學協會</strong>的最新調查顯示，
+                            開放式辦公空間的聲學設計直接影響員工生產力，優化後的空間能提升工作效率達25%...
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-200">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                            繼續閱讀 →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 分類研究文章 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 材料科學 -->
+                    <div>
+                        <div class="border-b border-gray-200 pb-2 mb-4">
+                            <h3 class="text-lg font-bold text-gray-900">材料科學</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <article class="group cursor-pointer">
+                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
+                                    新型多孔材料在音樂廳中的應用研究
+                                </h4>
+                                <p class="text-gray-600 text-xs mb-2">
+                                    研究團隊開發出具有可調節吸音特性的智慧材料，能夠根據演出類型自動調整聲學參數
+                                </p>
+                                <div class="text-xs text-gray-500">2024年8月 • 材料工程</div>
+                            </article>
+
+                            <article class="group cursor-pointer">
+                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
+                                    生物基聲學材料的永續發展潛力
+                                </h4>
+                                <p class="text-gray-600 text-xs mb-2">
+                                    探索竹纖維和菌絲體材料在建築聲學中的創新應用
+                                </p>
+                                <div class="text-xs text-gray-500">2024年7月 • 永續建築</div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- 數位技術 -->
+                    <div>
+                        <div class="border-b border-gray-200 pb-2 mb-4">
+                            <h3 class="text-lg font-bold text-gray-900">數位技術</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <article class="group cursor-pointer">
+                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
+                                    虛擬實境在聲學設計驗證中的應用
+                                </h4>
+                                <p class="text-gray-600 text-xs mb-2">
+                                    VR技術讓設計師能夠在建造前體驗和調整空間的聲學效果
+                                </p>
+                                <div class="text-xs text-gray-500">2024年8月 • 設計工具</div>
+                            </article>
+
+                            <article class="group cursor-pointer">
+                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
+                                    機器學習優化大型場館聲學設計
+                                </h4>
+                                <p class="text-gray-600 text-xs mb-2">
+                                    AI算法能夠分析數千種設計方案，找出最佳的聲學配置
+                                </p>
+                                <div class="text-xs text-gray-500">2024年7月 • 人工智慧</div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 城市聲學 -->
+                <div class="border-t border-gray-200 pt-8">
+                    <div class="border-b border-gray-200 pb-2 mb-6">
+                        <h3 class="text-lg font-bold text-gray-900">城市聲學</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <article class="group cursor-pointer">
+                            <div class="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                                    <span class="text-blue-600 text-xs">聲景地圖</span>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm">
+                                智慧城市的聲景觀設計
+                            </h4>
+                            <p class="text-gray-600 text-xs">
+                                從噪音控制到聲音美學的城市規劃新思維
+                            </p>
+                        </article>
+
+                        <article class="group cursor-pointer">
+                            <div class="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                                    <span class="text-green-600 text-xs">交通噪音</span>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm">
+                                電動車時代的城市聲學挑戰
+                            </h4>
+                            <p class="text-gray-600 text-xs">
+                                靜音交通如何改變城市聲環境
+                            </p>
+                        </article>
+
+                        <article class="group cursor-pointer">
+                            <div class="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                                    <span class="text-purple-600 text-xs">公共空間</span>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm">
+                                公園與廣場的聲學設計原則
+                            </h4>
+                            <p class="text-gray-600 text-xs">
+                                創造促進社交互動的聲學環境
+                            </p>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- 數據與圖表 -->
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <div class="border-b border-blue-200 pb-3 mb-4">
+                        <h3 class="text-lg font-bold text-gray-900">數據洞察</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm">全球建築聲學市場趨勢</h4>
+                            <div class="bg-white p-4 rounded border">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs text-gray-600">市場規模</span>
+                                    <span class="text-sm font-semibold text-gray-900">$12.8B</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs text-gray-600">年增長率</span>
+                                    <span class="text-sm font-semibold text-green-600">+8.5%</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-600">主要驅動力</span>
+                                    <span class="text-xs text-gray-700">智慧建築需求</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm">研究熱點分析</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <div class="w-16 bg-blue-200 h-2 rounded mr-3"></div>
+                                    <span class="text-xs text-gray-700">AI聲學設計 (35%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-12 bg-green-200 h-2 rounded mr-3"></div>
+                                    <span class="text-xs text-gray-700">永續材料 (28%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 bg-purple-200 h-2 rounded mr-3"></div>
+                                    <span class="text-xs text-gray-700">城市聲學 (22%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-6 bg-orange-200 h-2 rounded mr-3"></div>
+                                    <span class="text-xs text-gray-700">其他 (15%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最新研究動態 -->
+                <div class="border-t border-gray-200 pt-8">
+                    <div class="border-b border-gray-200 pb-2 mb-6">
+                        <h3 class="text-lg font-bold text-gray-900">最新研究動態</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <article class="flex gap-4 pb-4 border-b border-gray-100">
+                            <div class="w-16 h-12 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center">
+                                <span class="text-xs text-gray-600">NEW</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-900 mb-1 text-sm">
+                                    史丹佛大學發布聲學超材料新突破
+                                </h4>
+                                <p class="text-gray-600 text-xs mb-2">
+                                    研究團隊開發出能夠主動控制聲波傳播的智慧超材料，為未來建築聲學設計開啟新可能...
+                                </p>
+                                <div class="text-xs text-gray-500">
+                                    2024年8月15日 • 材料科學 • 3分鐘閱讀
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="flex gap-4 pb-4 border-b border-gray-100">
+                            <div class="w-16 h-12 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center">
+                                <span class="text-xs text-gray-600">HOT</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-900 mb-1 text-sm">
+                                    2024年國際建築聲學大會重點回顧
+                                </h4>
+                                <p class="text-gray-600 text-xs mb-2">
+                                    來自全球的專家學者分享了最新的研究成果，AI輔助設計和永續材料成為討論焦點...
+                                </p>
+                                <div class="text-xs text-gray-500">
+                                    2024年8月12日 • 會議報導 • 5分鐘閱讀
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="flex gap-4">
+                            <div class="w-16 h-12 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center">
+                                <span class="text-xs text-gray-600">TECH</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-900 mb-1 text-sm">
+                                    聲學模擬軟體的機器學習整合趨勢
+                                </h4>
+                                <p class="text-gray-600 text-xs mb-2">
+                                    主要軟體廠商紛紛推出AI功能，讓聲學設計更加智慧化和高效...
+                                </p>
+                                <div class="text-xs text-gray-500">
+                                    2024年8月10日 • 技術趨勢 • 4分鐘閱讀
+                                </div>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </div>
