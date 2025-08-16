@@ -1,0 +1,53 @@
+# Git 還原點記錄
+
+## 2025-08-16 - The Economist 風格 Papers 頁面
+
+**Commit Hash:** ecc3c77
+
+**描述:** 為 index.html#/project/papers 創建了 The Economist 風格的頁面設計
+
+### 主要變更:
+
+1. **新增 Papers 頁面 (index.html)**
+   - 創建了全新的 papers 頁面，採用 The Economist 的設計風格
+   - 使用乾淨的白色背景和專業的排版
+   - 實現三欄布局：主要內容區、側邊欄
+   - 不包含 header 和 footer，專注於內容呈現
+
+2. **頁面結構:**
+   - 頂部導航：返回按鈕和頁面類別標識
+   - 主標題區域：大標題、描述文字、元數據
+   - 主要內容區域：
+     - 特色文章與圖片
+     - 研究重點網格
+     - 相關研究列表
+   - 右側邊欄：
+     - 研究摘要
+     - 最新研究
+     - 研究工具
+
+3. **路由系統更新 (script.js)**
+   - 修改了 pages 對象初始化方式
+   - 新增 showPapersPage() 函數
+   - 更新路由處理邏輯支援 /project/papers
+   - 新增 papers 頁面的事件監聽器
+
+4. **設計特色:**
+   - 採用 The Economist 的經典排版風格
+   - 清晰的層次結構和間距
+   - 專業的學術內容呈現
+   - 響應式設計適配不同螢幕尺寸
+
+### 功能測試:
+- ✅ 直接導航到 #/project/papers 正常顯示
+- ✅ 返回按鈕功能正常
+- ✅ 頁面布局在不同螢幕尺寸下正常顯示
+- ✅ 路由切換流暢無錯誤
+
+### 訪問方式:
+```
+file:///Users/eugenefang/Desktop/code/web_sep/index.html#/project/papers
+```
+
+### 備註:
+此版本成功實現了用戶要求的 The Economist 風格設計，提供了專業的學術內容展示平台。

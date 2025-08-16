@@ -451,6 +451,14 @@ function showProjectDetailPage(slug) {
 
     // 隱藏其他頁面
     pages.about.classList.remove('active');
+    if (pages.papers) {
+        pages.papers.classList.remove('active');
+        pages.papers.classList.add('hidden');
+    }
+
+    // 清理主頁的專案標題和圖片，避免穿透到專案詳情頁面
+    cleanupProjectTitle();
+    cleanupProjectImages();
 
     // 隱藏主頁面元素
     document.getElementById('soundwave-container').style.display = 'none';
