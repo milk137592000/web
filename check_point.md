@@ -1004,3 +1004,148 @@ file:///Users/eugenefang/Desktop/code/web_sep/apps.html
 
 ### 備註:
 此版本成功將 apps.html 轉換為現代企業網站風格，完全模仿 june15consulting.com 的設計理念和佈局結構。新設計更專業、更商業化，能夠更好地展示服務價值和建立客戶信任。
+
+---
+
+## 2025-08-16 - 將 apps 專案整合到 SPA 路由系統
+
+**Commit Hash:** 6cbb31c
+
+**描述:** 將 apps.html 的 june15consulting.com 風格內容完整整合到 SPA 路由系統中
+
+### 主要變更:
+
+**1. SPA 內容整合:**
+- 在 `script.js` 的 `updateProjectDetailContent` 函數中為 `apps` 專案添加特殊處理
+- 完整移植 june15consulting.com 風格的 HTML 結構和 CSS 樣式
+- 與 `papers` 專案類似，使用內嵌樣式確保設計獨立性
+
+**2. 完整內容移植:**
+- **Hero Section:** 大標題、副標題和 CTA 按鈕，漸層背景
+- **服務展示:** 6個服務卡片，包含 emoji 圖標和懸停效果
+- **流程說明:** 4步驟流程，圓形數字標記
+- **客戶案例:** 深色背景的成功故事和效益展示
+- **聯絡我們:** CTA 區塊
+
+**3. SPA 特殊優化:**
+- 移除不需要的專案圖片元素
+- 移除相關專案容器
+- 隱藏 AI 生成按鈕
+- 保持浮動導航條和專案選擇器功能
+
+**4. 互動功能實現:**
+- 服務卡片點擊效果
+- 動態事件監聽器綁定
+- 與 SPA 導航系統完美整合
+
+### 技術實現:
+
+**JavaScript 動態生成:**
+```javascript
+if (project.slug === 'apps') {
+    contentDiv.innerHTML = `
+        <style>/* june15consulting.com 風格樣式 */</style>
+        <div class="june15-container">
+            <!-- 完整的企業網站內容 -->
+        </div>
+    `;
+
+    // 添加互動效果
+    setTimeout(() => {
+        document.querySelectorAll('.june15-service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // 點擊反饋效果
+            });
+        });
+    }, 100);
+}
+```
+
+**樣式管理:**
+- 使用 `june15-` 前綴避免樣式衝突
+- 內嵌 CSS 確保樣式隔離
+- 響應式設計媒體查詢
+- 與 apps.html 完全一致的視覺效果
+
+**內容一致性:**
+- 與 apps.html 完全相同的內容結構
+- 相同的服務項目和流程說明
+- 相同的客戶案例和效益數據
+- 相同的視覺設計和互動效果
+
+### 用戶體驗優勢:
+
+**統一的設計風格:**
+- `index.html#/project/apps` 和 `apps.html` 現在有相同的設計
+- 無論從哪個入口進入都有一致的體驗
+- 保持了內容和視覺的統一性
+
+**SPA 導航優勢:**
+- 保持浮動導航條和專案選擇器
+- 流暢的頁面切換體驗
+- 與其他專案一致的導航方式
+- 專案名稱正確顯示在浮動導航條
+
+**完整功能保留:**
+- 所有 june15consulting.com 風格的視覺元素
+- 服務卡片的互動效果
+- 專業的企業形象展示
+- 完整的商業價值呈現
+
+### 功能測試:
+- ✅ SPA 路由正確顯示 june15consulting.com 風格
+- ✅ 與 apps.html 視覺效果完全一致
+- ✅ 服務卡片點擊互動正常
+- ✅ 浮動導航條功能正常，顯示"音源技繪"
+- ✅ 專案切換功能正常
+- ✅ 響應式設計適配正確
+- ✅ 所有內容區塊正確顯示
+
+### 訪問方式:
+```
+SPA 路由: file:///Users/eugenefang/Desktop/code/web_sep/index.html#/project/apps
+獨立頁面: file:///Users/eugenefang/Desktop/code/web_sep/apps.html
+```
+
+### 備註:
+此版本成功實現了用戶要求：將 apps.html 的 june15consulting.com 風格整合到 SPA 路由系統中，保持流暢導航體驗、統一視覺風格、浮動導航條和專案選擇器，以及與其他專案一致的互動方式。現在兩個入口都提供相同的專業企業網站體驗，同時保持了 SPA 的所有優勢。
+
+---
+
+## Git 還原點: web_apps
+
+**Tag Name:** web_apps
+**Commit Hash:** 6cbb31c
+**建立時間:** 2025-08-16 18:47:45 +0800
+**描述:** Web Apps 專案完成 - apps.html 整合到 SPA 系統
+
+### 還原點內容:
+此還原點標記了 Web Apps 專案的完整實現，包括：
+
+1. **apps.html 的 june15consulting.com 風格設計**
+2. **SPA 路由系統的完整整合**
+3. **統一的視覺風格和導航體驗**
+4. **所有互動功能的正常運作**
+
+### 如何使用此還原點:
+```bash
+# 查看還原點資訊
+git show web_apps
+
+# 回到此還原點
+git checkout web_apps
+
+# 從此還原點建立新分支
+git checkout -b new-branch web_apps
+
+# 查看所有還原點
+git tag -l
+```
+
+### 專案狀態:
+- ✅ apps.html 獨立頁面完成
+- ✅ SPA 路由整合完成
+- ✅ 視覺風格統一
+- ✅ 互動功能正常
+- ✅ 響應式設計適配
+- ✅ 文件記錄完整
