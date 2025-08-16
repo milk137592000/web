@@ -491,272 +491,516 @@ function updateProjectDetailContent(project) {
             }
         }
 
-        // Papers 專案使用 The Economist 風格內容
+        // Papers 專案使用 makingsoftware.com 風格的 Table of Contents
         contentDiv.innerHTML = `
-            <div class="economist-style-content space-y-8">
-                <!-- 主要特色文章 -->
-                <article class="border-b border-gray-200 pb-8">
-                    <div class="mb-4">
-                        <span class="text-xs text-gray-500 uppercase tracking-wider">特色研究</span>
-                        <h2 class="text-2xl font-bold text-gray-900 mt-2 mb-4">建築聲學的數位革命</h2>
-                    </div>
-                    <div class="prose prose-lg max-w-none">
-                        <p class="text-gray-700 leading-relaxed mb-4">
-                            人工智慧和機器學習正在重新定義建築聲學設計的邊界。最新研究顯示，AI驅動的聲學模擬技術能夠在設計階段預測並優化空間的聲學表現，
-                            準確度比傳統方法提升了40%。這項突破性進展為建築師和聲學工程師開啟了前所未有的設計可能性。
-                        </p>
-                        <p class="text-gray-700 leading-relaxed">
-                            從智慧音樂廳到自適應辦公空間，新一代的聲學設計正在創造更加人性化和高效的建築環境。
-                        </p>
-                    </div>
-                </article>
+            <style>
+                /* makingsoftware.com 風格樣式 */
+                .makingsoftware-container {
+                    font-family: 'JetBrains Mono', monospace;
+                    background: #ffffff;
+                    color: #000000;
+                    line-height: 1.6;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 40px 20px;
+                }
 
-                <!-- 聲學研究簡報 -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <div class="border-b border-gray-200 pb-3 mb-4">
-                        <h3 class="text-lg font-bold text-gray-900">聲學研究簡報</h3>
+                .main-title {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    margin-bottom: 0.5rem;
+                    letter-spacing: -0.02em;
+                }
+
+                .subtitle {
+                    font-size: 1rem;
+                    color: #666;
+                    margin-bottom: 3rem;
+                }
+
+                .toc-header {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin-bottom: 0.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                .toc-version {
+                    font-size: 0.9rem;
+                    color: #666;
+                    font-weight: 400;
+                }
+
+                .toc-stats {
+                    font-size: 0.9rem;
+                    color: #666;
+                    margin-bottom: 2rem;
+                }
+
+                .section {
+                    margin-bottom: 2rem;
+                }
+
+                .section-title {
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    margin-bottom: 1rem;
+                    color: #000;
+                }
+
+                .chapter-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .chapter-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.5rem 0;
+                    border-bottom: 1px solid #f0f0f0;
+                    transition: background-color 0.2s ease;
+                    cursor: pointer;
+                }
+
+                .chapter-item:hover {
+                    background-color: #f8f8f8;
+                }
+
+                .chapter-title {
+                    flex: 1;
+                    font-size: 0.9rem;
+                    color: #333;
+                }
+
+                .chapter-status {
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    margin-left: 1rem;
+                }
+
+                .status-complete {
+                    background-color: #22c55e;
+                }
+
+                .status-progress {
+                    background-color: #f59e0b;
+                }
+
+                .status-pending {
+                    background-color: #e5e7eb;
+                }
+
+                .chapter-meta {
+                    font-size: 0.8rem;
+                    color: #666;
+                    margin-left: 1rem;
+                }
+
+                .figure {
+                    margin: 3rem 0;
+                    text-align: center;
+                }
+
+                .figure-placeholder {
+                    width: 200px;
+                    height: 150px;
+                    background: #f0f0f0;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid #ddd;
+                    color: #666;
+                    font-size: 0.8rem;
+                }
+
+                .figure-caption {
+                    font-size: 0.8rem;
+                    color: #666;
+                    margin-top: 0.5rem;
+                }
+
+                .intro-text {
+                    margin: 3rem 0;
+                    line-height: 1.8;
+                    color: #333;
+                }
+
+                .intro-text p {
+                    margin-bottom: 1.5rem;
+                }
+
+                @media (max-width: 768px) {
+                    .makingsoftware-container {
+                        padding: 20px 15px;
+                    }
+
+                    .main-title {
+                        font-size: 2rem;
+                    }
+
+                    .chapter-item {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 0.5rem;
+                    }
+
+                    .chapter-meta {
+                        margin-left: 0;
+                    }
+                }
+            </style>
+
+            <div class="makingsoftware-container">
+                <!-- 標題區域 -->
+                <header>
+                    <h1 class="main-title">聲入淺出</h1>
+                    <p class="subtitle">聲學文獻研究的參考手冊，為設計和建造聲學環境的人們而寫。</p>
+                </header>
+
+                <!-- 圖片區域 -->
+                <div class="figure">
+                    <div class="figure-placeholder">
+                        <span>FIG_001</span>
                     </div>
-                    <div class="space-y-3 text-sm">
-                        <p class="text-gray-700">
-                            <strong class="text-gray-900">MIT研究團隊</strong>發表了關於超材料在建築隔音中應用的突破性研究，
-                            新材料能夠在保持輕量化的同時提供優異的隔音效果...
-                        </p>
-                        <p class="text-gray-700">
-                            <strong class="text-gray-900">歐盟聲學標準委員會</strong>宣布將於2025年底更新建築聲學標準，
-                            新標準將納入智慧建築和可持續發展的考量...
-                        </p>
-                        <p class="text-gray-700">
-                            <strong class="text-gray-900">日本建築聲學協會</strong>的最新調查顯示，
-                            開放式辦公空間的聲學設計直接影響員工生產力，優化後的空間能提升工作效率達25%...
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-200">
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                            繼續閱讀 →
-                        </a>
-                    </div>
+                    <div class="figure-caption">[ 聲學研究設備 ] © 2024</div>
                 </div>
 
-                <!-- 分類研究文章 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- 材料科學 -->
-                    <div>
-                        <div class="border-b border-gray-200 pb-2 mb-4">
-                            <h3 class="text-lg font-bold text-gray-900">材料科學</h3>
-                        </div>
-                        <div class="space-y-4">
-                            <article class="group cursor-pointer">
-                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
-                                    新型多孔材料在音樂廳中的應用研究
-                                </h4>
-                                <p class="text-gray-600 text-xs mb-2">
-                                    研究團隊開發出具有可調節吸音特性的智慧材料，能夠根據演出類型自動調整聲學參數
-                                </p>
-                                <div class="text-xs text-gray-500">2024年8月 • 材料工程</div>
-                            </article>
+                <!-- 簡介文字 -->
+                <div class="intro-text">
+                    <p>
+                        你是否曾經好奇過音樂廳的聲學設計是如何工作的？它們有著精心計算的幾何形狀和材料配置，
+                        當聲波在空間中傳播時，這些設計能夠控制聲音的反射、吸收和擴散。
+                    </p>
 
-                            <article class="group cursor-pointer">
-                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
-                                    生物基聲學材料的永續發展潛力
-                                </h4>
-                                <p class="text-gray-600 text-xs mb-2">
-                                    探索竹纖維和菌絲體材料在建築聲學中的創新應用
-                                </p>
-                                <div class="text-xs text-gray-500">2024年7月 • 永續建築</div>
-                            </article>
-                        </div>
-                    </div>
+                    <p>
+                        或者你想知道為什麼我們稱某些材料為「吸音材料」？當聲波撞擊這些材料時，
+                        它們的多孔結構會將聲能轉換為熱能，從而減少聲音的反射。
+                    </p>
 
-                    <!-- 數位技術 -->
-                    <div>
-                        <div class="border-b border-gray-200 pb-2 mb-4">
-                            <h3 class="text-lg font-bold text-gray-900">數位技術</h3>
-                        </div>
-                        <div class="space-y-4">
-                            <article class="group cursor-pointer">
-                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
-                                    虛擬實境在聲學設計驗證中的應用
-                                </h4>
-                                <p class="text-gray-600 text-xs mb-2">
-                                    VR技術讓設計師能夠在建造前體驗和調整空間的聲學效果
-                                </p>
-                                <div class="text-xs text-gray-500">2024年8月 • 設計工具</div>
-                            </article>
-
-                            <article class="group cursor-pointer">
-                                <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm leading-tight">
-                                    機器學習優化大型場館聲學設計
-                                </h4>
-                                <p class="text-gray-600 text-xs mb-2">
-                                    AI算法能夠分析數千種設計方案，找出最佳的聲學配置
-                                </p>
-                                <div class="text-xs text-gray-500">2024年7月 • 人工智慧</div>
-                            </article>
-                        </div>
-                    </div>
+                    <p>
+                        如果你對這些問題感到好奇，或者它們激發了你的興趣，那麼這個研究就是為你準備的。
+                    </p>
                 </div>
 
-                <!-- 城市聲學 -->
-                <div class="border-t border-gray-200 pt-8">
-                    <div class="border-b border-gray-200 pb-2 mb-6">
-                        <h3 class="text-lg font-bold text-gray-900">城市聲學</h3>
+                <!-- Table of Contents 區域 -->
+                <section style="margin: 4rem 0;">
+                    <div class="toc-header">
+                        <span>Table of contents</span>
+                        <span class="toc-version">[v1.0]</span>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <article class="group cursor-pointer">
-                            <div class="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
-                                <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                                    <span class="text-blue-600 text-xs">聲景地圖</span>
-                                </div>
-                            </div>
-                            <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm">
-                                智慧城市的聲景觀設計
-                            </h4>
-                            <p class="text-gray-600 text-xs">
-                                從噪音控制到聲音美學的城市規劃新思維
-                            </p>
-                        </article>
+                    <div class="toc-stats">[ 章節: 8 ⋅ 文獻: 45 ]</div>
 
-                        <article class="group cursor-pointer">
-                            <div class="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
-                                <div class="w-full h-full bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                                    <span class="text-green-600 text-xs">交通噪音</span>
-                                </div>
-                            </div>
-                            <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm">
-                                電動車時代的城市聲學挑戰
-                            </h4>
-                            <p class="text-gray-600 text-xs">
-                                靜音交通如何改變城市聲環境
-                            </p>
-                        </article>
-
-                        <article class="group cursor-pointer">
-                            <div class="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
-                                <div class="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                                    <span class="text-purple-600 text-xs">公共空間</span>
-                                </div>
-                            </div>
-                            <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 mb-2 text-sm">
-                                公園與廣場的聲學設計原則
-                            </h4>
-                            <p class="text-gray-600 text-xs">
-                                創造促進社交互動的聲學環境
-                            </p>
-                        </article>
+                    <!-- 聲學基礎 -->
+                    <div class="section">
+                        <div class="section-title">聲學基礎</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲波傳播原理</span>
+                                <span class="chapter-meta">2.1k 字</span>
+                                <div class="chapter-status status-complete"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">頻率與音高的關係</span>
+                                <span class="chapter-meta">1.8k 字</span>
+                                <div class="chapter-status status-complete"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲壓級與分貝</span>
+                                <span class="chapter-meta">1.5k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲音的反射與折射</span>
+                                <span class="chapter-meta">2.3k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
                     </div>
+
+                    <!-- 建築聲學 -->
+                    <div class="section">
+                        <div class="section-title">建築聲學</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">室內聲學設計原理</span>
+                                <span class="chapter-meta">3.2k 字</span>
+                                <div class="chapter-status status-complete"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">混響時間計算</span>
+                                <span class="chapter-meta">2.7k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">吸音材料特性</span>
+                                <span class="chapter-meta">2.1k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">隔音與隔振技術</span>
+                                <span class="chapter-meta">2.9k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 電聲技術 -->
+                    <div class="section">
+                        <div class="section-title">電聲技術</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">麥克風工作原理</span>
+                                <span class="chapter-meta">1.9k 字</span>
+                                <div class="chapter-status status-complete"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">揚聲器設計</span>
+                                <span class="chapter-meta">2.4k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">音響系統配置</span>
+                                <span class="chapter-meta">3.1k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">數位音訊處理</span>
+                                <span class="chapter-meta">2.8k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 聲學測量 -->
+                    <div class="section">
+                        <div class="section-title">聲學測量</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲級計使用方法</span>
+                                <span class="chapter-meta">1.6k 字</span>
+                                <div class="chapter-status status-complete"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">頻譜分析技術</span>
+                                <span class="chapter-meta">2.2k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲學參數測量</span>
+                                <span class="chapter-meta">2.5k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">環境噪音評估</span>
+                                <span class="chapter-meta">2.0k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 心理聲學 -->
+                    <div class="section">
+                        <div class="section-title">心理聲學</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">聽覺感知機制</span>
+                                <span class="chapter-meta">2.7k 字</span>
+                                <div class="chapter-status status-complete"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">音質評價方法</span>
+                                <span class="chapter-meta">2.1k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲音舒適度研究</span>
+                                <span class="chapter-meta">1.9k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">聽力保護</span>
+                                <span class="chapter-meta">1.7k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 數值模擬 -->
+                    <div class="section">
+                        <div class="section-title">數值模擬</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">有限元素法</span>
+                                <span class="chapter-meta">3.4k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">邊界元素法</span>
+                                <span class="chapter-meta">2.8k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">射線追蹤法</span>
+                                <span class="chapter-meta">2.3k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">統計聲學模型</span>
+                                <span class="chapter-meta">2.6k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 應用案例 -->
+                    <div class="section">
+                        <div class="section-title">應用案例</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">音樂廳聲學設計</span>
+                                <span class="chapter-meta">3.7k 字</span>
+                                <div class="chapter-status status-complete"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">錄音室設計</span>
+                                <span class="chapter-meta">2.9k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">開放式辦公室聲學</span>
+                                <span class="chapter-meta">2.4k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">住宅隔音設計</span>
+                                <span class="chapter-meta">2.1k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 其他主題 -->
+                    <div class="section">
+                        <div class="section-title">其他主題</div>
+                        <ul class="chapter-list">
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲學標準與法規</span>
+                                <span class="chapter-meta">2.2k 字</span>
+                                <div class="chapter-status status-progress"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">綠色聲學材料</span>
+                                <span class="chapter-meta">1.8k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">聲學軟體工具</span>
+                                <span class="chapter-meta">2.5k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">未來發展趨勢</span>
+                                <span class="chapter-meta">2.0k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                            <li class="chapter-item">
+                                <span class="chapter-title">常見問題解答</span>
+                                <span class="chapter-meta">1.5k 字</span>
+                                <div class="chapter-status status-pending"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 底部圖片 -->
+                <div class="figure">
+                    <div class="figure-placeholder">
+                        <span>FIG_002</span>
+                    </div>
+                    <div class="figure-caption">[ 聲學測量儀器 ] © 2024</div>
                 </div>
 
-                <!-- 數據與圖表 -->
-                <div class="bg-blue-50 p-6 rounded-lg">
-                    <div class="border-b border-blue-200 pb-3 mb-4">
-                        <h3 class="text-lg font-bold text-gray-900">數據洞察</h3>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold text-gray-900 mb-3 text-sm">全球建築聲學市場趨勢</h4>
-                            <div class="bg-white p-4 rounded border">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-xs text-gray-600">市場規模</span>
-                                    <span class="text-sm font-semibold text-gray-900">$12.8B</span>
-                                </div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-xs text-gray-600">年增長率</span>
-                                    <span class="text-sm font-semibold text-green-600">+8.5%</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs text-gray-600">主要驅動力</span>
-                                    <span class="text-xs text-gray-700">智慧建築需求</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 mb-3 text-sm">研究熱點分析</h4>
-                            <div class="space-y-2">
-                                <div class="flex items-center">
-                                    <div class="w-16 bg-blue-200 h-2 rounded mr-3"></div>
-                                    <span class="text-xs text-gray-700">AI聲學設計 (35%)</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="w-12 bg-green-200 h-2 rounded mr-3"></div>
-                                    <span class="text-xs text-gray-700">永續材料 (28%)</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="w-8 bg-purple-200 h-2 rounded mr-3"></div>
-                                    <span class="text-xs text-gray-700">城市聲學 (22%)</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="w-6 bg-orange-200 h-2 rounded mr-3"></div>
-                                    <span class="text-xs text-gray-700">其他 (15%)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- 常見問題 -->
+                <section style="margin: 4rem 0;">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">常見問題</h3>
 
-                <!-- 最新研究動態 -->
-                <div class="border-t border-gray-200 pt-8">
-                    <div class="border-b border-gray-200 pb-2 mb-6">
-                        <h3 class="text-lg font-bold text-gray-900">最新研究動態</h3>
+                    <div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                            <thead>
+                                <tr style="background: #f8f8f8;">
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #ddd; width: 60px;">編號</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #ddd;">問題</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 1px solid #ddd;">回答</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">01</td>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">這會是實體書嗎？</td>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">目前計劃以數位版本發布，可能提供PDF下載。如果有足夠的需求，會考慮印刷版本。</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">02</td>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">何時會發布？</td>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">預計在2024年底前完成。由於需要大量的研究和整理工作，請耐心等待。</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">03</td>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">如何獲得更新？</td>
+                                    <td style="padding: 1rem; border-bottom: 1px solid #eee;">可以訂閱我們的郵件列表，我們會定期發送進度更新和新章節預覽。</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem;">04</td>
+                                    <td style="padding: 1rem;">需要什麼背景知識？</td>
+                                    <td style="padding: 1rem;">不需要深厚的技術背景。我們會用大量的圖表和實例來解釋複雜的概念，只需要保持好奇心即可。</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="space-y-4">
-                        <article class="flex gap-4 pb-4 border-b border-gray-100">
-                            <div class="w-16 h-12 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center">
-                                <span class="text-xs text-gray-600">NEW</span>
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-semibold text-gray-900 mb-1 text-sm">
-                                    史丹佛大學發布聲學超材料新突破
-                                </h4>
-                                <p class="text-gray-600 text-xs mb-2">
-                                    研究團隊開發出能夠主動控制聲波傳播的智慧超材料，為未來建築聲學設計開啟新可能...
-                                </p>
-                                <div class="text-xs text-gray-500">
-                                    2024年8月15日 • 材料科學 • 3分鐘閱讀
-                                </div>
-                            </div>
-                        </article>
+                </section>
 
-                        <article class="flex gap-4 pb-4 border-b border-gray-100">
-                            <div class="w-16 h-12 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center">
-                                <span class="text-xs text-gray-600">HOT</span>
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-semibold text-gray-900 mb-1 text-sm">
-                                    2024年國際建築聲學大會重點回顧
-                                </h4>
-                                <p class="text-gray-600 text-xs mb-2">
-                                    來自全球的專家學者分享了最新的研究成果，AI輔助設計和永續材料成為討論焦點...
-                                </p>
-                                <div class="text-xs text-gray-500">
-                                    2024年8月12日 • 會議報導 • 5分鐘閱讀
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="flex gap-4">
-                            <div class="w-16 h-12 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center">
-                                <span class="text-xs text-gray-600">TECH</span>
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-semibold text-gray-900 mb-1 text-sm">
-                                    聲學模擬軟體的機器學習整合趨勢
-                                </h4>
-                                <p class="text-gray-600 text-xs mb-2">
-                                    主要軟體廠商紛紛推出AI功能，讓聲學設計更加智慧化和高效...
-                                </p>
-                                <div class="text-xs text-gray-500">
-                                    2024年8月10日 • 技術趨勢 • 4分鐘閱讀
-                                </div>
-                            </div>
-                        </article>
+                <!-- 頁腳 -->
+                <footer style="margin: 4rem 0 2rem 0; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #666; font-size: 0.8rem;">
+                    <p style="margin-bottom: 0.5rem;">***</p>
+                    <p style="margin-bottom: 0.5rem;">
+                        | 聲入淺出 | 聲學文獻研究的參考手冊，為設計和建造聲學環境的人們而寫。
+                    </p>
+                    <p style="margin-bottom: 0.5rem;">
+                        撰寫與整理：yunique | © 2024
+                    </p>
+                    <div style="margin-top: 1rem;">
+                        <span style="font-family: monospace;">當前進度: ███▓▒░░░░░░░░░░░░</span>
                     </div>
-                </div>
+                </footer>
             </div>
+
         `;
 
         // 隱藏 AI 生成按鈕，因為 papers 專案已經有完整內容
         document.getElementById('project-detail-generate').style.display = 'none';
         document.getElementById('project-detail-loader').classList.add('hidden');
+
+        // 添加章節項目的點擊互動效果
+        setTimeout(() => {
+            document.querySelectorAll('.chapter-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // 簡單的點擊反饋
+                    this.style.backgroundColor = '#f0f0f0';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                    }, 200);
+
+                    // 這裡可以添加跳轉到具體章節的邏輯
+                    console.log('點擊了章節:', this.querySelector('.chapter-title').textContent);
+                });
+            });
+        }, 100);
 
 
     } else {
