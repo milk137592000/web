@@ -16,144 +16,448 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- 引入分離的 CSS 檔案 -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- june15consulting.com 風格樣式 -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-section {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: #eff6ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a1a1a;
+        }
+
+        .service-description {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .process-section {
+            background: #f8fafc;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .process-number {
+            width: 60px;
+            height: 60px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .process-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a1a1a;
+        }
+
+        .process-description {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-section {
+            background: #1e293b;
+            color: white;
+        }
+
+        .testimonial-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            text-align: center;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: #334155;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .benefit-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+
+        .benefit-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .contact-subtitle {
+            font-size: 1.125rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white modal-open background-fixed">
+<body>
 
-    <!-- 專案詳情頁面 - 浮動視窗樣式 -->
-    <div id="page-project-detail" class="page active">
-        <!-- 半透明背景遮罩 -->
-        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"></div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">專業聲學量測與模擬技術</h1>
+            <p class="hero-subtitle">
+                聲學量測不只是測量。我們運用先進的模擬技術和精密儀器，為企業打造最適合的聲學環境，
+                提升工作效率並創造舒適的空間體驗。
+            </p>
+            <a href="#contact" class="cta-button">立即諮詢</a>
+        </div>
+    </section>
 
-        <!-- 浮動專案詳情視窗 -->
-        <div class="fixed left-4 right-4 top-20 bottom-4 md:left-8 md:right-8 md:top-24 md:bottom-8 lg:left-16 lg:right-16 lg:top-28 lg:bottom-16 z-50 bg-white backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-            <!-- 可滾動內容區域 -->
-            <div class="overflow-y-auto h-full text-gray-900">
+    <!-- Services Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">全方位聲學解決方案</h2>
+            <p class="section-subtitle">
+                我們的專業團隊提供從量測分析到實施優化的完整服務，確保您的空間達到最佳聲學表現。
+            </p>
 
-                <!-- 專案標題區域 -->
-                <div class="px-6 py-8">
-                    <h1 class="text-4xl md:text-5xl font-bold italic mb-4 leading-tight">音源技繪</h1>
-                    <p class="text-lg text-gray-500 mb-6 uppercase tracking-wider">聲學量測與模擬技術</p>
-                    <p class="text-base text-gray-700 leading-relaxed">為現代企業打造的寧靜工作環境，運用先進隔音技術，提升員工專注力與工作效率。</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">聲學量測分析</h3>
+                    <p class="service-description">
+                        使用專業級聲學儀器進行現場量測，包括混響時間、背景噪音、隔音性能等關鍵參數的精確分析。
+                    </p>
                 </div>
 
-                <!-- 專案資訊網格 -->
-                <div class="px-6 mb-8">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">設計</h3>
-                            <p class="text-gray-900 font-medium text-sm">辦公室聲學規劃</p>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">年份</h3>
-                            <p class="text-gray-900 font-medium text-sm">2024</p>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">客戶</h3>
-                            <p class="text-gray-900 font-medium text-sm">科技公司總部</p>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">地點</h3>
-                            <p class="text-gray-900 font-medium text-sm">新北市板橋區</p>
-                        </div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🖥️</div>
+                    <h3 class="service-title">3D 聲學模擬</h3>
+                    <p class="service-description">
+                        運用先進的電腦模擬技術，在施工前預測空間的聲學表現，優化設計方案並降低成本風險。
+                    </p>
                 </div>
 
-                <!-- 專案圖片 -->
-                <div class="px-6 mb-8">
-                    <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-                        <img src="../office.svg" alt="音源技繪專案" class="w-full h-full object-cover">
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3 class="service-title">辦公空間優化</h3>
+                    <p class="service-description">
+                        針對開放式辦公室、會議室、電話亭等不同區域，提供客製化的聲學設計和材料配置建議。
+                    </p>
                 </div>
 
-                <!-- AI 生成內容區域 -->
-                <div class="px-6 mb-8">
-                    <h2 class="text-2xl font-bold mb-6">設計理念</h2>
-                    <div class="bg-gray-50 p-6 rounded-lg mb-6">
-                        <p class="text-gray-700 leading-relaxed text-sm">在現代辦公環境中，聲學設計不僅關乎舒適度，更直接影響工作效率與員工福祉。音源技繪專案運用最先進的聲學量測與模擬技術，為科技公司總部打造了一個兼具開放性與私密性的工作空間。
-
-透過精密的聲場分析，我們識別出不同工作區域的聲學需求：開放辦公區需要適度的背景噪音來遮蔽干擾，會議室則需要優異的隔音效果確保機密性，而休息區域則營造輕鬆的聲學氛圍促進員工交流。
-
-專案採用創新的可調節聲學材料，能夠根據不同時段和使用需求動態調整空間的聲學特性。同時整合智慧HVAC系統的噪音控制，確保機械設備運轉時不會影響工作環境的寧靜。
-
-最終成果不僅提升了員工的工作專注力，更創造了一個促進創新思維的聲學環境，充分體現了現代辦公空間設計的新標準。</p>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3 class="service-title">HVAC 噪音控制</h3>
+                    <p class="service-description">
+                        專業的機械設備噪音分析與控制，確保空調、通風系統運作時不影響室內聲學環境品質。
+                    </p>
                 </div>
 
-                <!-- 專案規格詳細 -->
-                <div class="px-6 mb-8">
-                    <h2 class="text-2xl font-bold mb-6">專案規格</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-3">
-                            <div>
-                                <span class="text-gray-500 text-xs uppercase tracking-wider">專案類型</span>
-                                <p class="text-gray-900 font-medium text-sm">聲學量測與模擬技術</p>
-                            </div>
-                            <div>
-                                <span class="text-gray-500 text-xs uppercase tracking-wider">面積</span>
-                                <p class="text-gray-900 font-medium text-sm">3,200 平方公尺</p>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div>
-                                <span class="text-gray-500 text-xs uppercase tracking-wider">服務項目</span>
-                                <div class="space-y-1">
-                                    <div class="text-gray-900 font-medium text-sm">辦公室聲學規劃</div>
-                                    <div class="text-gray-900 font-medium text-sm">會議室隔音</div>
-                                    <div class="text-gray-900 font-medium text-sm">開放空間音場設計</div>
-                                    <div class="text-gray-900 font-medium text-sm">HVAC噪音控制</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3 class="service-title">智慧監測系統</h3>
+                    <p class="service-description">
+                        建置即時聲學監測系統，持續追蹤空間聲學表現，提供數據驅動的優化建議。
+                    </p>
                 </div>
 
-                <!-- 相關專案 -->
-                <div class="px-6 mb-8">
-                    <h2 class="text-2xl font-bold mb-6">相關專案</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='consulting.html'">
-                            <h3 class="font-semibold text-gray-900 mb-2">自聲自滅</h3>
-                            <p class="text-gray-600 text-sm mb-2">客製化聲學服務</p>
-                            <p class="text-gray-500 text-xs">住宅隔音設計解決方案</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='rumor.html'">
-                            <h3 class="font-semibold text-gray-900 mb-2">音錯陽差</h3>
-                            <p class="text-gray-600 text-sm mb-2">建築聲學之流言終結者</p>
-                            <p class="text-gray-500 text-xs">多媒體展演空間聲學設計</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='others.html'">
-                            <h3 class="font-semibold text-gray-900 mb-2">有聲有色</h3>
-                            <p class="text-gray-600 text-sm mb-2">聲學大雜燴</p>
-                            <p class="text-gray-500 text-xs">圖書館聲學環境優化</p>
-                        </div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3 class="service-title">客製化解決方案</h3>
+                    <p class="service-description">
+                        根據不同行業和使用需求，設計專屬的聲學解決方案，從錄音室到醫療院所都有豐富經驗。
+                    </p>
                 </div>
-
             </div>
         </div>
+    </section>
 
-        <!-- Paffi 風格浮動導航條 -->
-        <div id="floating-nav-bar" class="fixed left-1/2 bottom-8 -translate-x-1/2 z-60 opacity-100 visible transition-all duration-300 show">
-            <div class="bg-black/60 backdrop-blur-md rounded-full px-6 py-3 shadow-2xl border border-white/10 flex items-center space-x-6">
-                <!-- 中間：當前專案名稱 -->
-                <div class="text-white font-medium text-sm px-4 whitespace-nowrap">
-                    音源技繪
+    <!-- Process Section -->
+    <section class="section process-section">
+        <div class="container">
+            <h2 class="section-title">我們的專業流程</h2>
+            <p class="section-subtitle">
+                透過系統化的四步驟流程，我們確保每個專案都能達到最佳的聲學表現，
+                從初期評估到最終優化，全程提供專業指導。
+            </p>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <h3 class="process-title">現場評估分析</h3>
+                    <p class="process-description">
+                        專業團隊到現場進行詳細的聲學環境評估，使用精密儀器量測現況，
+                        分析問題根源並評估改善潛力。
+                    </p>
                 </div>
 
-                <!-- 右側：返回按鈕 -->
-                <button id="back-to-home" class="flex items-center text-white/70 hover:text-white transition-colors group">
-                    <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
-                    </div>
-                </button>
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <h3 class="process-title">客製化方案設計</h3>
+                    <p class="process-description">
+                        根據評估結果和客戶需求，設計專屬的聲學解決方案，
+                        包括材料選擇、空間配置和系統整合建議。
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <h3 class="process-title">專業施工執行</h3>
+                    <p class="process-description">
+                        由經驗豐富的施工團隊執行聲學改善工程，
+                        嚴格遵循設計規範，確保施工品質和進度控制。
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <h3 class="process-title">效果驗證優化</h3>
+                    <p class="process-description">
+                        完工後進行全面的聲學性能驗證，確認達到設計目標，
+                        並提供後續的維護建議和優化服務。
+                    </p>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="section testimonial-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">客戶成功案例</h2>
+            <div class="testimonial-quote">
+                "與 yunique 合作改造我們的辦公空間是最明智的決定。他們的專業團隊不僅解決了開放式辦公室的噪音問題，
+                更創造了一個讓員工更專注、更有創造力的工作環境。現在我們的員工滿意度提升了40%，工作效率也顯著改善。"
+            </div>
+            <div class="testimonial-author">— 李總經理，科技公司總部</div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3 class="benefit-title">工作效率提升</h3>
+                    <p class="benefit-description">
+                        透過精確的聲學設計，員工專注力提升35%，會議效率改善50%，
+                        創造更高品質的工作產出。
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3 class="benefit-title">員工滿意度改善</h3>
+                    <p class="benefit-description">
+                        舒適的聲學環境大幅降低工作壓力，員工滿意度調查顯示
+                        40%的改善，離職率下降25%。
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3 class="benefit-title">空間使用優化</h3>
+                    <p class="benefit-description">
+                        智慧聲學分區設計讓空間使用更靈活，不同功能區域
+                        都能發揮最大效益，提升整體空間價值。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="contact-title">準備開始您的聲學改善計畫？</h2>
+            <p class="contact-subtitle">
+                聯絡我們的專業團隊，讓我們為您打造最適合的聲學環境解決方案。
+            </p>
+            <a href="mailto:info@yunique.com" class="cta-button">立即聯絡我們</a>
+        </div>
+    </section>
+
+    <!-- 返回主頁按鈕 -->
+    <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
+        <button id="back-to-home" style="
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.background='rgba(0, 0, 0, 0.9)'" onmouseout="this.style.background='rgba(0, 0, 0, 0.8)'">
+            ← 返回主頁
+        </button>
     </div>
 
     <script>
@@ -162,21 +466,63 @@
             window.location.href = 'index.html';
         });
 
+        // 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 服務卡片點擊效果
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // 簡單的點擊反饋
+                this.style.transform = 'translateY(-8px)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-4px)';
+                }, 150);
+            });
+        });
+
         // 頁面載入動畫
         document.addEventListener('DOMContentLoaded', () => {
-            const projectDetail = document.getElementById('page-project-detail');
-            const floatingWindow = projectDetail.querySelector('.fixed.left-4');
-            
-            // 初始狀態
-            floatingWindow.style.transform = 'scale(0.95)';
-            floatingWindow.style.opacity = '0';
-            
-            // 動畫進入
+            // 淡入動畫
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+
             setTimeout(() => {
-                floatingWindow.style.transition = 'transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.4s ease';
-                floatingWindow.style.transform = 'scale(1)';
-                floatingWindow.style.opacity = '1';
+                document.body.style.opacity = '1';
             }, 100);
+
+            // 滾動動畫
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // 觀察所有 section
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
         });
     </script>
 

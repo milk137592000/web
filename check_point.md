@@ -735,3 +735,179 @@ document.getElementById('about-home-btn').addEventListener('click', (e) => {
 
 ### 備註:
 此版本成功將 about 頁面獨立為單獨的 HTML 檔案，完全保持了原本的視覺效果和功能，包括 materica 紋理背景和 TTS 語音播放功能，同時提供了更好的獨立性和維護性。現在整個網站的所有主要頁面都已獨立化。
+
+---
+
+## 2025-08-16 - 重新設計 papers.html 為 makingsoftware.com 風格
+
+**Commit Hash:** 046b389
+
+**描述:** 將 papers.html 從 The Economist 風格重新設計為 makingsoftware.com 風格的 Table of Contents
+
+### 設計變更:
+
+**1. 風格轉換:**
+- 從 The Economist 新聞風格轉為 makingsoftware.com 的極簡風格
+- 採用簡潔的黑白配色方案
+- 使用等寬字體 (JetBrains Mono) 替代原本的字體
+- 極簡的設計美學，專注於內容結構
+
+**2. 新的內容結構:**
+- **標題區域:** 聲入淺出 + 副標題說明
+- **圖片區域:** 簡潔的 FIG_001 和 FIG_002 佔位符
+- **簡介文字:** 三段式的引導性內容
+- **Table of Contents:** 完整的章節目錄結構
+- **常見問題:** 表格形式的 FAQ
+- **頁腳:** 簡潔的版權和進度資訊
+
+**3. Table of Contents 結構:**
+- **8個主要章節:** 聲學基礎、建築聲學、電聲技術、聲學測量、心理聲學、數值模擬、應用案例、其他主題
+- **45篇文獻:** 每個章節包含4-5篇相關文獻
+- **狀態指示器:** 完成(綠色)、進行中(橙色)、待處理(灰色)
+- **字數統計:** 每篇文獻顯示預估字數
+
+**4. 互動功能:**
+- 章節項目點擊效果
+- 響應式設計適配
+- 簡潔的視覺反饋
+
+### 技術實現:
+
+**CSS 樣式:**
+- 使用內嵌 CSS 確保樣式獨立性
+- 等寬字體 (JetBrains Mono) 營造技術感
+- 簡潔的邊框和間距設計
+- 響應式媒體查詢
+
+**JavaScript 功能:**
+- 章節項目點擊互動效果
+- 簡單的視覺反饋動畫
+- 控制台日誌記錄點擊事件
+
+### 內容特色:
+
+**專業性:**
+- 涵蓋聲學領域的8個主要分支
+- 從基礎理論到實際應用的完整體系
+- 45篇精選文獻的系統性整理
+
+**實用性:**
+- 清晰的進度指示器
+- 詳細的字數統計
+- 常見問題解答
+
+**設計美學:**
+- 極簡的黑白配色
+- 等寬字體的技術美感
+- 清晰的資訊層次
+
+### 功能測試:
+- ✅ makingsoftware.com 風格正確呈現
+- ✅ Table of Contents 結構完整
+- ✅ 章節項目點擊互動正常
+- ✅ 響應式設計適配各種螢幕
+- ✅ 狀態指示器顯示正確
+- ✅ 常見問題表格正常顯示
+
+### 訪問方式:
+```
+file:///Users/eugenefang/Desktop/code/web_sep/papers.html
+```
+
+### 備註:
+此版本成功將 papers.html 轉換為 makingsoftware.com 風格的 Table of Contents，提供了更專業、更技術導向的視覺體驗，同時保持了內容的豐富性和實用性。
+
+---
+
+## 2025-08-16 - 將 SPA 路由改為 makingsoftware.com 風格
+
+**Commit Hash:** 69db4bf
+
+**描述:** 將 papers 專案的 SPA 路由 (index.html#/project/papers) 改為與 papers.html 相同的 makingsoftware.com 風格
+
+### 主要變更:
+
+**1. SPA 內容替換:**
+- 完全替換原本的 The Economist 風格內容
+- 在 script.js 中為 papers 專案生成 makingsoftware.com 風格的 HTML
+- 保持 SPA 的浮動視窗架構和導航體驗
+
+**2. 樣式整合:**
+- 在 JavaScript 中內嵌完整的 makingsoftware.com 風格 CSS
+- 使用等寬字體 (JetBrains Mono)
+- 簡潔的黑白配色方案
+- 響應式設計媒體查詢
+
+**3. 內容一致性:**
+- 與 papers.html 完全相同的 Table of Contents 結構
+- 相同的8個章節和45篇文獻
+- 相同的狀態指示器和字數統計
+- 相同的常見問題和頁腳內容
+
+**4. 互動功能增強:**
+- 章節項目點擊效果
+- 動態事件監聽器綁定
+- 控制台日誌記錄
+- 保持 SPA 的流暢導航體驗
+
+### 技術實現:
+
+**JavaScript 動態生成:**
+```javascript
+if (project.slug === 'papers') {
+    contentDiv.innerHTML = `
+        <style>/* makingsoftware.com 風格樣式 */</style>
+        <div class="makingsoftware-container">
+            <!-- 完整的 Table of Contents 內容 -->
+        </div>
+    `;
+
+    // 添加互動效果
+    setTimeout(() => {
+        document.querySelectorAll('.chapter-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 點擊反饋效果
+            });
+        });
+    }, 100);
+}
+```
+
+**樣式管理:**
+- 內嵌 CSS 確保樣式隔離
+- 響應式設計適配
+- 與 papers.html 完全一致的視覺效果
+
+### 用戶體驗優勢:
+
+**統一的設計風格:**
+- index.html#/project/papers 和 papers.html 現在有相同的設計
+- 無論從哪個入口進入都有一致的體驗
+- 保持了內容和視覺的統一性
+
+**SPA 導航優勢:**
+- 保持浮動導航條和專案選擇器
+- 流暢的頁面切換體驗
+- 與其他專案一致的導航方式
+
+**內容完整性:**
+- 完整的 Table of Contents 結構
+- 豐富的章節和文獻資訊
+- 專業的學術內容展示
+
+### 功能測試:
+- ✅ SPA 路由正確顯示 makingsoftware.com 風格
+- ✅ 與 papers.html 視覺效果完全一致
+- ✅ 章節項目點擊互動正常
+- ✅ 浮動導航條功能正常
+- ✅ 專案切換功能正常
+- ✅ 響應式設計適配正確
+
+### 訪問方式:
+```
+SPA 路由: file:///Users/eugenefang/Desktop/code/web_sep/index.html#/project/papers
+獨立頁面: file:///Users/eugenefang/Desktop/code/web_sep/papers.html
+```
+
+### 備註:
+此版本成功實現了用戶要求的選項1：將 papers.html 的新設計應用到 SPA 路由中。現在兩個入口都提供相同的 makingsoftware.com 風格體驗，同時保持了 SPA 的流暢導航優勢。用戶可以享受一致的視覺體驗和豐富的內容展示。
