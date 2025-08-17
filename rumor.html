@@ -16,166 +16,174 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-    <!-- 引入分離的 CSS 檔案 -->
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: white;
+            color: black;
+        }
+
+        .project-link {
+            font-weight: 900;
+            font-size: 17px;
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 8px 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .project-link:hover {
+            opacity: 0.6;
+        }
+
+        .nav-link {
+            font-weight: 900;
+            font-size: 17px;
+            text-decoration: none;
+            color: black;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-link:hover {
+            opacity: 0.6;
+        }
+
+        .project-detail {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .project-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white modal-open background-fixed">
+<body class="bg-white text-black">
 
-    <!-- 專案詳情頁面 - 浮動視窗樣式 -->
-    <div id="page-project-detail" class="page active">
-        <!-- 半透明背景遮罩 -->
-        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"></div>
-
-        <!-- 浮動專案詳情視窗 -->
-        <div class="fixed left-4 right-4 top-20 bottom-4 md:left-8 md:right-8 md:top-24 md:bottom-8 lg:left-16 lg:right-16 lg:top-28 lg:bottom-16 z-50 bg-white backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-            <!-- 可滾動內容區域 -->
-            <div class="overflow-y-auto h-full text-gray-900">
-
-                <!-- 專案標題區域 -->
-                <div class="px-6 py-8">
-                    <h1 class="text-4xl md:text-5xl font-bold italic mb-4 leading-tight">音錯陽差</h1>
-                    <p class="text-lg text-gray-500 mb-6 uppercase tracking-wider">建築聲學之流言終結者</p>
-                    <p class="text-base text-gray-700 leading-relaxed">結合藝術與科技的創新空間，為多媒體展演提供最佳的聲學環境與視聽體驗。</p>
+    <!-- 專案詳情頁面 - Cam Hicks 風格 -->
+    <div id="page-project-detail" class="page active min-h-screen">
+        <!-- 導航區域 -->
+        <header class="px-6 py-8 md:px-12 lg:px-24">
+            <nav class="flex justify-between items-start">
+                <div class="flex space-x-8">
+                    <a href="index.html" class="nav-link">Work</a>
+                    <a href="index.html" class="nav-link">yunique</a>
+                    <a href="#" class="nav-link">Info</a>
                 </div>
+            </nav>
+        </header>
 
-                <!-- 專案資訊網格 -->
-                <div class="px-6 mb-8">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">設計</h3>
-                            <p class="text-gray-900 font-medium text-sm">展演空間聲學</p>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">年份</h3>
-                            <p class="text-gray-900 font-medium text-sm">2024</p>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">客戶</h3>
-                            <p class="text-gray-900 font-medium text-sm">文化藝術基金會</p>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">地點</h3>
-                            <p class="text-gray-900 font-medium text-sm">台中市西區</p>
-                        </div>
-                    </div>
+        <!-- 主要內容區域 -->
+        <main class="px-6 md:px-12 lg:px-24 pb-12">
+            <!-- 專案標題和導航 -->
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h1 class="text-2xl font-black mb-2">音錯陽差</h1>
+                    <a href="index.html" class="nav-link text-sm">Close</a>
                 </div>
-
-                <!-- 專案圖片 -->
-                <div class="px-6 mb-8">
-                    <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-                        <img src="../multimedia.svg" alt="音錯陽差專案" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <!-- AI 生成內容區域 -->
-                <div class="px-6 mb-8">
-                    <h2 class="text-2xl font-bold mb-6">設計理念</h2>
-                    <div class="bg-gray-50 p-6 rounded-lg mb-6">
-                        <p class="text-gray-700 leading-relaxed text-sm">音錯陽差專案以「流言終結者」為設計理念，致力於打破傳統建築聲學的迷思與限制，創造出真正符合現代多媒體展演需求的創新空間。
-
-在台中市西區這個充滿藝術氣息的文化區域，我們為文化藝術基金會打造了一個革命性的展演空間。專案名稱「音錯陽差」巧妙地暗示了聲學設計中的精密計算與意外驚喜，每一個聲音的反射、每一次音波的交匯，都經過精心設計卻又保留了藝術創作的自由度。
-
-展演空間聲學設計採用了模組化的可變聲學系統，能夠根據不同類型的表演快速調整空間的聲學特性。無論是古典音樂會需要的豐富殘響，還是現代電子音樂需要的清晰定位，都能在同一個空間中完美呈現。
-
-多媒體音響系統的整合更是本專案的技術亮點，我們開發了智慧聲場控制系統，能夠即時分析演出內容並自動調整音響參數，確保每一位觀眾都能獲得最佳的聽覺體驗。互動裝置聲學設計則讓觀眾成為聲音創作的一部分，真正實現了藝術與科技的完美融合。</p>
-                    </div>
-                </div>
-
-                <!-- 專案規格詳細 -->
-                <div class="px-6 mb-8">
-                    <h2 class="text-2xl font-bold mb-6">專案規格</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-3">
-                            <div>
-                                <span class="text-gray-500 text-xs uppercase tracking-wider">專案類型</span>
-                                <p class="text-gray-900 font-medium text-sm">建築聲學之流言終結者</p>
-                            </div>
-                            <div>
-                                <span class="text-gray-500 text-xs uppercase tracking-wider">面積</span>
-                                <p class="text-gray-900 font-medium text-sm">1,800 平方公尺</p>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div>
-                                <span class="text-gray-500 text-xs uppercase tracking-wider">服務項目</span>
-                                <div class="space-y-1">
-                                    <div class="text-gray-900 font-medium text-sm">展演空間聲學</div>
-                                    <div class="text-gray-900 font-medium text-sm">多媒體音響系統</div>
-                                    <div class="text-gray-900 font-medium text-sm">互動裝置聲學</div>
-                                    <div class="text-gray-900 font-medium text-sm">觀眾席音場設計</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 相關專案 -->
-                <div class="px-6 mb-8">
-                    <h2 class="text-2xl font-bold mb-6">相關專案</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='apps.html'">
-                            <h3 class="font-semibold text-gray-900 mb-2">音源技繪</h3>
-                            <p class="text-gray-600 text-sm mb-2">聲學量測與模擬技術</p>
-                            <p class="text-gray-500 text-xs">現代辦公環境聲學設計</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='consulting.html'">
-                            <h3 class="font-semibold text-gray-900 mb-2">自聲自滅</h3>
-                            <p class="text-gray-600 text-sm mb-2">客製化聲學服務</p>
-                            <p class="text-gray-500 text-xs">住宅隔音設計解決方案</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer" onclick="window.location.href='others.html'">
-                            <h3 class="font-semibold text-gray-900 mb-2">有聲有色</h3>
-                            <p class="text-gray-600 text-sm mb-2">聲學大雜燴</p>
-                            <p class="text-gray-500 text-xs">圖書館聲學環境優化</p>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="text-sm">建築聲學之流言終結者</div>
             </div>
-        </div>
 
-        <!-- Paffi 風格浮動導航條 -->
-        <div id="floating-nav-bar" class="fixed left-1/2 bottom-8 -translate-x-1/2 z-60 opacity-100 visible transition-all duration-300 show">
-            <div class="bg-black/60 backdrop-blur-md rounded-full px-6 py-3 shadow-2xl border border-white/10 flex items-center space-x-6">
-                <!-- 中間：當前專案名稱 -->
-                <div class="text-white font-medium text-sm px-4 whitespace-nowrap">
-                    音錯陽差
+            <!-- 專案圖片 -->
+            <div class="mb-12">
+                <div class="aspect-video bg-gray-100 overflow-hidden">
+                    <img src="../multimedia.svg" alt="音錯陽差專案" class="w-full h-full object-cover">
                 </div>
-
-                <!-- 右側：返回按鈕 -->
-                <button id="back-to-home" class="flex items-center text-white/70 hover:text-white transition-colors group">
-                    <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
-                    </div>
-                </button>
             </div>
-        </div>
+
+            <!-- 專案資訊 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                <div>
+                    <h2 class="text-lg font-black mb-4">專案資訊</h2>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <span class="font-medium">設計：</span>
+                            <span>展演空間聲學</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">年份：</span>
+                            <span>2024</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">客戶：</span>
+                            <span>文化藝術基金會</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">地點：</span>
+                            <span>台中市西區</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">面積：</span>
+                            <span>1,800 平方公尺</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-lg font-black mb-4">服務項目</h2>
+                    <div class="space-y-2 text-sm">
+                        <div>展演空間聲學</div>
+                        <div>多媒體音響系統</div>
+                        <div>互動裝置聲學</div>
+                        <div>觀眾席音場設計</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 設計理念 -->
+            <div class="mb-12">
+                <h2 class="text-lg font-black mb-6">設計理念</h2>
+                <div class="project-detail space-y-4">
+                    <p>音錯陽差專案以「流言終結者」為設計理念，致力於打破傳統建築聲學的迷思與限制，創造出真正符合現代多媒體展演需求的創新空間。</p>
+
+                    <p>在台中市西區這個充滿藝術氣息的文化區域，我們為文化藝術基金會打造了一個革命性的展演空間。專案名稱「音錯陽差」巧妙地暗示了聲學設計中的精密計算與意外驚喜，每一個聲音的反射、每一次音波的交匯，都經過精心設計卻又保留了藝術創作的自由度。</p>
+
+                    <p>展演空間聲學設計採用了模組化的可變聲學系統，能夠根據不同類型的表演快速調整空間的聲學特性。無論是古典音樂會需要的豐富殘響，還是現代電子音樂需要的清晰定位，都能在同一個空間中完美呈現。</p>
+
+                    <p>多媒體音響系統的整合更是本專案的技術亮點，我們開發了智慧聲場控制系統，能夠即時分析演出內容並自動調整音響參數，確保每一位觀眾都能獲得最佳的聽覺體驗。互動裝置聲學設計則讓觀眾成為聲音創作的一部分，真正實現了藝術與科技的完美融合。</p>
+                </div>
+            </div>
+
+            <!-- 相關專案 -->
+            <div class="mb-12">
+                <h2 class="text-lg font-black mb-6">相關專案</h2>
+                <div class="space-y-2">
+                    <a href="apps.html" class="project-link block">
+                        <div>音源技繪</div>
+                        <div class="text-sm font-normal opacity-60">聲學量測與模擬技術</div>
+                    </a>
+                    <a href="consulting.html" class="project-link block">
+                        <div>自聲自滅</div>
+                        <div class="text-sm font-normal opacity-60">客製化聲學服務</div>
+                    </a>
+                    <a href="others.html" class="project-link block">
+                        <div>有聲有色</div>
+                        <div class="text-sm font-normal opacity-60">聲學大雜燴</div>
+                    </a>
+                </div>
+            </div>
+        </main>
+
     </div>
 
     <script>
-        // 返回主頁功能
-        document.getElementById('back-to-home').addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
-
         // 頁面載入動畫
         document.addEventListener('DOMContentLoaded', () => {
-            const projectDetail = document.getElementById('page-project-detail');
-            const floatingWindow = projectDetail.querySelector('.fixed.left-4');
-            
+            const main = document.querySelector('main');
+
             // 初始狀態
-            floatingWindow.style.transform = 'scale(0.95)';
-            floatingWindow.style.opacity = '0';
-            
+            main.style.opacity = '0';
+            main.style.transform = 'translateY(20px)';
+
             // 動畫進入
             setTimeout(() => {
-                floatingWindow.style.transition = 'transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.4s ease';
-                floatingWindow.style.transform = 'scale(1)';
-                floatingWindow.style.opacity = '1';
+                main.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                main.style.opacity = '1';
+                main.style.transform = 'translateY(0)';
             }, 100);
         });
     </script>
