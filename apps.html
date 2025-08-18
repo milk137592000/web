@@ -20,20 +20,20 @@
 
     <!-- june15consulting.com 風格樣式 -->
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
+        /* june15consulting.com 風格樣式 - 在浮動視窗內使用 */
+        .june15consulting-container {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             background: #ffffff;
             color: #1a1a1a;
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
+            padding: 20px;
         }
 
-        .container {
+        .june15consulting-container * {
+            box-sizing: border-box;
+        }
+
+        .june15consulting-container .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
@@ -271,19 +271,61 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-900 text-white modal-open background-fixed">
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <h1 class="hero-title">專業聲學量測與模擬技術</h1>
-            <p class="hero-subtitle">
-                聲學量測不只是測量。我們運用先進的模擬技術和精密儀器，為企業打造最適合的聲學環境，
-                提升工作效率並創造舒適的空間體驗。
-            </p>
-            <a href="#contact" class="cta-button">立即諮詢</a>
-        </div>
-    </section>
+    <!-- 專案詳情頁面 - 浮動視窗樣式 -->
+    <div id="page-project-detail" class="page active">
+        <!-- 半透明背景遮罩 -->
+        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"></div>
+
+        <!-- 浮動專案詳情視窗 -->
+        <div class="fixed left-4 right-4 top-20 bottom-4 md:left-8 md:right-8 md:top-24 md:bottom-8 lg:left-16 lg:right-16 lg:top-28 lg:bottom-16 z-50 bg-white backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+            <!-- 可滾動內容區域 -->
+            <div class="overflow-y-auto h-full text-gray-900">
+
+                <!-- 專案標題區域 -->
+                <div class="px-6 py-8">
+                    <h1 class="text-4xl md:text-5xl font-bold italic mb-4 leading-tight">音源技繪</h1>
+                    <p class="text-lg text-gray-500 mb-6 uppercase tracking-wider">聲學量測與模擬技術</p>
+                    <p class="text-base text-gray-700 leading-relaxed">為現代企業打造的寧靜工作環境，運用先進隔音技術，提升員工專注力與工作效率。</p>
+                </div>
+
+                <!-- 專案資訊網格 -->
+                <div class="px-6 mb-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">設計</h3>
+                            <p class="text-gray-900 font-medium text-sm">辦公室聲學規劃</p>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">年份</h3>
+                            <p class="text-gray-900 font-medium text-sm">2024</p>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">客戶</h3>
+                            <p class="text-gray-900 font-medium text-sm">科技公司總部</p>
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-xs text-gray-500 uppercase tracking-wider">地點</h3>
+                            <p class="text-gray-900 font-medium text-sm">新北市板橋區</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- june15consulting.com 風格內容區域 -->
+                <div class="px-6 mb-8">
+                    <div class="june15consulting-container">
+                        <!-- Hero Section -->
+                        <section class="hero-section">
+                            <div class="container">
+                                <h1 class="hero-title">專業聲學量測與模擬技術</h1>
+                                <p class="hero-subtitle">
+                                    聲學量測不只是測量。我們運用先進的模擬技術和精密儀器，為企業打造最適合的聲學環境，
+                                    提升工作效率並創造舒適的空間體驗。
+                                </p>
+                                <a href="#contact" class="cta-button">立即諮詢</a>
+                            </div>
+                        </section>
 
     <!-- Services Section -->
     <section class="section">
@@ -455,15 +497,49 @@
             font-size: 14px;
             font-weight: 500;
             transition: all 0.3s ease;
-        " onmouseover="this.style.background='rgba(0, 0, 0, 0.9)'" onmouseout="this.style.background='rgba(0, 0, 0, 0.8)'">
-            ← 返回主頁
-        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Paffi 風格浮動導航條 -->
+        <div id="floating-nav-bar" class="fixed left-1/2 bottom-8 -translate-x-1/2 z-60 opacity-100 visible transition-all duration-300 show">
+            <div class="bg-black/60 backdrop-blur-md rounded-full px-6 py-3 shadow-2xl border border-white/10 flex items-center space-x-6">
+                <!-- 中間：當前專案名稱 -->
+                <div class="text-white font-medium text-sm px-4 whitespace-nowrap">
+                    音源技繪
+                </div>
+
+                <!-- 右側：返回按鈕 -->
+                <button id="back-to-home" class="flex items-center text-white/70 hover:text-white transition-colors group">
+                    <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
         // 返回主頁功能
         document.getElementById('back-to-home').addEventListener('click', () => {
             window.location.href = 'index.html';
+        });
+
+        // 頁面載入動畫
+        window.addEventListener('load', function() {
+            const projectDetail = document.getElementById('page-project-detail');
+            projectDetail.style.transform = 'scale(0.95)';
+            projectDetail.style.opacity = '0';
+
+            setTimeout(() => {
+                projectDetail.style.transition = 'all 0.3s ease-out';
+                projectDetail.style.transform = 'scale(1)';
+                projectDetail.style.opacity = '1';
+            }, 100);
         });
 
         // 平滑滾動

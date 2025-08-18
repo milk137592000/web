@@ -342,29 +342,7 @@
 
 
 
-    <!-- 專案詳情 Modal -->
-    <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 opacity-0 invisible z-50">
-        <div class="modal-content bg-gray-800 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row overflow-hidden scale-95">
-            <img id="modal-img" src="" class="w-full md:w-1/2 h-64 md:h-auto object-cover" alt="Project Image">
-            <div class="p-8 flex flex-col flex-grow overflow-y-auto">
-                <h2 id="modal-title" class="text-4xl font-bold italic mb-2"></h2>
-                <p id="modal-category" class="text-lg text-white/70 mb-6"></p>
 
-                <div id="gemini-output-container" class="bg-gray-900/50 p-4 rounded-lg mb-6 flex-grow min-h-[150px]">
-                    <p id="gemini-output" class="text-white/90 leading-relaxed whitespace-pre-wrap">點擊下方按鈕，讓 AI 為您描繪此專案的聲學設計靈感...</p>
-                </div>
-
-                <div id="gemini-loader" class="hidden items-center justify-center mb-6 min-h-[150px]"><div class="loader"></div></div>
-
-                <div class="mt-auto pt-4 flex flex-col sm:flex-row gap-4">
-                    <button id="gemini-button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
-                        ✨ 產生設計概念
-                    </button>
-                    <button id="close-modal" class="w-full bg-gray-600 hover:bg-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-colors">關閉</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- 引入分離的 JavaScript 檔案 -->
     <script src="script.js"></script>
