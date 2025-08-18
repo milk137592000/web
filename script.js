@@ -365,7 +365,803 @@ function showAboutPage() {
     }, 100);
 }
 
-// 從 papers.html 載入內容的函數
+
+// 從 apps.html 載入內容的函數（使用 iframe 方式）
+function loadAppsContentXHR(contentDiv) {
+    // 創建一個隱藏的 iframe 來載入 apps.html
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = 'apps.html';
+
+    iframe.onload = function() {
+        try {
+            // 從 iframe 中提取內容
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const mainContent = iframeDoc.querySelector('.main-content');
+
+            if (mainContent) {
+                // 提取樣式
+                const styles = iframeDoc.querySelectorAll('style');
+                let styleContent = '';
+                styles.forEach(style => {
+                    styleContent += style.innerHTML;
+                });
+
+                // 組合樣式和內容
+                contentDiv.innerHTML = `
+                    <style>${styleContent}</style>
+                    ${mainContent.innerHTML}
+                `;
+
+                // 移除可能干擾的元素（如返回按鈕）
+                const backButtons = contentDiv.querySelectorAll('.back-button, a[href="index.html"]');
+                backButtons.forEach(btn => btn.remove());
+
+                // 重新初始化互動效果
+                setTimeout(() => {
+                    initializeAppsInteractions();
+                }, 100);
+            } else {
+                // 如果找不到 main-content，載入整個 body 內容
+                const bodyContent = iframeDoc.querySelector('body');
+                if (bodyContent) {
+                    // 複製 body 的內容，但排除 script 標籤
+                    const clonedBody = bodyContent.cloneNode(true);
+                    const scripts = clonedBody.querySelectorAll('script');
+                    scripts.forEach(script => script.remove());
+
+                    contentDiv.innerHTML = clonedBody.innerHTML;
+                    setTimeout(() => {
+                        initializeAppsInteractions();
+                    }, 100);
+                }
+            }
+
+            // 移除 iframe
+            document.body.removeChild(iframe);
+
+        } catch (error) {
+            console.error('從 iframe 提取內容失敗:', error);
+            document.body.removeChild(iframe);
+            showAppsLoadError(contentDiv);
+        }
+    };
+
+    iframe.onerror = function() {
+        console.error('iframe 載入失敗');
+        document.body.removeChild(iframe);
+        showAppsLoadError(contentDiv);
+    };
+
+    // 將 iframe 添加到頁面中開始載入
+    document.body.appendChild(iframe);
+}
+
+// 顯示 apps 載入錯誤的函數
+function showAppsLoadError(contentDiv) {
+    contentDiv.innerHTML = `
+        <style>
+            .apps-preview-container {
+                font-family: 'Inter', 'Noto Sans TC', sans-serif;
+                line-height: 1.6;
+                padding: 2rem;
+            }
+
+            .apps-preview-hero {
+                text-align: center;
+                padding: 3rem 0;
+                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                border-radius: 12px;
+                margin-bottom: 2rem;
+            }
+
+            .apps-preview-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #1a1a1a;
+                margin-bottom: 1rem;
+            }
+
+            .apps-preview-subtitle {
+                font-size: 1.125rem;
+                color: #64748b;
+                margin-bottom: 2rem;
+            }
+
+            .apps-preview-button {
+                display: inline-block;
+                background: #3b82f6;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+
+            .apps-preview-button:hover {
+                background: #2563eb;
+                transform: translateY(-2px);
+            }
+
+            .apps-preview-note {
+                text-align: center;
+                margin-top: 2rem;
+                padding: 1rem;
+                background: #f1f5f9;
+                border-radius: 8px;
+                color: #64748b;
+                font-size: 0.9rem;
+            }
+        </style>
+
+        <div class="apps-preview-container">
+            <div class="apps-preview-hero">
+                <h1 class="apps-preview-title">專業聲學量測與模擬技術</h1>
+                <p class="apps-preview-subtitle">
+                    聲學量測不只是測量。我們運用先進的模擬技術和精密儀器，為企業打造最適合的聲學環境。
+                </p>
+                <a href="apps.html" class="apps-preview-button" target="_blank">查看完整內容</a>
+            </div>
+
+            <div class="apps-preview-note">
+                <p><strong>開發提示：</strong>由於瀏覽器安全限制，本地開發時無法動態載入外部 HTML 文件。</p>
+                <p>在生產環境中（HTTP/HTTPS 協議），此功能將正常運作，內容會直接在此處顯示。</p>
+                <p>目前請點擊上方按鈕查看完整的 Apps 專案內容。</p>
+            </div>
+        </div>
+    `;
+}
+
+// 初始化 apps 頁面的互動效果
+function initializeAppsInteractions() {
+    // 添加服務卡片的點擊互動效果
+    document.querySelectorAll('.june15-service-card').forEach(card => {
+        card.addEventListener('click', function() {
+            // 簡單的點擊反饋
+            this.style.transform = 'translateY(-8px)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-4px)';
+            }, 150);
+        });
+    });
+}
+
+// 從 papers.html 載入內容的函數（使用 iframe 方式）
+function loadPapersContentXHR(contentDiv) {
+    // 創建一個隱藏的 iframe 來載入 papers.html
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = 'papers.html';
+
+    iframe.onload = function() {
+        try {
+            // 從 iframe 中提取內容
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const makingsoftwareContainer = iframeDoc.querySelector('.makingsoftware-container');
+
+            if (makingsoftwareContainer) {
+                // 提取樣式
+                const styles = iframeDoc.querySelectorAll('style');
+                let styleContent = '';
+                styles.forEach(style => {
+                    styleContent += style.innerHTML;
+                });
+
+                // 組合樣式和內容
+                contentDiv.innerHTML = `
+                    <style>${styleContent}</style>
+                    ${makingsoftwareContainer.outerHTML}
+                `;
+
+                // 移除可能干擾的元素（如返回按鈕）
+                const backButtons = contentDiv.querySelectorAll('.back-button, a[href="index.html"]');
+                backButtons.forEach(btn => btn.remove());
+
+                // 重新初始化互動效果
+                setTimeout(() => {
+                    initializePapersInteractions();
+                }, 100);
+            } else {
+                // 如果找不到 makingsoftware-container，載入整個 body 內容
+                const bodyContent = iframeDoc.querySelector('body');
+                if (bodyContent) {
+                    // 複製 body 的內容，但排除 script 標籤
+                    const clonedBody = bodyContent.cloneNode(true);
+                    const scripts = clonedBody.querySelectorAll('script');
+                    scripts.forEach(script => script.remove());
+
+                    contentDiv.innerHTML = clonedBody.innerHTML;
+                    setTimeout(() => {
+                        initializePapersInteractions();
+                    }, 100);
+                }
+            }
+
+            // 移除 iframe
+            document.body.removeChild(iframe);
+
+        } catch (error) {
+            console.error('從 iframe 提取 papers 內容失敗:', error);
+            document.body.removeChild(iframe);
+            showPapersLoadError(contentDiv);
+        }
+    };
+
+    iframe.onerror = function() {
+        console.error('papers iframe 載入失敗');
+        document.body.removeChild(iframe);
+        showPapersLoadError(contentDiv);
+    };
+
+    // 將 iframe 添加到頁面中開始載入
+    document.body.appendChild(iframe);
+}
+
+// 顯示 papers 載入錯誤的函數
+function showPapersLoadError(contentDiv) {
+    contentDiv.innerHTML = `
+        <style>
+            .papers-preview-container {
+                font-family: 'JetBrains Mono', monospace;
+                line-height: 1.8;
+                padding: 2rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .papers-preview-hero {
+                text-align: center;
+                padding: 3rem 0;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            }
+
+            .papers-preview-title {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #000;
+                margin-bottom: 1rem;
+                letter-spacing: -0.02em;
+            }
+
+            .papers-preview-subtitle {
+                font-size: 1rem;
+                color: #333;
+                margin-bottom: 2rem;
+                line-height: 1.8;
+            }
+
+            .papers-preview-button {
+                display: inline-block;
+                background: #000;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 4px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-family: 'JetBrains Mono', monospace;
+            }
+
+            .papers-preview-button:hover {
+                background: #333;
+                transform: translateY(-1px);
+            }
+
+            .papers-preview-note {
+                text-align: center;
+                margin-top: 2rem;
+                padding: 1rem;
+                background: #f1f3f4;
+                border-radius: 4px;
+                color: #666;
+                font-size: 0.9rem;
+            }
+        </style>
+
+        <div class="papers-preview-container">
+            <div class="papers-preview-hero">
+                <h1 class="papers-preview-title">MAKING SOFTWARE</h1>
+                <p class="papers-preview-subtitle">
+                    探索聲學技術的深層原理，從音樂廳的聲學設計到心理聲學的巧妙應用，
+                    這是一本解釋你每天使用的聲學技術實際如何工作的手冊。
+                </p>
+                <a href="papers.html" class="papers-preview-button" target="_blank">查看完整內容</a>
+            </div>
+
+            <div class="papers-preview-note">
+                <p><strong>開發提示：</strong>由於瀏覽器安全限制，本地開發時無法動態載入外部 HTML 文件。</p>
+                <p>在生產環境中（HTTP/HTTPS 協議），此功能將正常運作，內容會直接在此處顯示。</p>
+                <p>目前請點擊上方按鈕查看完整的 Papers 專案內容。</p>
+            </div>
+        </div>
+    `;
+}
+
+// 初始化 papers 頁面的互動效果
+function initializePapersInteractions() {
+    // 重新初始化搜尋功能
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    if (searchInput && searchResults) {
+        // 這裡可以添加搜尋功能的初始化代碼
+        // 由於原本的搜尋功能比較複雜，這裡先保持簡單
+        console.log('Papers 搜尋功能已初始化');
+    }
+}
+
+// 從 consulting.html 載入內容的函數（使用 iframe 方式）
+function loadConsultingContentXHR(contentDiv) {
+    // 創建一個隱藏的 iframe 來載入 consulting.html
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = 'consulting.html';
+
+    iframe.onload = function() {
+        try {
+            // 從 iframe 中提取內容
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const projectDetailDiv = iframeDoc.querySelector('#page-project-detail .overflow-y-auto');
+
+            if (projectDetailDiv) {
+                // 提取樣式
+                const styles = iframeDoc.querySelectorAll('style');
+                let styleContent = '';
+                styles.forEach(style => {
+                    styleContent += style.innerHTML;
+                });
+
+                // 組合樣式和內容
+                contentDiv.innerHTML = `
+                    <style>${styleContent}</style>
+                    ${projectDetailDiv.innerHTML}
+                `;
+
+                // 移除可能干擾的元素（如返回按鈕）
+                const backButtons = contentDiv.querySelectorAll('.back-button, a[href="index.html"]');
+                backButtons.forEach(btn => btn.remove());
+
+                // 重新初始化互動效果
+                setTimeout(() => {
+                    initializeConsultingInteractions();
+                }, 100);
+            } else {
+                // 如果找不到指定容器，載入整個 body 內容
+                const bodyContent = iframeDoc.querySelector('body');
+                if (bodyContent) {
+                    const clonedBody = bodyContent.cloneNode(true);
+                    const scripts = clonedBody.querySelectorAll('script');
+                    scripts.forEach(script => script.remove());
+
+                    contentDiv.innerHTML = clonedBody.innerHTML;
+                    setTimeout(() => {
+                        initializeConsultingInteractions();
+                    }, 100);
+                }
+            }
+
+            // 移除 iframe
+            document.body.removeChild(iframe);
+
+        } catch (error) {
+            console.error('從 iframe 提取 consulting 內容失敗:', error);
+            document.body.removeChild(iframe);
+            showConsultingLoadError(contentDiv);
+        }
+    };
+
+    iframe.onerror = function() {
+        console.error('consulting iframe 載入失敗');
+        document.body.removeChild(iframe);
+        showConsultingLoadError(contentDiv);
+    };
+
+    // 將 iframe 添加到頁面中開始載入
+    document.body.appendChild(iframe);
+}
+
+// 顯示 consulting 載入錯誤的函數
+function showConsultingLoadError(contentDiv) {
+    contentDiv.innerHTML = `
+        <style>
+            .consulting-preview-container {
+                font-family: 'Lexend', sans-serif;
+                line-height: 1.8;
+                padding: 2rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .consulting-preview-hero {
+                text-align: center;
+                padding: 3rem 0;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            }
+
+            .consulting-preview-title {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #000;
+                margin-bottom: 1rem;
+                letter-spacing: -0.02em;
+            }
+
+            .consulting-preview-subtitle {
+                font-size: 1rem;
+                color: #333;
+                margin-bottom: 2rem;
+                line-height: 1.8;
+            }
+
+            .consulting-preview-button {
+                display: inline-block;
+                background: #000;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 4px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-family: 'Lexend', sans-serif;
+            }
+
+            .consulting-preview-button:hover {
+                background: #333;
+                transform: translateY(-1px);
+            }
+
+            .consulting-preview-note {
+                text-align: center;
+                margin-top: 2rem;
+                padding: 1rem;
+                background: #f1f3f4;
+                border-radius: 4px;
+                color: #666;
+                font-size: 0.9rem;
+            }
+        </style>
+
+        <div class="consulting-preview-container">
+            <div class="consulting-preview-hero">
+                <h1 class="consulting-preview-title">自聲自滅</h1>
+                <p class="consulting-preview-subtitle">
+                    在繁忙都市中創造寧靜居住空間，結合綠建築概念與聲學設計，打造理想家園。
+                </p>
+                <a href="consulting.html" class="consulting-preview-button" target="_blank">查看完整內容</a>
+            </div>
+
+            <div class="consulting-preview-note">
+                <p><strong>開發提示：</strong>由於瀏覽器安全限制，本地開發時無法動態載入外部 HTML 文件。</p>
+                <p>在生產環境中（HTTP/HTTPS 協議），此功能將正常運作，內容會直接在此處顯示。</p>
+                <p>目前請點擊上方按鈕查看完整的 Consulting 專案內容。</p>
+            </div>
+        </div>
+    `;
+}
+
+// 初始化 consulting 頁面的互動效果
+function initializeConsultingInteractions() {
+    console.log('Consulting 互動功能已初始化');
+}
+
+// 從 rumor.html 載入內容的函數（使用 iframe 方式）
+function loadRumorContentXHR(contentDiv) {
+    // 創建一個隱藏的 iframe 來載入 rumor.html
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = 'rumor.html';
+
+    iframe.onload = function() {
+        try {
+            // 從 iframe 中提取內容
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const projectDetailDiv = iframeDoc.querySelector('#page-project-detail .overflow-y-auto');
+
+            if (projectDetailDiv) {
+                // 提取樣式
+                const styles = iframeDoc.querySelectorAll('style');
+                let styleContent = '';
+                styles.forEach(style => {
+                    styleContent += style.innerHTML;
+                });
+
+                // 組合樣式和內容
+                contentDiv.innerHTML = `
+                    <style>${styleContent}</style>
+                    ${projectDetailDiv.innerHTML}
+                `;
+
+                // 移除可能干擾的元素（如返回按鈕）
+                const backButtons = contentDiv.querySelectorAll('.back-button, a[href="index.html"]');
+                backButtons.forEach(btn => btn.remove());
+
+                // 重新初始化互動效果
+                setTimeout(() => {
+                    initializeRumorInteractions();
+                }, 100);
+            } else {
+                // 如果找不到指定容器，載入整個 body 內容
+                const bodyContent = iframeDoc.querySelector('body');
+                if (bodyContent) {
+                    const clonedBody = bodyContent.cloneNode(true);
+                    const scripts = clonedBody.querySelectorAll('script');
+                    scripts.forEach(script => script.remove());
+
+                    contentDiv.innerHTML = clonedBody.innerHTML;
+                    setTimeout(() => {
+                        initializeRumorInteractions();
+                    }, 100);
+                }
+            }
+
+            // 移除 iframe
+            document.body.removeChild(iframe);
+
+        } catch (error) {
+            console.error('從 iframe 提取 rumor 內容失敗:', error);
+            document.body.removeChild(iframe);
+            showRumorLoadError(contentDiv);
+        }
+    };
+
+    iframe.onerror = function() {
+        console.error('rumor iframe 載入失敗');
+        document.body.removeChild(iframe);
+        showRumorLoadError(contentDiv);
+    };
+
+    // 將 iframe 添加到頁面中開始載入
+    document.body.appendChild(iframe);
+}
+
+// 顯示 rumor 載入錯誤的函數
+function showRumorLoadError(contentDiv) {
+    contentDiv.innerHTML = `
+        <style>
+            .rumor-preview-container {
+                font-family: 'Lexend', sans-serif;
+                line-height: 1.8;
+                padding: 2rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .rumor-preview-hero {
+                text-align: center;
+                padding: 3rem 0;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            }
+
+            .rumor-preview-title {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #000;
+                margin-bottom: 1rem;
+                letter-spacing: -0.02em;
+            }
+
+            .rumor-preview-subtitle {
+                font-size: 1rem;
+                color: #333;
+                margin-bottom: 2rem;
+                line-height: 1.8;
+            }
+
+            .rumor-preview-button {
+                display: inline-block;
+                background: #000;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 4px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-family: 'Lexend', sans-serif;
+            }
+
+            .rumor-preview-button:hover {
+                background: #333;
+                transform: translateY(-1px);
+            }
+
+            .rumor-preview-note {
+                text-align: center;
+                margin-top: 2rem;
+                padding: 1rem;
+                background: #f1f3f4;
+                border-radius: 4px;
+                color: #666;
+                font-size: 0.9rem;
+            }
+        </style>
+
+        <div class="rumor-preview-container">
+            <div class="rumor-preview-hero">
+                <h1 class="rumor-preview-title">音錯陽差</h1>
+                <p class="rumor-preview-subtitle">
+                    結合藝術與科技的創新空間，為多媒體展演提供最佳的聲學環境與視聽體驗。
+                </p>
+                <a href="rumor.html" class="rumor-preview-button" target="_blank">查看完整內容</a>
+            </div>
+
+            <div class="rumor-preview-note">
+                <p><strong>開發提示：</strong>由於瀏覽器安全限制，本地開發時無法動態載入外部 HTML 文件。</p>
+                <p>在生產環境中（HTTP/HTTPS 協議），此功能將正常運作，內容會直接在此處顯示。</p>
+                <p>目前請點擊上方按鈕查看完整的 Rumor 專案內容。</p>
+            </div>
+        </div>
+    `;
+}
+
+// 初始化 rumor 頁面的互動效果
+function initializeRumorInteractions() {
+    console.log('Rumor 互動功能已初始化');
+}
+
+// 從 others.html 載入內容的函數（使用 iframe 方式）
+function loadOthersContentXHR(contentDiv) {
+    // 創建一個隱藏的 iframe 來載入 others.html
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = 'others.html';
+
+    iframe.onload = function() {
+        try {
+            // 從 iframe 中提取內容
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const projectDetailDiv = iframeDoc.querySelector('#page-project-detail .overflow-y-auto');
+
+            if (projectDetailDiv) {
+                // 提取樣式
+                const styles = iframeDoc.querySelectorAll('style');
+                let styleContent = '';
+                styles.forEach(style => {
+                    styleContent += style.innerHTML;
+                });
+
+                // 組合樣式和內容
+                contentDiv.innerHTML = `
+                    <style>${styleContent}</style>
+                    ${projectDetailDiv.innerHTML}
+                `;
+
+                // 移除可能干擾的元素（如返回按鈕）
+                const backButtons = contentDiv.querySelectorAll('.back-button, a[href="index.html"]');
+                backButtons.forEach(btn => btn.remove());
+
+                // 重新初始化互動效果
+                setTimeout(() => {
+                    initializeOthersInteractions();
+                }, 100);
+            } else {
+                // 如果找不到指定容器，載入整個 body 內容
+                const bodyContent = iframeDoc.querySelector('body');
+                if (bodyContent) {
+                    const clonedBody = bodyContent.cloneNode(true);
+                    const scripts = clonedBody.querySelectorAll('script');
+                    scripts.forEach(script => script.remove());
+
+                    contentDiv.innerHTML = clonedBody.innerHTML;
+                    setTimeout(() => {
+                        initializeOthersInteractions();
+                    }, 100);
+                }
+            }
+
+            // 移除 iframe
+            document.body.removeChild(iframe);
+
+        } catch (error) {
+            console.error('從 iframe 提取 others 內容失敗:', error);
+            document.body.removeChild(iframe);
+            showOthersLoadError(contentDiv);
+        }
+    };
+
+    iframe.onerror = function() {
+        console.error('others iframe 載入失敗');
+        document.body.removeChild(iframe);
+        showOthersLoadError(contentDiv);
+    };
+
+    // 將 iframe 添加到頁面中開始載入
+    document.body.appendChild(iframe);
+}
+
+// 顯示 others 載入錯誤的函數
+function showOthersLoadError(contentDiv) {
+    contentDiv.innerHTML = `
+        <style>
+            .others-preview-container {
+                font-family: 'Lexend', sans-serif;
+                line-height: 1.8;
+                padding: 2rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .others-preview-hero {
+                text-align: center;
+                padding: 3rem 0;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            }
+
+            .others-preview-title {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #000;
+                margin-bottom: 1rem;
+                letter-spacing: -0.02em;
+            }
+
+            .others-preview-subtitle {
+                font-size: 1rem;
+                color: #333;
+                margin-bottom: 2rem;
+                line-height: 1.8;
+            }
+
+            .others-preview-button {
+                display: inline-block;
+                background: #000;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 4px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-family: 'Lexend', sans-serif;
+            }
+
+            .others-preview-button:hover {
+                background: #333;
+                transform: translateY(-1px);
+            }
+
+            .others-preview-note {
+                text-align: center;
+                margin-top: 2rem;
+                padding: 1rem;
+                background: #f1f3f4;
+                border-radius: 4px;
+                color: #666;
+                font-size: 0.9rem;
+            }
+        </style>
+
+        <div class="others-preview-container">
+            <div class="others-preview-hero">
+                <h1 class="others-preview-title">有聲有色</h1>
+                <p class="others-preview-subtitle">
+                    現代圖書館的聲學革新，創造有利於學習與思考的寧靜環境，同時兼顧空間的開放性。
+                </p>
+                <a href="others.html" class="others-preview-button" target="_blank">查看完整內容</a>
+            </div>
+
+            <div class="others-preview-note">
+                <p><strong>開發提示：</strong>由於瀏覽器安全限制，本地開發時無法動態載入外部 HTML 文件。</p>
+                <p>在生產環境中（HTTP/HTTPS 協議），此功能將正常運作，內容會直接在此處顯示。</p>
+                <p>目前請點擊上方按鈕查看完整的 Others 專案內容。</p>
+            </div>
+        </div>
+    `;
+}
+
+// 初始化 others 頁面的互動效果
+function initializeOthersInteractions() {
+    console.log('Others 互動功能已初始化');
+}
+
+// 舊的 loadPapersContent 函數（保留作為備用）
 function loadPapersContent(contentDiv) {
     // 直接插入 papers.html 中的 makingsoftware-container 內容
     contentDiv.innerHTML = `
@@ -882,8 +1678,9 @@ function updateProjectDetailContent(project) {
 
 
 
-    // 填充專案詳細資訊
-    if (project.details) {
+    // 填充專案詳細資訊（但使用 B 方案的專案除外）
+    const bSchemeProjects = ['papers', 'apps', 'consulting', 'rumor', 'others'];
+    if (project.details && !bSchemeProjects.includes(project.slug)) {
         document.getElementById('project-detail-year').textContent = project.details.year;
         document.getElementById('project-detail-area').textContent = project.details.area;
         document.getElementById('project-detail-location').textContent = project.details.location;
@@ -904,9 +1701,15 @@ function updateProjectDetailContent(project) {
         if (servicesElement) {
             servicesElement.textContent = project.details.services[0];
         }
+    } else if (bSchemeProjects.includes(project.slug)) {
+        // B 方案專案隱藏專案詳細資訊網格
+        const projectInfoGrid = document.querySelector('.grid.grid-cols-2.md\\:grid-cols-4.gap-6');
+        if (projectInfoGrid && projectInfoGrid.parentElement) {
+            projectInfoGrid.parentElement.style.display = 'none';
+        }
     }
 
-    // 首先檢查是否為 papers 專案，如果是則進行特殊處理
+    // 檢查是否為使用 B 方案的專案，如果是則進行特殊處理
     const contentDiv = document.getElementById('project-detail-content');
 
     if (project.slug === 'papers') {
@@ -925,440 +1728,34 @@ function updateProjectDetailContent(project) {
             }
         }
 
-        // 從 papers.html 載入內容
-        loadPapersContent(contentDiv);
-        return;
-    } else if (project.slug === 'apps') {
-        // Apps 專案使用 june15consulting.com 風格
-        contentDiv.innerHTML = `
-            <style>
-                .june15-container {
-                    font-family: 'Inter', 'Noto Sans TC', sans-serif;
-                    line-height: 1.6;
+        // 隱藏專案詳細資訊網格（設計、年份、客戶、地點）
+        const projectInfoElements = [
+            document.getElementById('project-detail-services'),
+            document.getElementById('project-detail-year'),
+            document.getElementById('project-detail-client'),
+            document.getElementById('project-detail-location')
+        ];
+
+        projectInfoElements.forEach(element => {
+            if (element && element.parentElement && element.parentElement.parentElement) {
+                // 隱藏整個專案資訊網格容器
+                const gridContainer = element.closest('.px-6.mb-8');
+                if (gridContainer) {
+                    gridContainer.style.display = 'none';
                 }
+            }
+        });
 
-                .june15-hero {
-                    padding: 60px 0;
-                    text-align: center;
-                    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-                    border-radius: 12px;
-                    margin-bottom: 60px;
-                }
+        // 從 papers.html 載入內容（使用 iframe 方式）
+        loadPapersContentXHR(contentDiv);
 
-                .june15-hero-title {
-                    font-size: 2.5rem;
-                    font-weight: 700;
-                    margin-bottom: 1rem;
-                    color: #1a1a1a;
-                    line-height: 1.2;
-                }
-
-                .june15-hero-subtitle {
-                    font-size: 1.125rem;
-                    color: #64748b;
-                    margin-bottom: 2rem;
-                    max-width: 600px;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-
-                .june15-cta-button {
-                    display: inline-block;
-                    background: #3b82f6;
-                    color: white;
-                    padding: 16px 32px;
-                    border-radius: 8px;
-                    text-decoration: none;
-                    font-weight: 600;
-                    transition: all 0.3s ease;
-                }
-
-                .june15-cta-button:hover {
-                    background: #2563eb;
-                    transform: translateY(-2px);
-                }
-
-                .june15-section {
-                    margin: 60px 0;
-                }
-
-                .june15-section-title {
-                    font-size: 2rem;
-                    font-weight: 700;
-                    text-align: center;
-                    margin-bottom: 1rem;
-                    color: #1a1a1a;
-                }
-
-                .june15-section-subtitle {
-                    font-size: 1.125rem;
-                    color: #64748b;
-                    text-align: center;
-                    margin-bottom: 3rem;
-                    max-width: 800px;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-
-                .june15-services-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                    gap: 2rem;
-                    margin-bottom: 3rem;
-                }
-
-                .june15-service-card {
-                    background: white;
-                    border: 1px solid #e2e8f0;
-                    border-radius: 12px;
-                    padding: 2rem;
-                    transition: all 0.3s ease;
-                    cursor: pointer;
-                }
-
-                .june15-service-card:hover {
-                    border-color: #3b82f6;
-                    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
-                    transform: translateY(-4px);
-                }
-
-                .june15-service-icon {
-                    width: 48px;
-                    height: 48px;
-                    background: #eff6ff;
-                    border-radius: 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-bottom: 1.5rem;
-                    font-size: 1.5rem;
-                    color: #3b82f6;
-                }
-
-                .june15-service-title {
-                    font-size: 1.25rem;
-                    font-weight: 600;
-                    margin-bottom: 0.75rem;
-                    color: #1a1a1a;
-                }
-
-                .june15-service-description {
-                    color: #64748b;
-                    font-size: 0.95rem;
-                    line-height: 1.6;
-                }
-
-                .june15-process-section {
-                    background: #f8fafc;
-                    padding: 60px 30px;
-                    border-radius: 12px;
-                    margin: 60px 0;
-                }
-
-                .june15-process-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                    gap: 3rem;
-                    margin-top: 3rem;
-                }
-
-                .june15-process-step {
-                    text-align: center;
-                }
-
-                .june15-process-number {
-                    width: 60px;
-                    height: 60px;
-                    background: #3b82f6;
-                    color: white;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    margin: 0 auto 1.5rem;
-                }
-
-                .june15-process-title {
-                    font-size: 1.25rem;
-                    font-weight: 600;
-                    margin-bottom: 0.75rem;
-                    color: #1a1a1a;
-                }
-
-                .june15-process-description {
-                    color: #64748b;
-                    font-size: 0.95rem;
-                    line-height: 1.6;
-                }
-
-                .june15-testimonial-section {
-                    background: #1e293b;
-                    color: white;
-                    padding: 60px 30px;
-                    border-radius: 12px;
-                    margin: 60px 0;
-                }
-
-                .june15-testimonial-quote {
-                    font-size: 1.5rem;
-                    font-style: italic;
-                    text-align: center;
-                    margin-bottom: 2rem;
-                    line-height: 1.6;
-                }
-
-                .june15-testimonial-author {
-                    text-align: center;
-                    font-weight: 600;
-                    color: #94a3b8;
-                }
-
-                .june15-benefits-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                    gap: 2rem;
-                    margin-top: 3rem;
-                }
-
-                .june15-benefit-card {
-                    background: #334155;
-                    padding: 2rem;
-                    border-radius: 12px;
-                }
-
-                .june15-benefit-title {
-                    font-size: 1.25rem;
-                    font-weight: 600;
-                    margin-bottom: 0.75rem;
-                    color: white;
-                }
-
-                .june15-benefit-description {
-                    color: #cbd5e1;
-                    line-height: 1.6;
-                }
-
-                .june15-contact-section {
-                    text-align: center;
-                    margin: 60px 0;
-                }
-
-                .june15-contact-title {
-                    font-size: 2rem;
-                    font-weight: 700;
-                    margin-bottom: 1rem;
-                    color: #1a1a1a;
-                }
-
-                .june15-contact-subtitle {
-                    font-size: 1.125rem;
-                    color: #64748b;
-                    margin-bottom: 2rem;
-                }
-
-                @media (max-width: 768px) {
-                    .june15-hero-title {
-                        font-size: 2rem;
-                    }
-
-                    .june15-section-title {
-                        font-size: 1.75rem;
-                    }
-
-                    .june15-services-grid {
-                        grid-template-columns: 1fr;
-                    }
-
-                    .june15-process-grid {
-                        grid-template-columns: 1fr;
-                        gap: 2rem;
-                    }
-                }
-            </style>
-
-            <div class="june15-container">
-                <!-- Hero Section -->
-                <div class="june15-hero">
-                    <h1 class="june15-hero-title">專業聲學量測與模擬技術</h1>
-                    <p class="june15-hero-subtitle">
-                        聲學量測不只是測量。我們運用先進的模擬技術和精密儀器，為企業打造最適合的聲學環境，
-                        提升工作效率並創造舒適的空間體驗。
-                    </p>
-                    <a href="mailto:info@yunique.com" class="june15-cta-button">立即諮詢</a>
-                </div>
-
-                <!-- Services Section -->
-                <div class="june15-section">
-                    <h2 class="june15-section-title">全方位聲學解決方案</h2>
-                    <p class="june15-section-subtitle">
-                        我們的專業團隊提供從量測分析到實施優化的完整服務，確保您的空間達到最佳聲學表現。
-                    </p>
-
-                    <div class="june15-services-grid">
-                        <div class="june15-service-card">
-                            <div class="june15-service-icon">📊</div>
-                            <h3 class="june15-service-title">聲學量測分析</h3>
-                            <p class="june15-service-description">
-                                使用專業級聲學儀器進行現場量測，包括混響時間、背景噪音、隔音性能等關鍵參數的精確分析。
-                            </p>
-                        </div>
-
-                        <div class="june15-service-card">
-                            <div class="june15-service-icon">🖥️</div>
-                            <h3 class="june15-service-title">3D 聲學模擬</h3>
-                            <p class="june15-service-description">
-                                運用先進的電腦模擬技術，在施工前預測空間的聲學表現，優化設計方案並降低成本風險。
-                            </p>
-                        </div>
-
-                        <div class="june15-service-card">
-                            <div class="june15-service-icon">🏢</div>
-                            <h3 class="june15-service-title">辦公空間優化</h3>
-                            <p class="june15-service-description">
-                                針對開放式辦公室、會議室、電話亭等不同區域，提供客製化的聲學設計和材料配置建議。
-                            </p>
-                        </div>
-
-                        <div class="june15-service-card">
-                            <div class="june15-service-icon">🔧</div>
-                            <h3 class="june15-service-title">HVAC 噪音控制</h3>
-                            <p class="june15-service-description">
-                                專業的機械設備噪音分析與控制，確保空調、通風系統運作時不影響室內聲學環境品質。
-                            </p>
-                        </div>
-
-                        <div class="june15-service-card">
-                            <div class="june15-service-icon">📱</div>
-                            <h3 class="june15-service-title">智慧監測系統</h3>
-                            <p class="june15-service-description">
-                                建置即時聲學監測系統，持續追蹤空間聲學表現，提供數據驅動的優化建議。
-                            </p>
-                        </div>
-
-                        <div class="june15-service-card">
-                            <div class="june15-service-icon">🎯</div>
-                            <h3 class="june15-service-title">客製化解決方案</h3>
-                            <p class="june15-service-description">
-                                根據不同行業和使用需求，設計專屬的聲學解決方案，從錄音室到醫療院所都有豐富經驗。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Process Section -->
-                <div class="june15-process-section">
-                    <h2 class="june15-section-title">我們的專業流程</h2>
-                    <p class="june15-section-subtitle">
-                        透過系統化的四步驟流程，我們確保每個專案都能達到最佳的聲學表現，
-                        從初期評估到最終優化，全程提供專業指導。
-                    </p>
-
-                    <div class="june15-process-grid">
-                        <div class="june15-process-step">
-                            <div class="june15-process-number">1</div>
-                            <h3 class="june15-process-title">現場評估分析</h3>
-                            <p class="june15-process-description">
-                                專業團隊到現場進行詳細的聲學環境評估，使用精密儀器量測現況，
-                                分析問題根源並評估改善潛力。
-                            </p>
-                        </div>
-
-                        <div class="june15-process-step">
-                            <div class="june15-process-number">2</div>
-                            <h3 class="june15-process-title">客製化方案設計</h3>
-                            <p class="june15-process-description">
-                                根據評估結果和客戶需求，設計專屬的聲學解決方案，
-                                包括材料選擇、空間配置和系統整合建議。
-                            </p>
-                        </div>
-
-                        <div class="june15-process-step">
-                            <div class="june15-process-number">3</div>
-                            <h3 class="june15-process-title">專業施工執行</h3>
-                            <p class="june15-process-description">
-                                由經驗豐富的施工團隊執行聲學改善工程，
-                                嚴格遵循設計規範，確保施工品質和進度控制。
-                            </p>
-                        </div>
-
-                        <div class="june15-process-step">
-                            <div class="june15-process-number">4</div>
-                            <h3 class="june15-process-title">效果驗證優化</h3>
-                            <p class="june15-process-description">
-                                完工後進行全面的聲學性能驗證，確認達到設計目標，
-                                並提供後續的維護建議和優化服務。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial Section -->
-                <div class="june15-testimonial-section">
-                    <h2 class="june15-section-title" style="color: white;">客戶成功案例</h2>
-                    <div class="june15-testimonial-quote">
-                        "與 yunique 合作改造我們的辦公空間是最明智的決定。他們的專業團隊不僅解決了開放式辦公室的噪音問題，
-                        更創造了一個讓員工更專注、更有創造力的工作環境。現在我們的員工滿意度提升了40%，工作效率也顯著改善。"
-                    </div>
-                    <div class="june15-testimonial-author">— 李總經理，科技公司總部</div>
-
-                    <div class="june15-benefits-grid">
-                        <div class="june15-benefit-card">
-                            <h3 class="june15-benefit-title">工作效率提升</h3>
-                            <p class="june15-benefit-description">
-                                透過精確的聲學設計，員工專注力提升35%，會議效率改善50%，
-                                創造更高品質的工作產出。
-                            </p>
-                        </div>
-
-                        <div class="june15-benefit-card">
-                            <h3 class="june15-benefit-title">員工滿意度改善</h3>
-                            <p class="june15-benefit-description">
-                                舒適的聲學環境大幅降低工作壓力，員工滿意度調查顯示
-                                40%的改善，離職率下降25%。
-                            </p>
-                        </div>
-
-                        <div class="june15-benefit-card">
-                            <h3 class="june15-benefit-title">空間使用優化</h3>
-                            <p class="june15-benefit-description">
-                                智慧聲學分區設計讓空間使用更靈活，不同功能區域
-                                都能發揮最大效益，提升整體空間價值。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Section -->
-                <div class="june15-contact-section">
-                    <h2 class="june15-contact-title">準備開始您的聲學改善計畫？</h2>
-                    <p class="june15-contact-subtitle">
-                        聯絡我們的專業團隊，讓我們為您打造最適合的聲學環境解決方案。
-                    </p>
-                    <a href="mailto:info@yunique.com" class="june15-cta-button">立即聯絡我們</a>
-                </div>
-            </div>
-        `;
-
-        // 隱藏 AI 生成按鈕，因為 apps 專案已經有完整內容
+        // 隱藏 AI 生成按鈕，因為 papers 專案已經有完整內容
         document.getElementById('project-detail-generate').style.display = 'none';
         document.getElementById('project-detail-loader').classList.add('hidden');
 
-        // 添加服務卡片的點擊互動效果
-        setTimeout(() => {
-            document.querySelectorAll('.june15-service-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    // 簡單的點擊反饋
-                    this.style.transform = 'translateY(-8px)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-4px)';
-                    }, 150);
-                });
-            });
-        }, 100);
-
-        // Apps 專案不需要相關專案和專案圖片，移除這些元素
+        return;
+    } else if (project.slug === 'apps') {
+        // Apps 專案不需要相關專案和專案圖片，先移除這些元素
         const relatedContainer = document.getElementById('related-projects');
         if (relatedContainer && relatedContainer.parentElement) {
             relatedContainer.parentElement.remove();
@@ -1372,6 +1769,90 @@ function updateProjectDetailContent(project) {
                 imageContainer.remove();
             }
         }
+
+        // 從 apps.html 載入內容（使用 XMLHttpRequest 以支持本地文件）
+        loadAppsContentXHR(contentDiv);
+
+        // 隱藏 AI 生成按鈕，因為 apps 專案已經有完整內容
+        document.getElementById('project-detail-generate').style.display = 'none';
+        document.getElementById('project-detail-loader').classList.add('hidden');
+
+        return;
+
+    } else if (project.slug === 'consulting') {
+        // Consulting 專案不需要相關專案和專案圖片，先移除這些元素
+        const relatedContainer = document.getElementById('related-projects');
+        if (relatedContainer && relatedContainer.parentElement) {
+            relatedContainer.parentElement.remove();
+        }
+
+        // 移除專案圖片
+        const projectImage = document.getElementById('project-detail-image');
+        if (projectImage && projectImage.parentElement) {
+            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
+            if (imageContainer) {
+                imageContainer.remove();
+            }
+        }
+
+        // 從 consulting.html 載入內容
+        loadConsultingContentXHR(contentDiv);
+
+        // 隱藏 AI 生成按鈕，因為 consulting 專案已經有完整內容
+        document.getElementById('project-detail-generate').style.display = 'none';
+        document.getElementById('project-detail-loader').classList.add('hidden');
+
+        return;
+
+    } else if (project.slug === 'rumor') {
+        // Rumor 專案不需要相關專案和專案圖片，先移除這些元素
+        const relatedContainer = document.getElementById('related-projects');
+        if (relatedContainer && relatedContainer.parentElement) {
+            relatedContainer.parentElement.remove();
+        }
+
+        // 移除專案圖片
+        const projectImage = document.getElementById('project-detail-image');
+        if (projectImage && projectImage.parentElement) {
+            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
+            if (imageContainer) {
+                imageContainer.remove();
+            }
+        }
+
+        // 從 rumor.html 載入內容
+        loadRumorContentXHR(contentDiv);
+
+        // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
+        document.getElementById('project-detail-generate').style.display = 'none';
+        document.getElementById('project-detail-loader').classList.add('hidden');
+
+        return;
+
+    } else if (project.slug === 'others') {
+        // Others 專案不需要相關專案和專案圖片，先移除這些元素
+        const relatedContainer = document.getElementById('related-projects');
+        if (relatedContainer && relatedContainer.parentElement) {
+            relatedContainer.parentElement.remove();
+        }
+
+        // 移除專案圖片
+        const projectImage = document.getElementById('project-detail-image');
+        if (projectImage && projectImage.parentElement) {
+            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
+            if (imageContainer) {
+                imageContainer.remove();
+            }
+        }
+
+        // 從 others.html 載入內容
+        loadOthersContentXHR(contentDiv);
+
+        // 隱藏 AI 生成按鈕，因為 others 專案已經有完整內容
+        document.getElementById('project-detail-generate').style.display = 'none';
+        document.getElementById('project-detail-loader').classList.add('hidden');
+
+        return;
 
     } else {
         // 其他專案使用原本的 AI 生成內容方式
@@ -1545,6 +2026,8 @@ function showFloatingNavBar(project) {
 
         if (project) {
             document.getElementById('floating-current-project-title').textContent = project.name;
+            // 初始化專案選擇器
+            initializeFloatingProjectSelector(project);
         }
     }
 }
