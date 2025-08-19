@@ -81,6 +81,102 @@
             margin: 0 auto 48px;
         }
 
+        /* Featured Card - openrol.es style */
+        .featured-card {
+            background: #000000;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transform: rotate(-2deg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            z-index: -1;
+        }
+
+        .featured-logo {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .featured-text {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 32px;
+            max-width: 400px;
+        }
+
+        .featured-services {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .service-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-check {
+            width: 20px;
+            height: 20px;
+            background: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: #ffffff;
+            font-size: 12px;
+        }
+
+        .cta-button {
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 24px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: #333333;
+            transform: translateY(-2px);
+        }
+
+        .cta-price {
+            text-decoration: line-through;
+            opacity: 0.6;
+            margin-left: 8px;
+        }
+
         /* Job Cards - openrol.es style */
         .job-cards {
             display: flex;
@@ -262,6 +358,35 @@
                 致力於打破建築聲學領域的迷思與誤解，透過科學的方法和創新的設計理念，
                 為多媒體展演空間創造完美的聲學環境。
             </p>
+        </div>
+
+        <!-- Featured Card - openrol.es style -->
+        <div class="featured-card">
+            <div class="featured-logo">YU</div>
+            <div class="featured-text">
+                打破聲學迷思，創造完美空間，
+                連結專業技術與創新設計，
+                學習業界領先經驗。
+            </div>
+            <div class="featured-services">
+                <div class="service-item">
+                    <div class="service-check">✓</div>
+                    <div>
+                        <strong>1x 專案諮詢</strong><br>
+                        <span style="color: #666; font-size: 12px;">專業評估 30 天</span>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-check">✓</div>
+                    <div>
+                        <strong>1x 設計方案</strong><br>
+                        <span style="color: #666; font-size: 12px;">觸及超過 5萬 專業人士網絡</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#contact" class="cta-button">
+                聯絡我們 $專業報價 <span class="cta-price">$標準收費</span>
+            </a>
         </div>
 
         <!-- Job Cards - openrol.es style -->
