@@ -23,19 +23,28 @@
 
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
-            background-color: white;
-            color: black;
-            line-height: 1.6;
-            padding: 40px 20px;
-            max-width: 800px;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Navigation */
+        .nav {
+            margin-bottom: 60px;
         }
 
         .nav-link {
-            font-weight: 900;
-            font-size: 17px;
+            font-size: 16px;
+            font-weight: 500;
             text-decoration: none;
-            color: black;
+            color: #000000;
             transition: opacity 0.2s ease;
         }
 
@@ -43,312 +52,399 @@
             opacity: 0.6;
         }
 
-        .project-header {
-            margin-bottom: 40px;
+        /* Hero Section */
+        .hero {
+            margin-bottom: 80px;
+            text-align: left;
         }
 
-        .project-title {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 16px;
+        .hero-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 24px;
             line-height: 1.1;
+            letter-spacing: -0.02em;
         }
 
-        .project-subtitle {
+        .hero-subtitle {
+            font-size: 24px;
+            color: #666666;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 600px;
+            margin-bottom: 48px;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: #000000;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-title {
             font-size: 20px;
-            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #000000;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #666666;
+            font-weight: 500;
+        }
+
+        .card-content {
             margin-bottom: 24px;
         }
 
-        .project-tags {
+        .card-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 16px;
+        }
+
+        .card-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 40px;
+            gap: 8px;
         }
 
         .tag {
             background: #f5f5f5;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: #666666;
         }
 
-        .project-image {
-            width: 100%;
-            height: 400px;
-            background: #f8f8f8;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Project Image Card */
+        .image-card {
+            grid-column: 1 / -1;
+            padding: 0;
             overflow: hidden;
+            height: 400px;
         }
 
-        .project-image img {
+        .image-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .project-content {
-            margin-bottom: 40px;
+        /* Specs Section */
+        .specs-section {
+            margin-bottom: 80px;
         }
 
-        .content-section {
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
             margin-bottom: 32px;
-        }
-
-        .content-section h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .content-section p {
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 16px;
-        }
-
-        .project-specs {
-            background: #fafafa;
-            padding: 32px;
-            border-radius: 12px;
-            margin-bottom: 40px;
+            color: #000000;
         }
 
         .specs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
         }
 
-        .spec-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+        .spec-card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s ease;
         }
 
-        .spec-dot {
-            width: 8px;
-            height: 8px;
-            background: black;
-            border-radius: 50%;
-            margin-top: 8px;
-            flex-shrink: 0;
+        .spec-card:hover {
+            border-color: #cccccc;
         }
 
-        .spec-content h4 {
+        .spec-title {
+            font-size: 16px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
+            color: #000000;
         }
 
-        .spec-content p {
-            color: #666;
+        .spec-value {
             font-size: 14px;
+            color: #666666;
+            line-height: 1.5;
         }
 
-        .related-projects {
-            margin-top: 60px;
-        }
-
-        .related-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 24px;
+        /* Related Projects */
+        .related-section {
+            margin-top: 80px;
         }
 
         .related-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
         }
 
         .related-card {
-            border: 1px solid #e0e0e0;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
             border-radius: 12px;
-            padding: 24px;
+            padding: 32px;
             text-decoration: none;
             color: inherit;
             transition: all 0.2s ease;
+            display: block;
         }
 
         .related-card:hover {
-            border-color: #333;
-            transform: translateY(-2px);
+            border-color: #000000;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
         .related-card h4 {
-            font-weight: 700;
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 8px;
+            color: #000000;
         }
 
         .related-card p {
-            color: #666;
             font-size: 14px;
+            color: #666666;
+            line-height: 1.5;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
-            body {
-                padding: 20px 16px;
+            .container {
+                padding: 24px 16px;
             }
 
-            .project-title {
-                font-size: 36px;
+            .hero-title {
+                font-size: 48px;
             }
 
-            .project-subtitle {
-                font-size: 18px;
+            .hero-subtitle {
+                font-size: 20px;
             }
 
-            .project-image {
-                height: 250px;
+            .hero-description {
+                font-size: 16px;
             }
 
-            .project-specs {
-                padding: 24px;
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             .specs-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             .related-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .image-card {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .spec-card {
+                padding: 20px;
+            }
+
+            .related-card {
+                padding: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 導航 -->
-    <nav style="margin-bottom: 40px;">
-        <a href="index.html" class="nav-link">← Work</a>
-    </nav>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="nav-link">← Work</a>
+        </nav>
 
-    <!-- 專案標題區域 -->
-    <div class="project-header">
-        <h1 class="project-title">音錯陽差</h1>
-        <p class="project-subtitle">建築聲學之流言終結者</p>
-
-        <div class="project-tags">
-            <span class="tag">
-                🎭 展演空間聲學
-            </span>
-            <span class="tag">
-                📅 2024
-            </span>
-            <span class="tag">
-                📍 台中市西區
-            </span>
-            <span class="tag">
-                🏛️ 文化藝術基金會
-            </span>
-        </div>
-    </div>
-
-    <!-- 專案圖片 -->
-    <div class="project-image">
-        <img src="multimedia.svg" alt="音錯陽差專案" />
-    </div>
-
-    <!-- 專案內容 -->
-    <div class="project-content">
-        <div class="content-section">
-            <h3>設計理念</h3>
-            <p>
-                「音錯陽差」專案致力於打破建築聲學領域的迷思與誤解，透過科學的方法和創新的設計理念，
-                為多媒體展演空間創造完美的聲學環境。我們相信，每一個聲音都有其存在的價值，
-                關鍵在於如何透過精確的聲學設計，讓聲音在空間中找到最適合的位置。
-            </p>
-            <p>
-                本專案採用模組化可變聲學系統，能夠根據不同的表演需求調整空間的聲學特性。
-                從古典音樂的細膩表現到現代電子音樂的震撼效果，都能在同一個空間中完美呈現。
-                這不僅是技術的突破，更是對聲學藝術的重新詮釋。
-            </p>
-            <p>
-                我們深信，優秀的聲學設計不應該是隱形的，而應該成為空間體驗的一部分。
-                透過可視化的聲學元素和互動式的聲音體驗，讓觀眾不僅能聽到完美的聲音，
-                更能理解聲學設計的奧妙，從而消除對建築聲學的誤解和偏見。
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 class="hero-title">音錯陽差</h1>
+            <p class="hero-subtitle">建築聲學之流言終結者</p>
+            <p class="hero-description">
+                致力於打破建築聲學領域的迷思與誤解，透過科學的方法和創新的設計理念，
+                為多媒體展演空間創造完美的聲學環境。
             </p>
         </div>
-    </div>
 
-    <!-- 專案規格 -->
-    <div class="project-specs">
-        <div class="specs-grid">
-            <div class="spec-item">
-                <div class="spec-dot"></div>
-                <div class="spec-content">
-                    <h4>專案類型</h4>
-                    <p>多媒體展演空間聲學設計</p>
+        <!-- Project Cards Grid -->
+        <div class="card-grid">
+            <!-- Project Image Card -->
+            <div class="card image-card">
+                <img src="multimedia.svg" alt="音錯陽差專案" />
+            </div>
+
+            <!-- Design Concept Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">設計理念</h3>
+                    <p class="card-subtitle">Design Philosophy</p>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">
+                        我們相信，每一個聲音都有其存在的價值，關鍵在於如何透過精確的聲學設計，
+                        讓聲音在空間中找到最適合的位置。
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">聲學設計</span>
+                        <span class="tag">空間體驗</span>
+                        <span class="tag">創新理念</span>
+                    </div>
                 </div>
             </div>
-            <div class="spec-item">
-                <div class="spec-dot"></div>
-                <div class="spec-content">
-                    <h4>空間面積</h4>
-                    <p>1,800 平方公尺</p>
+
+            <!-- Technology Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">核心技術</h3>
+                    <p class="card-subtitle">Core Technology</p>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">
+                        採用模組化可變聲學系統，能夠根據不同的表演需求調整空間的聲學特性。
+                        從古典音樂到現代電子音樂，都能完美呈現。
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">模組化系統</span>
+                        <span class="tag">可變聲學</span>
+                        <span class="tag">多元應用</span>
+                    </div>
                 </div>
             </div>
-            <div class="spec-item">
-                <div class="spec-dot"></div>
-                <div class="spec-content">
-                    <h4>服務項目</h4>
-                    <p>聲學設計、噪音控制、音響系統整合</p>
+
+            <!-- Innovation Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">創新突破</h3>
+                    <p class="card-subtitle">Innovation</p>
                 </div>
-            </div>
-            <div class="spec-item">
-                <div class="spec-dot"></div>
-                <div class="spec-content">
-                    <h4>特色技術</h4>
-                    <p>模組化可變聲學系統</p>
-                </div>
-            </div>
-            <div class="spec-item">
-                <div class="spec-dot"></div>
-                <div class="spec-content">
-                    <h4>設計理念</h4>
-                    <p>打破聲學迷思，創造完美體驗</p>
-                </div>
-            </div>
-            <div class="spec-item">
-                <div class="spec-dot"></div>
-                <div class="spec-content">
-                    <h4>完成時間</h4>
-                    <p>2024年第三季</p>
+                <div class="card-content">
+                    <p class="card-description">
+                        透過可視化的聲學元素和互動式的聲音體驗，讓觀眾不僅能聽到完美的聲音，
+                        更能理解聲學設計的奧妙。
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">可視化</span>
+                        <span class="tag">互動體驗</span>
+                        <span class="tag">教育意義</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 相關專案 -->
-    <div class="related-projects">
-        <h3 class="related-title">相關專案</h3>
-        <div class="related-grid">
-            <a href="apps.html" class="related-card">
-                <h4>音源技繪</h4>
-                <p>聲學量測與模擬技術</p>
-            </a>
-            <a href="consulting.html" class="related-card">
-                <h4>自聲自滅</h4>
-                <p>客製化聲學服務</p>
-            </a>
-            <a href="others.html" class="related-card">
-                <h4>有聲有色</h4>
-                <p>聲學大雜燴</p>
-            </a>
+        <!-- Project Specifications -->
+        <div class="specs-section">
+            <h2 class="section-title">專案規格</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <h4 class="spec-title">專案類型</h4>
+                    <p class="spec-value">多媒體展演空間聲學設計</p>
+                </div>
+                <div class="spec-card">
+                    <h4 class="spec-title">空間面積</h4>
+                    <p class="spec-value">1,800 平方公尺</p>
+                </div>
+                <div class="spec-card">
+                    <h4 class="spec-title">服務項目</h4>
+                    <p class="spec-value">聲學設計、噪音控制、音響系統整合</p>
+                </div>
+                <div class="spec-card">
+                    <h4 class="spec-title">特色技術</h4>
+                    <p class="spec-value">模組化可變聲學系統</p>
+                </div>
+                <div class="spec-card">
+                    <h4 class="spec-title">設計理念</h4>
+                    <p class="spec-value">打破聲學迷思，創造完美體驗</p>
+                </div>
+                <div class="spec-card">
+                    <h4 class="spec-title">完成時間</h4>
+                    <p class="spec-value">2024年第三季</p>
+                </div>
+                <div class="spec-card">
+                    <h4 class="spec-title">專案地點</h4>
+                    <p class="spec-value">台中市西區</p>
+                </div>
+                <div class="spec-card">
+                    <h4 class="spec-title">合作單位</h4>
+                    <p class="spec-value">文化藝術基金會</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Projects -->
+        <div class="related-section">
+            <h2 class="section-title">相關專案</h2>
+            <div class="related-grid">
+                <a href="apps.html" class="related-card">
+                    <h4>音源技繪</h4>
+                    <p>聲學量測與模擬技術</p>
+                </a>
+                <a href="consulting.html" class="related-card">
+                    <h4>自聲自滅</h4>
+                    <p>客製化聲學服務</p>
+                </a>
+                <a href="others.html" class="related-card">
+                    <h4>有聲有色</h4>
+                    <p>聲學大雜燴</p>
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-        // 頁面載入動畫
+        // 頁面載入動畫和互動效果
         document.addEventListener('DOMContentLoaded', () => {
             // 初始狀態
             document.body.style.opacity = '0';
@@ -356,10 +452,49 @@
 
             // 動畫進入
             setTimeout(() => {
-                document.body.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                document.body.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
                 document.body.style.opacity = '1';
                 document.body.style.transform = 'translateY(0)';
             }, 100);
+
+            // 卡片動畫效果
+            const cards = document.querySelectorAll('.card, .spec-card, .related-card');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // 平滑滾動效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
         });
     </script>
 
