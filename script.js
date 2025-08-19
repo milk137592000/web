@@ -1842,30 +1842,26 @@ function updateProjectDetailContent(project) {
         return;
 
     } else if (project.slug === 'rumor') {
-        // Rumor 專案需要完全清理舊內容，移除所有不需要的元素
-        const relatedContainer = document.getElementById('related-projects');
-        if (relatedContainer && relatedContainer.parentElement) {
-            relatedContainer.parentElement.remove();
-        }
+        // Rumor 專案需要完全替換整個頁面內容
 
-        // 移除專案圖片
-        const projectImage = document.getElementById('project-detail-image');
-        if (projectImage && projectImage.parentElement) {
-            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
-            if (imageContainer) {
-                imageContainer.remove();
-            }
-        }
+        // 找到主要的內容容器
+        const mainContainer = document.querySelector('#page-project-detail .overflow-y-auto');
+        if (mainContainer) {
+            // 完全清空主容器
+            mainContainer.innerHTML = '';
 
-        // 移除專案規格區域
-        const projectSpecs = document.querySelector('.specs-section, #project-specs, [data-project-specs]');
-        if (projectSpecs) {
-            projectSpecs.remove();
-        }
+            // 創建新的內容容器
+            const newContentDiv = document.createElement('div');
+            newContentDiv.className = 'p-6';
+            mainContainer.appendChild(newContentDiv);
 
-        // 清空 contentDiv 並載入 rumor.html 內容
-        contentDiv.innerHTML = '';
-        loadRumorContentXHR(contentDiv);
+            // 載入 rumor.html 內容到新容器
+            loadRumorContentXHR(newContentDiv);
+        } else {
+            // 如果找不到主容器，清空 contentDiv
+            contentDiv.innerHTML = '';
+            loadRumorContentXHR(contentDiv);
+        }
 
         // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
         document.getElementById('project-detail-generate').style.display = 'none';
