@@ -872,12 +872,26 @@ function loadRumorContentXHR(contentDiv) {
                     styleContent += style.innerHTML;
                 });
 
-                // 克隆容器內容，但排除 header（返回按鈕）
+                // 克隆容器內容，但移除導航和任何重複元素
                 const clonedContainer = containerDiv.cloneNode(true);
-                const header = clonedContainer.querySelector('.header');
-                if (header) {
-                    header.remove();
-                }
+
+                // 移除導航區域
+                const navElements = clonedContainer.querySelectorAll('nav, .nav, a[href="index.html"]');
+                navElements.forEach(nav => nav.remove());
+
+                // 只保留 Hero + 傾斜卡片 + 深色卡片列表 + FAQ
+                const heroSection = clonedContainer.querySelector('.hero');
+                const featuredCard = clonedContainer.querySelector('.featured-card');
+                const jobCards = clonedContainer.querySelector('.job-cards');
+                const faqsSection = clonedContainer.querySelector('.faqs-section');
+
+                // 清空容器並只添加需要的部分
+                clonedContainer.innerHTML = '';
+
+                if (heroSection) clonedContainer.appendChild(heroSection);
+                if (featuredCard) clonedContainer.appendChild(featuredCard);
+                if (jobCards) clonedContainer.appendChild(jobCards);
+                if (faqsSection) clonedContainer.appendChild(faqsSection);
 
                 // 組合樣式和內容
                 contentDiv.innerHTML = `
@@ -1828,7 +1842,29 @@ function updateProjectDetailContent(project) {
         return;
 
     } else if (project.slug === 'rumor') {
-        // 從 rumor.html 載入內容（使用改進的載入方式）
+        // Rumor 專案需要完全清理舊內容，移除所有不需要的元素
+        const relatedContainer = document.getElementById('related-projects');
+        if (relatedContainer && relatedContainer.parentElement) {
+            relatedContainer.parentElement.remove();
+        }
+
+        // 移除專案圖片
+        const projectImage = document.getElementById('project-detail-image');
+        if (projectImage && projectImage.parentElement) {
+            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
+            if (imageContainer) {
+                imageContainer.remove();
+            }
+        }
+
+        // 移除專案規格區域
+        const projectSpecs = document.querySelector('.specs-section, #project-specs, [data-project-specs]');
+        if (projectSpecs) {
+            projectSpecs.remove();
+        }
+
+        // 清空 contentDiv 並載入 rumor.html 內容
+        contentDiv.innerHTML = '';
         loadRumorContentXHR(contentDiv);
 
         // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
