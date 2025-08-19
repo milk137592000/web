@@ -2,6 +2,28 @@
 
 ## 2025-08-19
 
+### daab5f4 - 修復所有 HTML 檔案的 favicon 設定 - 使用絕對路徑確保標籤頁圖標正常顯示
+- **時間**: 2025-08-19
+- **描述**: 修復瀏覽器標籤頁沒有顯示 favicon 的問題
+- **主要變更**:
+  - ✅ 修復所有 HTML 檔案的 favicon 路徑
+  - ✅ 使用絕對路徑 `/web/favicon.svg`
+  - ✅ 添加多種 favicon 格式支援
+  - ✅ 確保標籤頁圖標正常顯示
+- **檔案**: index.html, rumor.html, about.html, apps.html, consulting.html, others.html, papers.html
+- **狀態**: ✅ 完成
+
+### 2ad4824 - 修復 SPA 路由中 rumor 專案的 JavaScript 錯誤 - 完全分離 rumor 專案的處理邏輯
+- **時間**: 2025-08-19
+- **描述**: 修復 SPA 路由中 rumor 專案載入時的 JavaScript 錯誤
+- **主要變更**:
+  - ✅ 完全分離 rumor 專案的處理邏輯
+  - ✅ 避免 null 元素錯誤
+  - ✅ 創建專用的 handleRumorProject 函數
+  - ✅ 確保 SPA 路由正常運作
+- **檔案**: script.js
+- **狀態**: ✅ 完成
+
 ### Commit: 4c9d85d
 - **描述**: 完善 openrol.es 風格 - 新增傾斜特色卡片、CTA按鈕、服務展示區域
 - **檔案**: rumor.html
