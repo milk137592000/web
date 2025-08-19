@@ -851,18 +851,23 @@ function initializeConsultingInteractions() {
 
 // 從 rumor.html 載入內容的函數（使用 iframe 方式）
 function loadRumorContentXHR(contentDiv) {
+    console.log('loadRumorContentXHR 開始執行');
+
     // 創建一個隱藏的 iframe 來載入 rumor.html
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     iframe.src = 'rumor.html';
 
     iframe.onload = function() {
+        console.log('iframe 載入完成');
         try {
             // 從 iframe 中提取內容
             const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            console.log('獲取 iframe 文檔成功');
 
             // 新的 openrol.es 風格結構：尋找 .container 內容
             const containerDiv = iframeDoc.querySelector('.container');
+            console.log('找到 .container:', !!containerDiv);
 
             if (containerDiv) {
                 // 提取樣式
@@ -871,19 +876,29 @@ function loadRumorContentXHR(contentDiv) {
                 styles.forEach(style => {
                     styleContent += style.innerHTML;
                 });
+                console.log('提取樣式完成，樣式長度:', styleContent.length);
 
                 // 克隆容器內容，但移除導航和任何重複元素
                 const clonedContainer = containerDiv.cloneNode(true);
+                console.log('克隆容器完成');
 
                 // 移除導航區域
                 const navElements = clonedContainer.querySelectorAll('nav, .nav, a[href="index.html"]');
                 navElements.forEach(nav => nav.remove());
+                console.log('移除導航元素:', navElements.length, '個');
 
                 // 只保留 Hero + 傾斜卡片 + 深色卡片列表 + FAQ
                 const heroSection = clonedContainer.querySelector('.hero');
                 const featuredCard = clonedContainer.querySelector('.featured-card');
                 const jobCards = clonedContainer.querySelector('.job-cards');
                 const faqsSection = clonedContainer.querySelector('.faqs-section');
+
+                console.log('找到的區塊:', {
+                    hero: !!heroSection,
+                    featured: !!featuredCard,
+                    jobs: !!jobCards,
+                    faqs: !!faqsSection
+                });
 
                 // 清空容器並只添加需要的部分
                 clonedContainer.innerHTML = '';
@@ -893,11 +908,15 @@ function loadRumorContentXHR(contentDiv) {
                 if (jobCards) clonedContainer.appendChild(jobCards);
                 if (faqsSection) clonedContainer.appendChild(faqsSection);
 
+                console.log('重新組裝容器完成');
+
                 // 組合樣式和內容
                 contentDiv.innerHTML = `
                     <style>${styleContent}</style>
                     ${clonedContainer.innerHTML}
                 `;
+
+                console.log('設置 contentDiv.innerHTML 完成');
 
                 // 重新初始化互動效果
                 setTimeout(() => {
@@ -3875,9 +3894,14 @@ function onTouchEnd(event) {
 
 // Rumor 專案的特殊處理函數
 function handleRumorProject(project) {
+    console.log('handleRumorProject 被調用');
+
     // 找到主要的內容容器
     const mainContainer = document.querySelector('#page-project-detail .overflow-y-auto');
+    let targetContainer = null;
+
     if (mainContainer) {
+        console.log('找到主容器，清空並創建新容器');
         // 完全清空主容器
         mainContainer.innerHTML = '';
 
@@ -3885,16 +3909,23 @@ function handleRumorProject(project) {
         const newContentDiv = document.createElement('div');
         newContentDiv.className = 'p-6';
         mainContainer.appendChild(newContentDiv);
-
-        // 載入 rumor.html 內容到新容器
-        loadRumorContentXHR(newContentDiv);
+        targetContainer = newContentDiv;
     } else {
+        console.log('找不到主容器，嘗試使用 contentDiv');
         // 如果找不到主容器，嘗試找到 contentDiv
         const contentDiv = document.getElementById('project-detail-content');
         if (contentDiv) {
             contentDiv.innerHTML = '';
-            loadRumorContentXHR(contentDiv);
+            targetContainer = contentDiv;
         }
+    }
+
+    // 只載入一次內容
+    if (targetContainer) {
+        console.log('開始載入 rumor 內容到目標容器');
+        loadRumorContentXHR(targetContainer);
+    } else {
+        console.error('找不到任何可用的容器來載入 rumor 內容');
     }
 
     // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
