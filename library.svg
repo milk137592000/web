@@ -1,0 +1,10 @@
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="240" height="240" fill="#c3aed6"/>
+  <rect x="40" y="80" width="20" height="100" fill="#ffffff" opacity="0.3"/>
+  <rect x="70" y="70" width="20" height="110" fill="#ffffff" opacity="0.3"/>
+  <rect x="100" y="60" width="20" height="120" fill="#ffffff" opacity="0.3"/>
+  <rect x="130" y="70" width="20" height="110" fill="#ffffff" opacity="0.3"/>
+  <rect x="160" y="80" width="20" height="100" fill="#ffffff" opacity="0.3"/>
+  <rect x="190" y="90" width="20" height="90" fill="#ffffff" opacity="0.3"/>
+  <text x="120" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="16" opacity="0.8">知識聖殿</text>
+</svg>

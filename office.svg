@@ -1,0 +1,11 @@
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="240" height="240" fill="#6a9c89"/>
+  <rect x="40" y="40" width="160" height="120" fill="#ffffff" opacity="0.2"/>
+  <rect x="60" y="60" width="30" height="30" fill="#ffffff" opacity="0.4"/>
+  <rect x="100" y="60" width="30" height="30" fill="#ffffff" opacity="0.4"/>
+  <rect x="140" y="60" width="30" height="30" fill="#ffffff" opacity="0.4"/>
+  <rect x="60" y="100" width="30" height="30" fill="#ffffff" opacity="0.4"/>
+  <rect x="100" y="100" width="30" height="30" fill="#ffffff" opacity="0.4"/>
+  <rect x="140" y="100" width="30" height="30" fill="#ffffff" opacity="0.4"/>
+  <text x="120" y="200" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="16" opacity="0.8">靜謐之境</text>
+</svg>

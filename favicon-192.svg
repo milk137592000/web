@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <!-- 勃根地紅圓形背景 -->
+  <circle cx="96" cy="96" r="96" fill="#800020"/>
+
+  <!-- 白色sin波 - 完整的一個波峰+波谷，振幅絕對最大！ -->
+  <path d="M 24 96
+           Q 60 180, 96 96
+           Q 132 12, 168 96"
+        stroke="white"
+        stroke-width="12"
+        fill="none"
+        stroke-linecap="round"/>
+
+  <!-- 水平基準線 - 比sin波稍長，圓角頭尾，純白色 -->
+  <line x1="12" y1="96" x2="180" y2="96"
+        stroke="white"
+        stroke-width="6"
+        stroke-linecap="round"/>
+</svg>
