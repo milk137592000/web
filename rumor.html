@@ -11,32 +11,25 @@
     <link rel="apple-touch-icon" sizes="192x192" href="favicon-192.svg">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             background-color: white;
             color: black;
-        }
-
-        .project-link {
-            font-weight: 900;
-            font-size: 17px;
-            text-decoration: none;
-            color: black;
-            display: block;
-            padding: 8px 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .project-link:hover {
-            opacity: 0.6;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .nav-link {
@@ -51,139 +44,322 @@
             opacity: 0.6;
         }
 
-        .project-detail {
-            font-size: 16px;
-            line-height: 1.5;
+        .project-header {
+            margin-bottom: 40px;
         }
 
-        .project-meta {
-            font-size: 14px;
+        .project-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .project-subtitle {
+            font-size: 20px;
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .tag {
+            background: #f5f5f5;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            margin-bottom: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 32px;
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .content-section p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .project-specs {
+            background: #fafafa;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .spec-dot {
+            width: 8px;
+            height: 8px;
+            background: black;
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .spec-content h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .spec-content p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .related-projects {
+            margin-top: 60px;
+        }
+
+        .related-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .related-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .related-card:hover {
+            border-color: #333;
+            transform: translateY(-2px);
+        }
+
+        .related-card h4 {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .related-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 16px;
+            }
+
+            .project-title {
+                font-size: 36px;
+            }
+
+            .project-subtitle {
+                font-size: 18px;
+            }
+
+            .project-image {
+                height: 250px;
+            }
+
+            .project-specs {
+                padding: 24px;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-white text-black">
+<body>
+    <!-- 導航 -->
+    <nav style="margin-bottom: 40px;">
+        <a href="index.html" class="nav-link">← Work</a>
+    </nav>
 
-    <!-- 專案詳情頁面 - Cam Hicks 風格 -->
-    <div id="page-project-detail" class="page active min-h-screen">
-        <!-- 導航區域 -->
-        <header class="px-6 py-8 md:px-12 lg:px-24">
-            <nav class="flex justify-between items-start">
-                <div class="flex space-x-8">
-                    <a href="index.html" class="nav-link">Work</a>
-                    <a href="index.html" class="nav-link">yunique</a>
-                    <a href="#" class="nav-link">Info</a>
-                </div>
-            </nav>
-        </header>
+    <!-- 專案標題區域 -->
+    <div class="project-header">
+        <h1 class="project-title">音錯陽差</h1>
+        <p class="project-subtitle">建築聲學之流言終結者</p>
 
-        <!-- 主要內容區域 -->
-        <main class="px-6 md:px-12 lg:px-24 pb-12">
-            <!-- 專案標題和導航 -->
-            <div class="flex justify-between items-start mb-8">
-                <div>
-                    <h1 class="text-2xl font-black mb-2">音錯陽差</h1>
-                    <a href="index.html" class="nav-link text-sm">Close</a>
-                </div>
-                <div class="text-sm">建築聲學之流言終結者</div>
-            </div>
+        <div class="project-tags">
+            <span class="tag">
+                🎭 展演空間聲學
+            </span>
+            <span class="tag">
+                📅 2024
+            </span>
+            <span class="tag">
+                📍 台中市西區
+            </span>
+            <span class="tag">
+                🏛️ 文化藝術基金會
+            </span>
+        </div>
+    </div>
 
-            <!-- 專案圖片 -->
-            <div class="mb-12">
-                <div class="aspect-video bg-gray-100 overflow-hidden">
-                    <img src="../multimedia.svg" alt="音錯陽差專案" class="w-full h-full object-cover">
-                </div>
-            </div>
+    <!-- 專案圖片 -->
+    <div class="project-image">
+        <img src="multimedia.svg" alt="音錯陽差專案" />
+    </div>
 
-            <!-- 專案資訊 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-                <div>
-                    <h2 class="text-lg font-black mb-4">專案資訊</h2>
-                    <div class="space-y-3 text-sm">
-                        <div>
-                            <span class="font-medium">設計：</span>
-                            <span>展演空間聲學</span>
-                        </div>
-                        <div>
-                            <span class="font-medium">年份：</span>
-                            <span>2024</span>
-                        </div>
-                        <div>
-                            <span class="font-medium">客戶：</span>
-                            <span>文化藝術基金會</span>
-                        </div>
-                        <div>
-                            <span class="font-medium">地點：</span>
-                            <span>台中市西區</span>
-                        </div>
-                        <div>
-                            <span class="font-medium">面積：</span>
-                            <span>1,800 平方公尺</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h2 class="text-lg font-black mb-4">服務項目</h2>
-                    <div class="space-y-2 text-sm">
-                        <div>展演空間聲學</div>
-                        <div>多媒體音響系統</div>
-                        <div>互動裝置聲學</div>
-                        <div>觀眾席音場設計</div>
-                    </div>
+    <!-- 專案內容 -->
+    <div class="project-content">
+        <div class="content-section">
+            <h3>設計理念</h3>
+            <p>
+                「音錯陽差」專案致力於打破建築聲學領域的迷思與誤解，透過科學的方法和創新的設計理念，
+                為多媒體展演空間創造完美的聲學環境。我們相信，每一個聲音都有其存在的價值，
+                關鍵在於如何透過精確的聲學設計，讓聲音在空間中找到最適合的位置。
+            </p>
+            <p>
+                本專案採用模組化可變聲學系統，能夠根據不同的表演需求調整空間的聲學特性。
+                從古典音樂的細膩表現到現代電子音樂的震撼效果，都能在同一個空間中完美呈現。
+                這不僅是技術的突破，更是對聲學藝術的重新詮釋。
+            </p>
+            <p>
+                我們深信，優秀的聲學設計不應該是隱形的，而應該成為空間體驗的一部分。
+                透過可視化的聲學元素和互動式的聲音體驗，讓觀眾不僅能聽到完美的聲音，
+                更能理解聲學設計的奧妙，從而消除對建築聲學的誤解和偏見。
+            </p>
+        </div>
+    </div>
+
+    <!-- 專案規格 -->
+    <div class="project-specs">
+        <div class="specs-grid">
+            <div class="spec-item">
+                <div class="spec-dot"></div>
+                <div class="spec-content">
+                    <h4>專案類型</h4>
+                    <p>多媒體展演空間聲學設計</p>
                 </div>
             </div>
-
-            <!-- 設計理念 -->
-            <div class="mb-12">
-                <h2 class="text-lg font-black mb-6">設計理念</h2>
-                <div class="project-detail space-y-4">
-                    <p>音錯陽差專案以「流言終結者」為設計理念，致力於打破傳統建築聲學的迷思與限制，創造出真正符合現代多媒體展演需求的創新空間。</p>
-
-                    <p>在台中市西區這個充滿藝術氣息的文化區域，我們為文化藝術基金會打造了一個革命性的展演空間。專案名稱「音錯陽差」巧妙地暗示了聲學設計中的精密計算與意外驚喜，每一個聲音的反射、每一次音波的交匯，都經過精心設計卻又保留了藝術創作的自由度。</p>
-
-                    <p>展演空間聲學設計採用了模組化的可變聲學系統，能夠根據不同類型的表演快速調整空間的聲學特性。無論是古典音樂會需要的豐富殘響，還是現代電子音樂需要的清晰定位，都能在同一個空間中完美呈現。</p>
-
-                    <p>多媒體音響系統的整合更是本專案的技術亮點，我們開發了智慧聲場控制系統，能夠即時分析演出內容並自動調整音響參數，確保每一位觀眾都能獲得最佳的聽覺體驗。互動裝置聲學設計則讓觀眾成為聲音創作的一部分，真正實現了藝術與科技的完美融合。</p>
+            <div class="spec-item">
+                <div class="spec-dot"></div>
+                <div class="spec-content">
+                    <h4>空間面積</h4>
+                    <p>1,800 平方公尺</p>
                 </div>
             </div>
-
-            <!-- 相關專案 -->
-            <div class="mb-12">
-                <h2 class="text-lg font-black mb-6">相關專案</h2>
-                <div class="space-y-2">
-                    <a href="apps.html" class="project-link block">
-                        <div>音源技繪</div>
-                        <div class="text-sm font-normal opacity-60">聲學量測與模擬技術</div>
-                    </a>
-                    <a href="consulting.html" class="project-link block">
-                        <div>自聲自滅</div>
-                        <div class="text-sm font-normal opacity-60">客製化聲學服務</div>
-                    </a>
-                    <a href="others.html" class="project-link block">
-                        <div>有聲有色</div>
-                        <div class="text-sm font-normal opacity-60">聲學大雜燴</div>
-                    </a>
+            <div class="spec-item">
+                <div class="spec-dot"></div>
+                <div class="spec-content">
+                    <h4>服務項目</h4>
+                    <p>聲學設計、噪音控制、音響系統整合</p>
                 </div>
             </div>
-        </main>
+            <div class="spec-item">
+                <div class="spec-dot"></div>
+                <div class="spec-content">
+                    <h4>特色技術</h4>
+                    <p>模組化可變聲學系統</p>
+                </div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-dot"></div>
+                <div class="spec-content">
+                    <h4>設計理念</h4>
+                    <p>打破聲學迷思，創造完美體驗</p>
+                </div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-dot"></div>
+                <div class="spec-content">
+                    <h4>完成時間</h4>
+                    <p>2024年第三季</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- 相關專案 -->
+    <div class="related-projects">
+        <h3 class="related-title">相關專案</h3>
+        <div class="related-grid">
+            <a href="apps.html" class="related-card">
+                <h4>音源技繪</h4>
+                <p>聲學量測與模擬技術</p>
+            </a>
+            <a href="consulting.html" class="related-card">
+                <h4>自聲自滅</h4>
+                <p>客製化聲學服務</p>
+            </a>
+            <a href="others.html" class="related-card">
+                <h4>有聲有色</h4>
+                <p>聲學大雜燴</p>
+            </a>
+        </div>
     </div>
 
     <script>
         // 頁面載入動畫
         document.addEventListener('DOMContentLoaded', () => {
-            const main = document.querySelector('main');
-
             // 初始狀態
-            main.style.opacity = '0';
-            main.style.transform = 'translateY(20px)';
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(20px)';
 
             // 動畫進入
             setTimeout(() => {
-                main.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                main.style.opacity = '1';
-                main.style.transform = 'translateY(0)';
+                document.body.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                document.body.style.opacity = '1';
+                document.body.style.transform = 'translateY(0)';
             }, 100);
         });
     </script>
