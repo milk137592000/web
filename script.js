@@ -1695,6 +1695,28 @@ function showProjectDetailPage(slug) {
 
 // --- 專案詳情頁面相關函數 ---
 function updateProjectDetailContent(project) {
+    // 如果是 rumor 專案，完全跳過標準的 DOM 更新流程
+    if (project.slug === 'rumor') {
+        // 更新 activeIndex 為當前專案的索引
+        activeIndex = project.id;
+
+        // 重置專案詳細頁面的滾動位置到頂部
+        const scrollContainer = document.querySelector('#page-project-detail .overflow-y-auto');
+        if (scrollContainer) {
+            scrollContainer.scrollTop = 0;
+        }
+
+        // 更新浮動導航欄的專案標題
+        const floatingTitle = document.getElementById('floating-current-project-title');
+        if (floatingTitle) {
+            floatingTitle.textContent = project.name;
+        }
+
+        // 直接處理 rumor 專案的特殊載入邏輯
+        handleRumorProject(project);
+        return; // 完全跳過後續的標準流程
+    }
+
     // 更新 activeIndex 為當前專案的索引
     activeIndex = project.id;
 
@@ -1842,31 +1864,7 @@ function updateProjectDetailContent(project) {
         return;
 
     } else if (project.slug === 'rumor') {
-        // Rumor 專案需要完全替換整個頁面內容
-
-        // 找到主要的內容容器
-        const mainContainer = document.querySelector('#page-project-detail .overflow-y-auto');
-        if (mainContainer) {
-            // 完全清空主容器
-            mainContainer.innerHTML = '';
-
-            // 創建新的內容容器
-            const newContentDiv = document.createElement('div');
-            newContentDiv.className = 'p-6';
-            mainContainer.appendChild(newContentDiv);
-
-            // 載入 rumor.html 內容到新容器
-            loadRumorContentXHR(newContentDiv);
-        } else {
-            // 如果找不到主容器，清空 contentDiv
-            contentDiv.innerHTML = '';
-            loadRumorContentXHR(contentDiv);
-        }
-
-        // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
-        document.getElementById('project-detail-generate').style.display = 'none';
-        document.getElementById('project-detail-loader').classList.add('hidden');
-
+        // Rumor 專案已經在 updateProjectDetailContent 中處理
         return;
 
     } else if (project.slug === 'others') {
@@ -3874,6 +3872,42 @@ function onTouchEnd(event) {
 }
 
 
+
+// Rumor 專案的特殊處理函數
+function handleRumorProject(project) {
+    // 找到主要的內容容器
+    const mainContainer = document.querySelector('#page-project-detail .overflow-y-auto');
+    if (mainContainer) {
+        // 完全清空主容器
+        mainContainer.innerHTML = '';
+
+        // 創建新的內容容器
+        const newContentDiv = document.createElement('div');
+        newContentDiv.className = 'p-6';
+        mainContainer.appendChild(newContentDiv);
+
+        // 載入 rumor.html 內容到新容器
+        loadRumorContentXHR(newContentDiv);
+    } else {
+        // 如果找不到主容器，嘗試找到 contentDiv
+        const contentDiv = document.getElementById('project-detail-content');
+        if (contentDiv) {
+            contentDiv.innerHTML = '';
+            loadRumorContentXHR(contentDiv);
+        }
+    }
+
+    // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
+    const generateBtn = document.getElementById('project-detail-generate');
+    if (generateBtn) {
+        generateBtn.style.display = 'none';
+    }
+
+    const loader = document.getElementById('project-detail-loader');
+    if (loader) {
+        loader.classList.add('hidden');
+    }
+}
 
 // --- 主程式邏輯 ---
 init();
