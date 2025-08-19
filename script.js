@@ -3928,6 +3928,13 @@ function handleRumorProject(project) {
         console.error('找不到任何可用的容器來載入 rumor 內容');
     }
 
+    // 隱藏浮動導航條，因為 rumor 專案不需要
+    const floatingNav = document.querySelector('.floating-nav, #floating-nav');
+    if (floatingNav) {
+        floatingNav.style.display = 'none';
+        console.log('隱藏浮動導航條');
+    }
+
     // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
     const generateBtn = document.getElementById('project-detail-generate');
     if (generateBtn) {
