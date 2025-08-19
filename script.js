@@ -860,9 +860,11 @@ function loadRumorContentXHR(contentDiv) {
         try {
             // 從 iframe 中提取內容
             const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            const projectDetailDiv = iframeDoc.querySelector('#page-project-detail .overflow-y-auto');
 
-            if (projectDetailDiv) {
+            // 新的 openrol.es 風格結構：尋找 .container 內容
+            const containerDiv = iframeDoc.querySelector('.container');
+
+            if (containerDiv) {
                 // 提取樣式
                 const styles = iframeDoc.querySelectorAll('style');
                 let styleContent = '';
@@ -870,27 +872,34 @@ function loadRumorContentXHR(contentDiv) {
                     styleContent += style.innerHTML;
                 });
 
+                // 克隆容器內容，但排除 header（返回按鈕）
+                const clonedContainer = containerDiv.cloneNode(true);
+                const header = clonedContainer.querySelector('.header');
+                if (header) {
+                    header.remove();
+                }
+
                 // 組合樣式和內容
                 contentDiv.innerHTML = `
                     <style>${styleContent}</style>
-                    ${projectDetailDiv.innerHTML}
+                    ${clonedContainer.innerHTML}
                 `;
-
-                // 移除可能干擾的元素（如返回按鈕）
-                const backButtons = contentDiv.querySelectorAll('.back-button, a[href="index.html"]');
-                backButtons.forEach(btn => btn.remove());
 
                 // 重新初始化互動效果
                 setTimeout(() => {
                     initializeRumorInteractions();
                 }, 100);
             } else {
-                // 如果找不到指定容器，載入整個 body 內容
+                // 如果找不到 .container，嘗試載入整個 body 內容
                 const bodyContent = iframeDoc.querySelector('body');
                 if (bodyContent) {
                     const clonedBody = bodyContent.cloneNode(true);
                     const scripts = clonedBody.querySelectorAll('script');
                     scripts.forEach(script => script.remove());
+
+                    // 移除返回按鈕
+                    const backButtons = clonedBody.querySelectorAll('.back-btn, a[href="index.html"]');
+                    backButtons.forEach(btn => btn.remove());
 
                     contentDiv.innerHTML = clonedBody.innerHTML;
                     setTimeout(() => {
@@ -1003,6 +1012,20 @@ function showRumorLoadError(contentDiv) {
 // 初始化 rumor 頁面的互動效果
 function initializeRumorInteractions() {
     console.log('Rumor 互動功能已初始化');
+
+    // 初始化 openrol.es 風格的卡片點擊效果
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        card.addEventListener('click', function() {
+            console.log('Rumor 專案卡片被點擊:', this.querySelector('.project-title')?.textContent);
+
+            // 點擊反饋效果
+            this.style.transform = 'translateY(-2px) scale(0.98)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-2px)';
+            }, 150);
+        });
+    });
 }
 
 // 從 others.html 載入內容的函數（使用 iframe 方式）
@@ -1746,7 +1769,7 @@ function updateProjectDetailContent(project) {
             }
         });
 
-        // 從 papers.html 載入內容（使用 iframe 方式）
+        // 從 papers.html 載入內容（使用改進的載入方式）
         loadPapersContentXHR(contentDiv);
 
         // 隱藏 AI 生成按鈕，因為 papers 專案已經有完整內容
@@ -1805,22 +1828,7 @@ function updateProjectDetailContent(project) {
         return;
 
     } else if (project.slug === 'rumor') {
-        // Rumor 專案不需要相關專案和專案圖片，先移除這些元素
-        const relatedContainer = document.getElementById('related-projects');
-        if (relatedContainer && relatedContainer.parentElement) {
-            relatedContainer.parentElement.remove();
-        }
-
-        // 移除專案圖片
-        const projectImage = document.getElementById('project-detail-image');
-        if (projectImage && projectImage.parentElement) {
-            const imageContainer = projectImage.closest('.aspect-video') || projectImage.parentElement;
-            if (imageContainer) {
-                imageContainer.remove();
-            }
-        }
-
-        // 從 rumor.html 載入內容
+        // 從 rumor.html 載入內容（使用改進的載入方式）
         loadRumorContentXHR(contentDiv);
 
         // 隱藏 AI 生成按鈕，因為 rumor 專案已經有完整內容
